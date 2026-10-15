@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&#x1F6A9; Bihar Sharif Pandal Darshan & Murti Heritage &bull; Nalanda</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rozha+One&family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0a0405;
+      --gold-pure: #ffd700;
+      --gold-amber: #ffaa00;
+      --crimson-pure: #850014;
+      --crimson-glow: #e60026;
+      --text-bright: #fffdf9;
+      --text-muted: #e2cbb2;
+      --surface-card: rgba(35, 8, 15, 0.94);
+      --border-gold: rgba(255, 215, 0, 0.35);
+      --border-glow: 0 0 25px rgba(255, 215, 0, 0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body { background: var(--bg-dark); color: var(--text-bright); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
+
+    /* Sticky Navbar */
+    .sanctum-navbar {
+      position: fixed; top: 0; left: 0; width: 100%; height: 78px;
+      background: rgba(10, 2, 4, 0.96); backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--border-gold);
+      display: flex; justify-content: space-between; align-items: center; padding: 0 5%; z-index: 1000;
+    }
+    .brand-group { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-title {
+      font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; font-weight: 900;
+      background: linear-gradient(135deg, #fff, var(--gold-pure), var(--gold-amber));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links-wrap { display: flex; gap: 10px; list-style: none; }
+    .nav-btn {
+      color: var(--text-muted); font-size: 0.85rem; font-weight: 600; padding: 8px 16px;
+      border-radius: 30px; text-decoration: none; transition: 0.3s;
+    }
+    .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.08); }
+    .nav-btn.active { background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber)); color: #080103; font-weight: 700; }
+
+    /* Page Header */
+    .page-header { text-align: center; padding: 125px 6% 35px; max-width: 1050px; margin: 0 auto; }
+    .sacred-tag { font-family: 'Rozha One', serif; color: var(--gold-amber); letter-spacing: 2px; font-size: 0.95rem; }
+    .page-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 4.2vw, 3.2rem); margin: 8px 0 14px; text-shadow: 0 0 25px rgba(255, 215, 0, 0.35); }
+    .page-desc { color: var(--text-muted); font-size: clamp(0.92rem, 1.3vw, 1.05rem); }
+
+    /* City Overview Banner */
+    .city-overview-card {
+      max-width: 1300px; margin: 0 auto 40px; padding: 28px 34px;
+      background: linear-gradient(135deg, rgba(74, 5, 15, 0.75), rgba(20, 3, 6, 0.92));
+      border: 1px solid var(--border-gold); border-radius: 20px;
+      display: grid; grid-template-columns: 2fr 1fr; gap: 25px; align-items: center;
+    }
+    .overview-heading { font-family: 'Rozha One', serif; font-size: 1.5rem; color: var(--gold-pure); margin-bottom: 10px; }
+    .overview-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+    .city-stat-box {
+      border: 2px solid var(--gold-pure); border-radius: 16px; padding: 20px;
+      background: rgba(0, 0, 0, 0.5); text-align: center;
+    }
+
+    /* Filter Chips */
+    .filter-shelf { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 40px; padding: 0 4%; }
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-gold);
+      color: var(--text-muted); padding: 8px 18px; border-radius: 25px; cursor: pointer; transition: 0.3s; font-size: 0.85rem; font-weight: 600;
+    }
+    .filter-btn.active, .filter-btn:hover { background: var(--gold-pure); color: #0b0204; border-color: var(--gold-pure); font-weight: 700; }
+
+    /* Pandals Grid */
+    .pandals-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px; max-width: 1350px; margin: 0 auto; padding: 0 5% 90px;
+    }
+
+    .pandal-card {
+      background: var(--surface-card); border: 1px solid var(--border-gold);
+      border-radius: 22px; overflow: hidden; transition: all 0.35s ease; position: relative;
+      display: flex; flex-direction: column;
+    }
+    .pandal-card:hover { transform: translateY(-7px); border-color: var(--gold-pure); box-shadow: 0 12px 35px rgba(255, 170, 0, 0.3); }
+
+    .pandal-media-box { height: 250px; position: relative; overflow: hidden; }
+    .pandal-media-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .pandal-card:hover .pandal-media-box img { transform: scale(1.08); }
+
+    .location-landmark-badge {
+      position: absolute; top: 14px; right: 14px; background: rgba(10, 2, 4, 0.9);
+      border: 1px solid var(--gold-pure); color: var(--gold-pure); padding: 4px 12px;
+      border-radius: 20px; font-size: 0.72rem; font-weight: 700; backdrop-filter: blur(8px);
+    }
+
+    .pandal-card-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+    .pandal-name { font-family: 'Rozha One', serif; font-size: 1.35rem; color: var(--gold-pure); margin-bottom: 4px; }
+    .pandal-landmark { color: var(--gold-amber); font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
+
+    .fame-reason-box {
+      background: rgba(0, 0, 0, 0.45); border-left: 3px solid var(--crimson-glow);
+      padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem;
+      color: #ffe0b3; margin-bottom: 14px; line-height: 1.55;
+    }
+
+    .murti-detail-text { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
+    
+    .tags-cloud { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; margin-bottom: 18px; }
+    .feature-tag {
+      font-size: 0.72rem; padding: 3px 10px; border-radius: 12px;
+      background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.25); color: #ffe5c4;
+    }
+
+    .checkin-btn {
+      width: 100%; background: rgba(133, 0, 20, 0.4); border: 1px solid var(--gold-pure);
+      color: var(--gold-pure); padding: 11px; border-radius: 12px; font-weight: 700;
+      font-size: 0.84rem; cursor: pointer; transition: 0.25s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .checkin-btn:hover { background: var(--gold-pure); color: #0a0204; }
+
+    @media (max-width: 900px) {
+      .city-overview-card { grid-template-columns: 1fr; }
+      .nav-links-wrap { display: none; }
+    }
+    /* Footer */
+    .sanctum-footer {
+      background: #190104; text-align: center; padding: 20px; font-family: 'Rozha One', serif;
+      color: var(--gold-pure); font-size: 1.1rem; letter-spacing: 1.5px; border-top: 1px solid var(--border-gold);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="sanctum-navbar">
+    <a href="index.html" class="brand-group">
+      <span class="brand-title">&#x1F3F5; DURGA PUJA</span>
+    </a>
+    <ul class="nav-links-wrap">
+      <li><a href="index.html" class="nav-btn"><i class="fa-solid fa-om"></i> Mahotsav</a></li>
+      <li><a href="navdurga.html" class="nav-btn"><i class="fa-solid fa-hands-praying"></i> 9 Navdurga</a></li>
+      <li><a href="rituals.html" class="nav-btn"><i class="fa-solid fa-calendar-days"></i> Rituals</a></li>
+      <li><a href="pandals.html" class="nav-btn active"><i class="fa-solid fa-monument"></i> Pandals</a></li>
+      <li><a href="activities.html" class="nav-btn"><i class="fa-solid fa-drum"></i> Activities</a></li>
+    </ul>
+  </header>
+
+  <!-- Page Headline -->
+  <div class="page-header">
+    <span class="sacred-tag">&#x1F6A9; NAVRATRI MURTI & PANDALS</span>
+    <h1 class="page-title">Bihar Sharif Pandal Darshan & Murti Art</h1>
+    <p class="page-desc">
+      Explore the famous crossroads, centuries-old traditions, and master artisan clay idols that make Bihar Sharif the epicenter of Durga Puja celebrations in Nalanda district.
+    </p>
+  </div>
+
+  <!-- City Overview Info -->
+  <div class="city-overview-card">
+    <div>
+      <h2 class="overview-heading">Why Bihar Sharif's Pandals Are Renowned Across Bihar</h2>
+      <p class="overview-text">
+        During Navratri, the streets of Bihar Sharif transform into a massive cultural confluence. Master sculptors from Kumartuli (Kolkata) and local Nalanda clay artisans spend months shaping sacred soil from the holy Ganges. Pandals here are renowned for architectural replicas (such as the Amarnath Cave, Akshardham Temple, and historical Indian monuments), dazzling LED light gates, and deep communal harmony where thousands gather for all-night parikramas.
+      </p>
+    </div>
+    <div class="city-stat-box">
+      <div style="font-size: 2.2rem; color: var(--gold-pure); margin-bottom: 5px;">&#127882; 70+</div>
+      <h3 style="font-size: 1.1rem; color: #fff;">Major Pandals</h3>
+      <p style="font-size: 0.78rem; color: var(--gold-amber);">Bhaisasur, Amber, Hospital Mor & Main Bazaar</p>
+    </div>
+  </div>
+
+  <!-- Filter Shelf -->
+  <div class="filter-shelf">
+    <button class="filter-btn active" onclick="filterPandals('all')">All Bihar Sharif Pandals</button>
+    <button class="filter-btn" onclick="filterPandals('Bhaisasur')">Bhaisasur Chauraha</button>
+    <button class="filter-btn" onclick="filterPandals('Hospital')">Hospital Mor (Badi Pahari)</button>
+    <button class="filter-btn" onclick="filterPandals('Amber')">Amber Mor (Kachahri)</button>
+    <button class="filter-btn" onclick="filterPandals('Pulpar')">Pulpar & Main Bazaar</button>
+    <button class="filter-btn" onclick="filterPandals('Ramchandrapur')">Ramchandrapur</button>
+    <button class="filter-btn" onclick="filterPandals('Mohaddinegar')">Mohaddinegar</button>
+    <button class="filter-btn" onclick="filterPandals('Khandakpar')">Khandakpar</button>
+  </div>
+
+  <!-- Pandals Grid Container -->
+  <main class="pandals-grid" id="pandals-container"></main>
+  <footer class="sanctum-footer">Celebrating faith, art, and tradition. ✨</footer>
+  <script>
+    const pandalDatabase = [
+      {
+        name: "Bhaisasur Chauraha Durga & Kali Pandal",
+        landmark: "Bhaisasur Chauraha, Near Ranchi Road, Bihar Sharif",
+        tagLoc: "Bhaisasur",
+        established: "150+ Years Historic Heritage",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdSI2yqhKaguRsi-NaJ5GCQKrKj5UxbynQHEMkhQA1Fg&s=10",
+        whyFamous: "Famous for its 150+ year legacy and breathtaking architectural themes like the 55-foot Amarnath Cave replica with 100 ascending stairs, realistic wild rock caves, and massive post-Visarjan city-wide Bhandara feasts.",
+        murtiArt: "Revered for its awe-inspiring, lifelike Kali and Mahishasuramardini clay idols sculpted with intricate joot and organic river clays, drawing devotees from all over Magadh.",
+        features: ["150-Yr Heritage", "Cave & Mountain Architecture", "City-wide Halwa Bhandara"]
+      },
+      {
+        name: "Hospital Mor (Badi Pahari) Mahasabha Pandal",
+        landmark: "Hospital Mor Junction, Near Sadar Hospital & Badi Pahari",
+        tagLoc: "Hospital",
+        established: "Est. 1954 • Daaker Saaj Tradition",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwIGR3ZBBMcRpGDM72Zxm6IduqacWv5eMf93Y-_XYTgA&s=10",
+        whyFamous: "Famous as the grand gateway entrance to Bihar Sharif. Known for colossal 20+ foot traditional clay idols and multi-story electric light gates that stretch hundreds of meters down Patna-Ranchi Highway.",
+        murtiArt: "The idol is renowned for its signature 'Daaker Saaj' silver foil embossing and hypnotic elongated almond-shaped eyes that radiate serene divinity and wrath against evil.",
+        features: ["Gateway Grand Light Gates", "20ft Daaker Saaj Idol", "Centenary Darshan Hub"]
+      },
+      {
+        name: "Amber Mor (Kachahri) Durga Puja Samiti",
+        landmark: "Amber Chowk, District Court / Collectorate Road",
+        tagLoc: "Amber",
+        established: "Est. 1972 • Vedic Temple Replicas",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqjJYSQ44WDnuIe7EwKw9azru54e8er8GSJFJnMYM2sg&s=10",
+        whyFamous: "Famous for replicating world-renowned Indian sanctuaries (Prem Mandir, Akshardham, and historical forts) with millimeter-level wooden and cloth carving, plus high-voltage Dhunuchi dance competitions.",
+        murtiArt: "Features an eco-friendly 10-armed Mahishasuramardini adorned in pure Banarasi silk with handcrafted bronze armaments in every hand.",
+        features: ["Vedic Architectural Replicas", "Dhunuchi Dance Battle Arena", "Collectorate Core"]
+      },
+      {
+        name: "Pulpar Main Bazaar Pandal",
+        landmark: "Pulpar Central Market, Near Post Office Road",
+        tagLoc: "Pulpar",
+        established: "Est. 1965 • Heritage Market Festivity",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdCtjJPXeh-C0D1jZ_B-ESs6GoVPiL3keHhTiDlIO6KA&s=10",
+        whyFamous: "Famous for sitting right in the buzzing commercial center of Bihar Sharif. Renowned for hyper-realistic modern socio-cultural themes, Akshardham dome mockups, and the most dazzling Chandannagar neon street lights in the city.",
+        murtiArt: "Classical Sabeki style clay sculpture surrounded by Lakshmi, Saraswati, Ganesha, and Kartikeya with natural organic vegetable pigments.",
+        features: ["Chandannagar Lighting", "Bustling Market Parikrama", "Akshardham Theme"]
+      },
+      {
+        name: "Ramchandrapur Utsav Pandal",
+        landmark: "Ramchandrapur Bypass / New Bus Stand Road",
+        tagLoc: "Ramchandrapur",
+        established: "Est. 1985 • Royal Rajbari Palace",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6lkAo6AiGvAjltFPbOnCDVDgrg-kqw32bkMNJO0u7RA&s=10",
+        whyFamous: "Famous for hosting the largest festive carnival mela in town—complete with giant Ferris wheels, street-food stalls, open-air cultural stages, and the most crowded family parikrama routes.",
+        murtiArt: "The roaring golden lion and the fierce expression of the clay demon Mahishasura are sculpted with exceptional muscle definition and dramatic movement.",
+        features: ["Mega Festive Mela", "Royal Palace Facades", "Family Parikrama Hub"]
+      },
+      {
+        name: "Mohaddinegar Illusion & Parilok Pandal",
+        landmark: "Mohaddinegar Lanes, Near Nala Road, Bihar Sharif",
+        tagLoc: "Mohaddinegar",
+        established: "Est. 1980 • Kinetic Art Pioneers",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE0rW_FD46DpxylENWraHa79LSCBHnIx9MTD3pIx91OQ&s=10",
+        whyFamous: "Famous across Nalanda for pioneering kinetic animatronics and whimsical illusion themes such as 'Parilok' (Fairy Realm) and automated robotic dioramas depicting Puranic battles with natural sound effects.",
+        murtiArt: "Intricate miniature clay figurines accompanying Maa Durga, surrounded by artificial waterfalls and shimmering fiber-optic lighting.",
+        features: ["Automated Animatronics", "Sound & Light Waterfall", "Parilok Fairytale Theme"]
+      },
+      {
+        name: "Khandakpar Historical Durga Pandal",
+        landmark: "Khandakpar Chowk, Old Bihar Sharif Heritage Quarter",
+        tagLoc: "Khandakpar",
+        established: "Est. 1968 • Vedic Shastra Recitation",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCZA_yG7psoIFSQkddK5FLqFABXDfeekRbivPSflUmzQ&s=10",
+        whyFamous: "Famous for preserving the orthodox ritual purity of Durga Saptashati Chandi Path. Known for traditional clay oil lamps (Diyas) instead of electric floodlights and soul-stirring sandhya aartis.",
+        murtiArt: "Molded exclusively by master sculptors from Bengal using clay collected from the holy Triveni Sangam and sacred cowsheds, symbolizing total purity.",
+        features: ["Orthodox Chandi Path", "1000 Clay Diya Aarti", "Traditional Sandhi Puja"]
+      }
+    ];
+
+    function renderPandals(list) {
+      const container = document.getElementById("pandals-container");
+      container.innerHTML = list.map(p => `
+        <article class="pandal-card">
+          <div class="pandal-media-box">
+            <img src="${p.img}" alt="${p.name}">
+            <span class="location-landmark-badge"><i class="fa-solid fa-map-pin"></i> ${p.tagLoc}</span>
+          </div>
+          <div class="pandal-card-body">
+            <h3 class="pandal-name">${p.name}</h3>
+            <div class="pandal-landmark"><i class="fa-solid fa-location-dot"></i> ${p.landmark}</div>
+            
+            <div class="fame-reason-box">
+              <strong><i class="fa-solid fa-star"></i> Why It's Famous:</strong> ${p.whyFamous}
+            </div>
+
+            <p class="murti-detail-text"><strong>Murti Craftsmanship:</strong> ${p.murtiArt}</p>
+            
+            <div class="tags-cloud">
+              ${p.features.map(f => `<span class="feature-tag">${f}</span>`).join("")}
+            </div>
+
+            <button class="checkin-btn" onclick="checkinDarshan('${p.name}', '${p.landmark}')">
+              <i class="fa-solid fa-hands-praying"></i> Mark Virtual Darshan
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function filterPandals(loc) {
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+
+      if (loc === "all") {
+        renderPandals(pandalDatabase);
+      } else {
+        const filtered = pandalDatabase.filter(p => p.tagLoc.toLowerCase() === loc.toLowerCase());
+        renderPandals(filtered);
+      }
+    }
+
+    function checkinDarshan(name, landmark) {
+      alert(`🙏 Divine Darshan Blessed!\nYou checked in at ${name} (${landmark}). May Maa Durga bless your home with peace and prosperity!`);
+    }
+
+    // Initial render
+    renderPandals(pandalDatabase);
+  </script>
+</body>
+</html>

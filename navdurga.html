@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&#x1F549; The 9 Manifestations (Navdurga) &bull; Durga Puja</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rozha+One&family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0a0405;
+      --crimson-pure: #850014;
+      --gold-pure: #ffd700;
+      --gold-deep: #c59b27;
+      --gold-amber: #ffaa00;
+      --text-bright: #fffdf9;
+      --text-muted: #e2cbb2;
+      --surface-card: rgba(35, 8, 15, 0.92);
+      --border-gold: rgba(255, 215, 0, 0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-dark); color: var(--text-bright); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
+
+    .sanctum-navbar {
+      position: fixed; top: 0; left: 0; width: 100%; height: 78px;
+      background: rgba(10, 2, 4, 0.95); backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--border-gold); display: flex;
+      justify-content: space-between; align-items: center; padding: 0 5%; z-index: 1000;
+    }
+
+    .brand-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-title {
+      font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; font-weight: 900;
+      background: linear-gradient(135deg, #fff, var(--gold-pure), var(--gold-amber));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .brand-sub { display: block; font-family: 'Rozha One', serif; font-size: 0.68rem; color: var(--gold-deep); letter-spacing: 2px; }
+
+    .nav-links-wrap { display: flex; gap: 10px; list-style: none; }
+    .nav-btn {
+      color: var(--text-muted); font-size: 0.85rem; font-weight: 600; padding: 8px 16px;
+      border-radius: 40px; text-decoration: none; transition: 0.3s;
+    }
+    .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.1); }
+    .nav-btn.active {
+      color: #0c0204; background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber)); font-weight: 700;
+    }
+
+    .page-header { text-align: center; padding: 120px 5% 40px; max-width: 1000px; margin: 0 auto; }
+    .page-title {
+      font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 4vw, 3.2rem);
+      color: #fff; text-shadow: 0 0 25px rgba(255, 215, 0, 0.4); margin-bottom: 12px;
+    }
+    .page-subtitle { color: var(--text-muted); font-size: 1rem; }
+
+    .navdurga-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 30px; max-width: 1350px; margin: 0 auto; padding: 10px 5% 80px;
+    }
+
+    .avatar-card {
+      background: var(--surface-card); border: 1px solid var(--border-gold);
+      border-radius: 22px; overflow: hidden; transition: all 0.35s ease;
+      display: flex; flex-direction: column;
+    }
+    .avatar-card:hover { transform: translateY(-7px); border-color: var(--gold-pure); box-shadow: 0 10px 30px rgba(255, 170, 0, 0.3); }
+
+    .avatar-top-banner {
+      height: 160px; background: linear-gradient(135deg, #2b0409, #5e0212);
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .avatar-icon-circle {
+      width: 90px; height: 90px; border-radius: 50%; background: #0c0204;
+      border: 2px solid var(--gold-pure); display: flex; align-items: center;
+      justify-content: center; font-size: 2.6rem; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    }
+    .avatar-badge {
+      position: absolute; top: 12px; left: 16px; background: var(--crimson-pure);
+      border: 1px solid var(--gold-pure); color: var(--gold-pure); font-size: 0.72rem;
+      font-weight: 700; padding: 4px 12px; border-radius: 20px;
+    }
+
+    .avatar-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+    .avatar-name { font-family: 'Cinzel Decorative', serif; font-size: 1.4rem; color: var(--gold-pure); margin-bottom: 4px; }
+    .avatar-sanskrit { font-family: 'Rozha One', serif; color: var(--gold-amber); font-size: 0.95rem; margin-bottom: 12px; }
+    .avatar-mantra {
+      background: rgba(0, 0, 0, 0.45); border-left: 3px solid var(--gold-pure);
+      padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem;
+      color: #ffdca8; font-style: italic; margin-bottom: 15px;
+    }
+
+    .avatar-specs { list-style: none; font-size: 0.86rem; color: var(--text-muted); margin-bottom: 15px; display: flex; flex-direction: column; gap: 6px; }
+    .avatar-specs strong { color: var(--gold-pure); }
+
+    .open-modal-btn {
+      margin-top: auto; background: rgba(255, 215, 0, 0.12); border: 1px solid var(--border-gold);
+      color: var(--gold-pure); padding: 11px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.25s;
+    }
+    .open-modal-btn:hover { background: var(--gold-pure); color: #0a0204; }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px); z-index: 2000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-box {
+      background: var(--surface-card); border: 2px solid var(--gold-pure); border-radius: 24px;
+      max-width: 600px; width: 100%; padding: 32px; position: relative;
+    }
+    .close-btn { position: absolute; top: 18px; right: 20px; background: none; border: none; color: var(--gold-pure); font-size: 1.6rem; cursor: pointer; }
+    
+    /* Footer */
+    .sanctum-footer {
+      background: #190104; text-align: center; padding: 20px; font-family: 'Rozha One', serif;
+      color: var(--gold-pure); font-size: 1.1rem; letter-spacing: 1.5px; border-top: 1px solid var(--border-gold);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="sanctum-navbar">
+    <a href="index.html" class="brand-group">
+      <span class="brand-title">&#x1F3F5; DURGA PUJA</span>
+    </a>
+    <ul class="nav-links-wrap">
+      <li><a href="index.html" class="nav-btn"><i class="fa-solid fa-om"></i> Mahotsav</a></li>
+      <li><a href="navdurga.html" class="nav-btn active"><i class="fa-solid fa-hands-praying"></i> 9 Navdurga</a></li>
+      <li><a href="rituals.html" class="nav-btn"><i class="fa-solid fa-calendar-days"></i> Rituals</a></li>
+      <li><a href="pandals.html" class="nav-btn"><i class="fa-solid fa-monument"></i> Pandals</a></li>
+      <li><a href="activities.html" class="nav-btn"><i class="fa-solid fa-drum"></i> Activities</a></li>
+    </ul>
+  </header>
+
+  <section class="page-header">
+    <h1 class="page-title">The 9 Divine Navdurga Manifestations</h1>
+    <p class="page-subtitle">Each sacred form of Maa Durga governs an essential virtue, celestial weapon, and cosmic spiritual work.</p>
+  </section>
+
+  <main class="navdurga-grid" id="grid-container"></main>
+
+  <!-- Modal Shell -->
+  <div class="modal-backdrop" id="modal-container">
+    <div class="modal-box">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+  <footer class="sanctum-footer">Celebrating the nine nights of devotion, light, and divine power. ✨</footer>
+  <script>
+    const avatars = [
+      { day: "Day 1 - Pratipada", name: "Maa Shailaputri", sanskrit: "शैलपुत्री (Daughter of Himavat)", icon: "🏔️", mount: "Nandi Bull", weapon: "Trishula & Lotus", color: "Yellow & Crimson", mantra: "ॐ देवी शैलपुत्र्यै नमः॥", work: "Awakens the primal Root (Mooladhara) Chakra and purifies worldly karmas." },
+      { day: "Day 2 - Dwitiya", name: "Maa Brahmacharini", sanskrit: "ब्रह्मचारिणी (The Seeker of Brahman)", icon: "📿", mount: "Barefoot Walker", weapon: "Japamala & Kamandalu", color: "White & Green", mantra: "ॐ देवी ब्रह्मचारिण्यै नमः॥", work: "Bestows divine determination, moral mastery, and unbroken spiritual focus." },
+      { day: "Day 3 - Tritiya", name: "Maa Chandraghanta", sanskrit: "चन्द्रघण्टा (Bearer of the Crescent Moon Bell)", icon: "🔔", mount: "Fierce Tigress", weapon: "Trident, Mace, Bow, Arrow, Sword", color: "Orange & Gold", mantra: "ॐ देवी चन्द्रघण्टायै नमः॥", work: "Dispels demons, evil spirits, and phantom anxieties with her celestial bell." },
+      { day: "Day 4 - Chaturthi", name: "Maa Kushmanda", sanskrit: "कूष्माण्डा (Creator of the Cosmic Egg)", icon: "☀️", mount: "Lion", weapon: "Chakra, Gada, Amrit Kalash", color: "Royal Blue & Gold", mantra: "ॐ देवी कूष्माण्डायै नमः॥", work: "Infuses the cosmos with the light of the sun and bestows physical vitality." },
+      { day: "Day 5 - Panchami", name: "Maa Skandamata", sanskrit: "स्कन्दमाता (Mother of Lord Kartikeya)", icon: "🪷", mount: "Lion", weapon: "Dual Lotus Flowers", color: "Yellow & White", mantra: "ॐ देवी स्कन्दमात्रै नमः॥", work: "Grants maternal protection, solves familial difficulties, and purifies grief." },
+      { day: "Day 6 - Shashthi", name: "Maa Katyayani", sanskrit: "कात्यायनी (The Warrior Incarnation)", icon: "⚔️", mount: "Lion", weapon: "Chandrahas Sword", color: "Fiery Red", mantra: "ॐ देवी कात्यायन्यै नमः॥", work: "Smites demonic resistance and removes obstacles in marital happiness." },
+      { day: "Day 7 - Saptami", name: "Maa Kalaratri", sanskrit: "कालरात्रि (Destroyer of Darkness)", icon: "⚡", mount: "Donkey", weapon: "Iron Cleaver & Lightning Thorn", color: "Midnight Blue & Black", mantra: "ॐ देवी कालरात्र्यै नमः॥", work: "Annihilates black magic, death fear, and ignorance as Shubhankari." },
+      { day: "Day 8 - Ashtami", name: "Maa Mahagauri", sanskrit: "महागौरी (The Radiantly Pure)", icon: "✨", mount: "White Bull", weapon: "Trishul & Damru", color: "Immaculate White", mantra: "ॐ देवी महागौर्यै नमः॥", work: "Cleanses deep sins, restores inner innocence, and illuminates devotion." },
+      { day: "Day 9 - Navami", name: "Maa Siddhidatri", sanskrit: "सिद्धिदात्री (Granter of All Siddhis)", icon: "🌿", mount: "Lotus Throne", weapon: "Chakra, Conch, Gada", color: "Purple & Red", mantra: "ॐ देवी सिद्धिदात्र्यै नमः॥", work: "Endows the seeker with the 8 cosmic Siddhis and ultimate Moksha." }
+    ];
+
+    const container = document.getElementById("grid-container");
+    container.innerHTML = avatars.map((a, idx) => `
+      <article class="avatar-card">
+        <div class="avatar-top-banner">
+          <span class="avatar-badge">${a.day}</span>
+          <div class="avatar-icon-circle">${a.icon}</div>
+        </div>
+        <div class="avatar-content">
+          <h3 class="avatar-name">${a.name}</h3>
+          <div class="avatar-sanskrit">${a.sanskrit}</div>
+          <div class="avatar-mantra">${a.mantra}</div>
+          <ul class="avatar-specs">
+            <li><strong>Mount:</strong> ${a.mount}</li>
+            <li><strong>Divine Weapons:</strong> ${a.weapon}</li>
+            <li><strong>Auspicious Color:</strong> ${a.color}</li>
+          </ul>
+          <p style="font-size:0.86rem; color:#eedcc9; margin-bottom:15px;">${a.work}</p>
+          <button class="open-modal-btn" onclick="openModal(${idx})"><i class="fa-solid fa-eye"></i> View Sacred Blessing</button>
+        </div>
+      </article>
+    `).join("");
+
+    function openModal(i) {
+      const a = avatars[i];
+      document.getElementById("modal-body").innerHTML = `
+        <div style="text-align:center; margin-bottom:15px;">
+          <div style="font-size:3rem;">${a.icon}</div>
+          <h2 style="font-family:'Cinzel Decorative'; color:var(--gold-pure);">${a.name}</h2>
+          <p style="color:var(--gold-amber);">${a.sanskrit}</p>
+        </div>
+        <div style="background:rgba(0,0,0,0.5); padding:14px; border-radius:10px; margin-bottom:15px;">
+          <strong style="color:var(--gold-pure);">Chant Mantra:</strong>
+          <p style="color:#ffdca8; margin-top:5px; font-style:italic;">${a.mantra}</p>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.7;"><strong>Spiritual Work:</strong> ${a.work}</p>
+      `;
+      document.getElementById("modal-container").classList.add("active");
+    }
+
+    function closeModal() {
+      document.getElementById("modal-container").classList.remove("active");
+    }
+  </script>
+</body>
+</html>

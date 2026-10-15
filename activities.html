@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&#x1FA80; Dandiya Night &bull; Bihar Sharif Mahotsav</title>
+
+  <!-- Google Fonts & Font Awesome matching index.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rozha+One&family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0a0405;
+      --crimson-pure: #850014;
+      --crimson-royal: #b3001e;
+      --gold-pure: #ffd700;
+      --gold-deep: #c59b27;
+      --gold-amber: #ffaa00;
+      --text-bright: #fffdf9;
+      --text-muted: #e2cbb2;
+      --surface-glass: rgba(22, 6, 10, 0.82);
+      --surface-card: rgba(35, 8, 15, 0.90);
+      --border-gold: rgba(255, 215, 0, 0.35);
+      --border-glow: 0 0 25px rgba(255, 215, 0, 0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-bright);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Ambient Sparkles Background Canvas */
+    #ambient-canvas {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Navbar */
+    .sanctum-navbar {
+      position: fixed; top: 0; left: 0; width: 100%; height: 78px;
+      background: rgba(10, 2, 4, 0.95); backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--border-gold);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 5%; z-index: 1000; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+    }
+
+    .brand-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-title {
+      font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; font-weight: 900;
+      background: linear-gradient(135deg, #fff, var(--gold-pure), var(--gold-amber));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; letter-spacing: 1px;
+    }
+
+    .nav-links-wrap { display: flex; gap: 10px; list-style: none; }
+    .nav-btn {
+      color: var(--text-muted); font-size: 0.85rem; font-weight: 600; padding: 8px 18px;
+      border-radius: 40px; text-decoration: none; transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.08); transform: translateY(-2px); }
+    .nav-btn.active {
+      color: #0b0204; background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber));
+      font-weight: 700; box-shadow: 0 0 16px rgba(255, 215, 0, 0.5);
+    }
+
+    /* Main Container */
+    .content-container {
+      position: relative; z-index: 10; max-width: 1150px;
+      margin: 0 auto; padding: 110px 4% 60px;
+    }
+
+    .header-box { text-align: center; margin-bottom: 35px; }
+    .sacred-tag { font-family: 'Rozha One', serif; color: var(--gold-amber); letter-spacing: 2px; font-size: 0.95rem; }
+    .page-title {
+      font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 4.2vw, 3.2rem);
+      color: var(--gold-pure); text-shadow: 0 0 25px rgba(255, 215, 0, 0.35); margin: 6px 0 8px;
+    }
+    .location-subtitle {
+      font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: #ffaa55;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+
+    /* 6-Photo Gallery (Screenshot Grid Style) */
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 45px;
+    }
+    .gallery-card {
+      background: #000; border: 1px solid var(--border-gold); border-radius: 12px;
+      overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .gallery-card:hover { transform: translateY(-5px); border-color: var(--gold-pure); box-shadow: var(--border-glow); }
+    .gallery-img-box { height: 185px; width: 100%; overflow: hidden; background: #1a0308; }
+    .gallery-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-card:hover .gallery-img-box img { transform: scale(1.08); }
+    .gallery-caption {
+      background: linear-gradient(135deg, #42040d, #6e0013);
+      color: #ffe6ea; text-align: center; padding: 10px 6px; font-size: 0.82rem;
+      font-weight: 700; letter-spacing: 0.5px; border-top: 1px solid rgba(255, 215, 0, 0.25);
+    }
+
+    /* Why Famous Royal Container */
+    .fame-container {
+      background: var(--surface-card); border: 1px solid var(--border-gold);
+      border-left: 5px solid var(--gold-amber); border-radius: 20px;
+      padding: 34px 30px; box-shadow: var(--border-glow); margin-bottom: 45px;
+    }
+    .fame-heading {
+      font-family: 'Rozha One', serif; font-size: 1.6rem; color: var(--gold-pure);
+      margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+    }
+    .fame-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .fame-list li {
+      position: relative; padding-left: 26px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.65;
+    }
+    .fame-list li::before {
+      content: '◆'; position: absolute; left: 0; color: var(--gold-amber); font-size: 0.8rem; top: 1px;
+    }
+    .fame-list li strong { color: var(--text-bright); }
+
+    /* Dandiya Beat Machine */
+    .machine-board {
+      background: var(--surface-card); border: 1px solid var(--border-gold);
+      border-radius: 20px; padding: 34px; text-align: center; box-shadow: var(--border-glow);
+    }
+    .machine-title { font-family: 'Rozha One', serif; font-size: 1.5rem; color: var(--gold-pure); margin-bottom: 6px; }
+    .machine-desc { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 22px; }
+    .pads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px; margin-bottom: 18px; }
+    .pad-btn {
+      height: 120px; background: linear-gradient(145deg, #1f0408, #42060f);
+      border: 2px solid var(--border-gold); border-radius: 16px; color: var(--gold-pure);
+      font-weight: 700; cursor: pointer; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px; font-size: 0.92rem; transition: all 0.15s ease;
+    }
+    .pad-btn:active, .pad-btn.pressed {
+      background: var(--gold-pure); color: #080103; transform: scale(0.96); box-shadow: 0 0 25px var(--gold-pure);
+    }
+
+    /* Footer */
+    .sanctum-footer {
+      background: #190104; text-align: center; padding: 20px; font-family: 'Rozha One', serif;
+      color: var(--gold-pure); font-size: 1.1rem; letter-spacing: 1.5px; border-top: 1px solid var(--border-gold);
+    }
+
+    @media (max-width: 850px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links-wrap { display: none; }
+    }
+    @media (max-width: 520px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-img-box { height: 210px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="ambient-canvas"></canvas>
+
+  <header class="sanctum-navbar">
+    <a href="index.html" class="brand-group">
+      <span class="brand-title">&#x1F3F5; DURGA PUJA</span>
+    </a>
+    <ul class="nav-links-wrap">
+      <li><a href="index.html" class="nav-btn"><i class="fa-solid fa-om"></i> Mahotsav</a></li>
+      <li><a href="navdurga.html" class="nav-btn"><i class="fa-solid fa-hands-praying"></i> 9 Navdurga</a></li>
+      <li><a href="rituals.html" class="nav-btn"><i class="fa-solid fa-calendar-days"></i> Rituals</a></li>
+      <li><a href="pandals.html" class="nav-btn"><i class="fa-solid fa-monument"></i> Pandals</a></li>
+      <li><a href="activities.html" class="nav-btn active"><i class="fa-solid fa-drum"></i> Dandiya Night</a></li>
+    </ul>
+  </header>
+
+  <main class="content-container">
+    <div class="header-box">
+      <span class="sacred-tag">&#x1FA80; NAVRATRI NIGHT FESTIVITY</span>
+      <h1 class="page-title">Dandiya Raas & Garba Night</h1>
+      <div class="location-subtitle"><i class="fa-solid fa-location-dot"></i> Bihar Sharif, Nalanda</div>
+    </div>
+
+    <!-- 6 Photos Grid Format matching screenshot style -->
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="gallery-img-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn3JI4AvcNuau8nLm1Ybu6AMbGyusQ6HZ6rDIUWBuapw&s" alt="Clashing Dandiya Sticks">
+        </div>
+        <div class="gallery-caption">Clashing Dandiya Sticks</div>
+      </div>
+
+      <div class="gallery-card">
+        <div class="gallery-img-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUOZ47yN9q1JXUTWV-dzmTW1ucMsqQEsiaKsM4OsO7dg&s=10" alt="Garba Circle Celebration">
+        </div>
+        <div class="gallery-caption">Garba Raas Circle</div>
+      </div>
+
+      <div class="gallery-card">
+        <div class="gallery-img-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHdvv7QPxmFohGjcUm-H5Csxto7dnRDiPl00JxcJQlA&s=10" alt="Night Lights & Arena">
+        </div>
+        <div class="gallery-caption">Night Lights & Arena</div>
+      </div>
+
+      <div class="gallery-card">
+        <div class="gallery-img-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEFU2BNk1xmHmR8Y0-0Qq5yT8o9dHXf1QH1g-TkUDyEA&s=10" alt="Maa Ambe Aarti Opening">
+        </div>
+        <div class="gallery-caption">Maa Ambe Aarti Opening</div>
+      </div>
+
+      <div class="gallery-card">
+        <div class="gallery-img-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4DxrP9mMMFwsGORh4xG8Y5S9RwS7Jc6UHsIpQY2O8gw&s=10" alt="Chaniya Choli & Kurtas">
+        </div>
+        <div class="gallery-caption">Chaniya Choli & Kurtas</div>
+      </div>
+
+      <div class="gallery-card">
+        <div class="gallery-img-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk1SBDlyZxYrxzFgsYWdQya4-UlQ6xsZ-Io2M-odJf9g&s=10" alt="Youth & Family Celebration">
+        </div>
+        <div class="gallery-caption">Youth & Family Celebration</div>
+      </div>
+    </div>
+
+    <!-- Why Famous Card matching main file styling -->
+    <section class="fame-container">
+      <h2 class="fame-heading"><i class="fa-solid fa-star"></i> Why is Dandiya Night in Bihar Sharif famous?</h2>
+      <ul class="fame-list">
+        <li><strong>Nalanda's Premier Nightlife Festivity:</strong> Dandiya Night in Bihar Sharif is one of the most eagerly anticipated cultural events of Navratri, drawing youth and families from across Nalanda district.</li>
+        <li><strong>Grand Open-Air Arenas:</strong> Renowned destinations such as Tarachand Resort and community grounds host large-scale Dandiya gatherings complete with concert sound systems and laser stage lights.</li>
+        <li><strong>Energetic Folk Fusion Beats:</strong> The musical track features a fast-paced blend of traditional Gujarati Garba rhythms and beloved Bhojpuri Devi geet, keeping dancers on their feet until midnight.</li>
+        <li><strong>Traditional Attire Splendor:</strong> Dancers don mirror-work Gujarati chaniya cholis, bandhani dupattas, and embroidered kurtas, turning the arena into a vivid spectacle of colors.</li>
+        <li><strong>Sacred Opening Aarti:</strong> Every celebration begins with a community Maha Aarti dedicated to Maa Amba, seeking divine grace before sticks clash.</li>
+        <li><strong>Costume & Dance Competitions:</strong> Exciting contests are organized for Best Dancer, Best Traditional Attire, and Best Dandiya Pair with commemorative trophies.</li>
+        <li><strong>Safe Family Environment:</strong> Dedicated family enclosures and volunteer teams ensure that women, students, and children dance in a secure, comfortable atmosphere.</li>
+        <li><strong>All-Night Festive Street Stalls:</strong> Authentic food stalls surrounding the arena serve hot litti chokha, samosas, chaat, sweets, and masala chai.</li>
+      </ul>
+    </section>
+
+    <!-- Virtual Dandiya Beat Synthesizer -->
+    <section class="machine-board">
+      <h3 class="machine-title">Virtual Dandiya Rhythm Synthesizer</h3>
+      <p class="machine-desc">Click pads or tap keyboard keys <strong>[1], [2], [3], [4]</strong> to strike live synthesized Dandiya beats!</p>
+
+      <div class="pads-grid">
+        <button class="pad-btn" id="pad-1" onclick="playSound('stick1', this)">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>Stick Clack (1)</span>
+        </button>
+        <button class="pad-btn" id="pad-2" onclick="playSound('bass', this)">
+          <i class="fa-solid fa-drum"></i>
+          <span>Dhol Bass (2)</span>
+        </button>
+        <button class="pad-btn" id="pad-3" onclick="playSound('bell', this)">
+          <i class="fa-solid fa-bell"></i>
+          <span>Kanshi Bell (3)</span>
+        </button>
+        <button class="pad-btn" id="pad-4" onclick="playSound('shankh', this)">
+          <i class="fa-solid fa-wind"></i>
+          <span>Shankh Drone (4)</span>
+        </button>
+      </div>
+      <p style="color:var(--gold-amber); font-size:0.84rem;">Tip: Alternate keys [1] and [2] for a 3-step Garba rhythm!</p>
+    </section>
+  </main>
+
+  <footer class="sanctum-footer">Dancing feet, joyful hearts, and endless memories. ✨</footer>
+
+  <script>
+    // Audio Synthesizer
+    let audioCtx = null;
+    function getAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playSound(type, btn) {
+      if (btn) {
+        btn.classList.add("pressed");
+        setTimeout(() => btn.classList.remove("pressed"), 150);
+      }
+      const ctx = getAudio();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      if (type === 'stick1') {
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(320, ctx.currentTime);
+        gain.gain.setValueAtTime(0.85, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + 0.12);
+      } else if (type === 'bass') {
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(110, ctx.currentTime);
+        gain.gain.setValueAtTime(0.9, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.32);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + 0.32);
+      } else if (type === 'bell') {
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(1400, ctx.currentTime);
+        gain.gain.setValueAtTime(0.4, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + 0.35);
+      } else if (type === 'shankh') {
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(260, ctx.currentTime);
+        gain.gain.setValueAtTime(0.35, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + 1.2);
+      }
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "1") playSound('stick1', document.getElementById("pad-1"));
+      if (e.key === "2") playSound('bass', document.getElementById("pad-2"));
+      if (e.key === "3") playSound('bell', document.getElementById("pad-3"));
+      if (e.key === "4") playSound('shankh', document.getElementById("pad-4"));
+    });
+
+    // Ambient floating sparks
+    const canvas = document.getElementById("ambient-canvas");
+    const cCtx = canvas.getContext("2d");
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    window.addEventListener("resize", () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+    const embers = Array.from({ length: 40 }, () => ({
+      x: Math.random() * w, y: Math.random() * h, r: Math.random() * 2.2 + 0.8,
+      vy: -(Math.random() * 0.7 + 0.3), vx: (Math.random() - 0.5) * 0.4, alpha: Math.random() * 0.7 + 0.3
+    }));
+    function loop() {
+      cCtx.clearRect(0, 0, w, h);
+      embers.forEach(p => {
+        p.y += p.vy; p.x += p.vx;
+        if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+        cCtx.fillStyle = `rgba(255, 205, 40, ${p.alpha})`;
+        cCtx.beginPath(); cCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); cCtx.fill();
+      });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  </script>
+</body>
+</html>

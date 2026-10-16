@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>&#x1F549; The 9 Manifestations (Navdurga) &bull; Durga Puja</title>
+  <title>🕉️ The 9 Manifestations (Navdurga) &bull; Durga Puja</title>
   
+  <!-- External Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rozha+One&family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -12,147 +13,809 @@
 
   <style>
     :root {
-      --bg-dark: #0a0405;
-      --crimson-pure: #850014;
+      --bg-dark: #070204;
+      --crimson-pure: #7a0013;
+      --crimson-royal: #9e001a;
       --gold-pure: #ffd700;
       --gold-deep: #c59b27;
       --gold-amber: #ffaa00;
-      --text-bright: #fffdf9;
-      --text-muted: #e2cbb2;
-      --surface-card: rgba(35, 8, 15, 0.92);
-      --border-gold: rgba(255, 215, 0, 0.35);
+      --silver-white: #ffffff;
+      --silver-glow: #e6f0fa;
+      --text-bright: #ffffff;
+      --text-muted: #e8d7c8;
+      --surface-card: rgba(28, 5, 12, 0.80);
+      --border-gold: rgba(255, 215, 0, 0.40);
+      --border-glow: 0 0 25px rgba(255, 215, 0, 0.30);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: var(--bg-dark); color: var(--text-bright); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-bright);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
 
+    /* Ambient Sparks & Cursor Trails */
+    #ambient-canvas, #cursor-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    #ambient-canvas { z-index: 2; }
+    #cursor-canvas { z-index: 100001; }
+
+    /* ================= SCROLLING MAA DURGA BACKGROUND (m1.jpg) ================= */
+    .divine-bg-half {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55vw;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .divine-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 8%;
+      opacity: 0.48;
+      filter: contrast(125%) saturate(135%) brightness(1.05);
+      mix-blend-mode: screen;
+      -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 20%, rgba(0,0,0,1) 80%),
+                          linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 92%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 20%, rgba(0,0,0,1) 80%),
+                  linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 92%, rgba(0,0,0,0) 100%);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+      transition: opacity 0.5s ease;
+    }
+
+    .divine-bg-aura {
+      position: absolute;
+      top: 90px;
+      right: 6%;
+      width: 580px;
+      height: 580px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 180, 0, 0.30) 0%, rgba(133, 0, 20, 0.16) 60%, transparent 75%);
+      filter: blur(70px);
+      pointer-events: none;
+      animation: divineRotate 25s linear infinite;
+    }
+
+    @keyframes divineRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 900px) {
+      .divine-bg-half {
+        width: 100vw;
+        height: 100%;
+        opacity: 0.38;
+      }
+      .divine-bg-img {
+        object-position: center 5%;
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.45) 75%, rgba(0,0,0,0) 100%);
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.45) 75%, rgba(0,0,0,0) 100%);
+      }
+    }
+
+    /* Sanctum Navbar */
     .sanctum-navbar {
-      position: fixed; top: 0; left: 0; width: 100%; height: 78px;
+      position: fixed; top: 0; left: 0; width: 100%; height: 75px;
       background: rgba(10, 2, 4, 0.95); backdrop-filter: blur(14px);
       border-bottom: 2px solid var(--border-gold); display: flex;
-      justify-content: space-between; align-items: center; padding: 0 5%; z-index: 1000;
+      justify-content: space-between; align-items: center; padding: 0 4%; z-index: 1000;
     }
 
-    .brand-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-group { display: flex; align-items: center; gap: 10px; text-decoration: none; z-index: 100000; }
+    .brand-symbol {
+      width: 42px; height: 42px;
+      filter: drop-shadow(0 0 10px var(--gold-amber));
+      animation: divinePulse 3s infinite alternate;
+    }
+    @keyframes divinePulse {
+      0% { transform: scale(0.96); filter: drop-shadow(0 0 6px var(--gold-amber)); }
+      100% { transform: scale(1.05); filter: drop-shadow(0 0 18px var(--gold-pure)); }
+    }
+
     .brand-title {
-      font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; font-weight: 900;
-      background: linear-gradient(135deg, #fff, var(--gold-pure), var(--gold-amber));
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
     }
-    .brand-sub { display: block; font-family: 'Rozha One', serif; font-size: 0.68rem; color: var(--gold-deep); letter-spacing: 2px; }
+    .brand-sub { display: block; font-family: 'Rozha One', serif; font-size: 0.65rem; color: var(--gold-deep); letter-spacing: 2px; }
 
-    .nav-links-wrap { display: flex; gap: 10px; list-style: none; }
+    .nav-links-wrap { display: flex; gap: 6px; list-style: none; align-items: center; }
     .nav-btn {
-      color: var(--text-muted); font-size: 0.85rem; font-weight: 600; padding: 8px 16px;
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600; padding: 7px 14px;
       border-radius: 40px; text-decoration: none; transition: 0.3s;
+      display: flex; align-items: center; gap: 6px;
     }
-    .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.1); }
+    .nav-btn:hover { color: #ffffff; background: rgba(255, 215, 0, 0.15); text-shadow: 0 0 8px #fff; }
     .nav-btn.active {
-      color: #0c0204; background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber)); font-weight: 700;
+      color: #0c0204; background: linear-gradient(135deg, #ffffff, #ffd700); font-weight: 700;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
     }
 
-    .page-header { text-align: center; padding: 120px 5% 40px; max-width: 1000px; margin: 0 auto; }
+    .nav-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100000;
+    }
+
+    /* Hanging Temple Bell Icon */
+    .hanging-bell-btn {
+      background: transparent;
+      border: none;
+      color: var(--gold-pure);
+      font-size: 1.35rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease;
+      transform-origin: top center;
+    }
+    .hanging-bell-btn:hover {
+      background: rgba(255, 215, 0, 0.25);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    }
+    .hanging-bell-btn.swing {
+      animation: bellSwing 0.7s ease-in-out;
+    }
+    @keyframes bellSwing {
+      0% { transform: rotate(0deg); }
+      20% { transform: rotate(18deg); }
+      40% { transform: rotate(-15deg); }
+      60% { transform: rotate(10deg); }
+      80% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* Music Play/Stop Button with Equalizer */
+    .music-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(133, 0, 20, 0.45);
+      color: #ffffff;
+      border: 1.5px solid var(--gold-pure);
+      border-radius: 30px;
+      padding: 7px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.25);
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    .music-toggle-btn:hover {
+      background: #ffffff;
+      color: #0c0204;
+      box-shadow: 0 0 22px rgba(255, 255, 255, 0.7);
+      transform: translateY(-2px);
+    }
+    .music-toggle-btn.playing {
+      background: linear-gradient(135deg, #ffffff, #ffd700);
+      color: #0a0204;
+      border-color: #ffffff;
+      animation: pulseGlow 2s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
+      to { box-shadow: 0 0 24px rgba(255, 215, 0, 0.85); }
+    }
+
+    .equalizer-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 14px;
+    }
+    .eq-bar {
+      width: 2.5px;
+      height: 4px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: height 0.2s ease;
+    }
+    .music-toggle-btn.playing .eq-bar:nth-child(1) { animation: soundWave 0.7s infinite alternate ease-in-out; }
+    .music-toggle-btn.playing .eq-bar:nth-child(2) { animation: soundWave 0.9s infinite alternate 0.15s ease-in-out; }
+    .music-toggle-btn.playing .eq-bar:nth-child(3) { animation: soundWave 0.6s infinite alternate 0.3s ease-in-out; }
+
+    @keyframes soundWave {
+      from { height: 3px; }
+      to { height: 14px; }
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: rgba(255, 215, 0, 0.12);
+      border: 1.5px solid #ffd700;
+      color: #ffd700;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .mobile-menu-toggle { display: flex; }
+      .nav-links-wrap {
+        position: fixed;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background: rgba(14, 2, 6, 0.98);
+        backdrop-filter: blur(16px);
+        border-bottom: 2px solid #ffd700;
+        flex-direction: column;
+        padding: 20px 24px 30px;
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+        transform: translateY(-160%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.35s ease;
+        z-index: 99998;
+      }
+      .nav-links-wrap.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 215, 0, 0.25);
+      }
+    }
+
+    /* ================= BEHTAR WHITE HEADLINES ================= */
+    .page-header {
+      text-align: center;
+      padding: 130px 5% 35px;
+      max-width: 1050px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .page-sacred-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(133, 0, 20, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-family: 'Rozha One', serif;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+    }
+
     .page-title {
-      font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 4vw, 3.2rem);
-      color: #fff; text-shadow: 0 0 25px rgba(255, 215, 0, 0.4); margin-bottom: 12px;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.85), 0 0 45px rgba(255, 215, 0, 0.45);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
     }
-    .page-subtitle { color: var(--text-muted); font-size: 1rem; }
 
+    .page-subtitle {
+      color: #f7ede2;
+      font-size: clamp(0.96rem, 1.4vw, 1.15rem);
+      max-width: 820px;
+      margin: 0 auto;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+      line-height: 1.6;
+    }
+
+    /* Navdurga Cards Grid */
     .navdurga-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-      gap: 30px; max-width: 1350px; margin: 0 auto; padding: 10px 5% 80px;
+      gap: 32px; max-width: 1350px; margin: 0 auto; padding: 10px 5% 80px;
+      position: relative; z-index: 10;
     }
 
     .avatar-card {
-      background: var(--surface-card); border: 1px solid var(--border-gold);
-      border-radius: 22px; overflow: hidden; transition: all 0.35s ease;
-      display: flex; flex-direction: column;
+      background: var(--surface-card);
+      border: 1.5px solid rgba(255, 215, 0, 0.35);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
     }
-    .avatar-card:hover { transform: translateY(-7px); border-color: var(--gold-pure); box-shadow: 0 10px 30px rgba(255, 170, 0, 0.3); }
+    .avatar-card:hover {
+      transform: translateY(-8px);
+      border-color: #ffffff;
+      background: rgba(45, 6, 16, 0.88);
+      box-shadow: 0 14px 40px rgba(255, 215, 0, 0.4), 0 0 25px rgba(255, 255, 255, 0.2);
+    }
 
     .avatar-top-banner {
-      height: 160px; background: linear-gradient(135deg, #2b0409, #5e0212);
+      height: 160px;
+      background: linear-gradient(135deg, rgba(35, 3, 7, 0.9), rgba(85, 2, 16, 0.9));
       display: flex; align-items: center; justify-content: center; position: relative;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.25);
     }
     .avatar-icon-circle {
       width: 90px; height: 90px; border-radius: 50%; background: #0c0204;
-      border: 2px solid var(--gold-pure); display: flex; align-items: center;
-      justify-content: center; font-size: 2.6rem; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+      border: 2px solid #ffffff; display: flex; align-items: center;
+      justify-content: center; font-size: 2.6rem; box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+      transition: transform 0.4s ease;
     }
+    .avatar-card:hover .avatar-icon-circle {
+      transform: scale(1.1) rotate(5deg);
+      border-color: var(--gold-pure);
+      box-shadow: 0 0 32px rgba(255, 215, 0, 0.8);
+    }
+
     .avatar-badge {
       position: absolute; top: 12px; left: 16px; background: var(--crimson-pure);
-      border: 1px solid var(--gold-pure); color: var(--gold-pure); font-size: 0.72rem;
-      font-weight: 700; padding: 4px 12px; border-radius: 20px;
+      border: 1px solid #ffffff; color: #ffffff; font-size: 0.74rem;
+      font-weight: 700; padding: 4px 14px; border-radius: 20px;
+      font-family: 'Rozha One', serif;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
     }
 
     .avatar-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
-    .avatar-name { font-family: 'Cinzel Decorative', serif; font-size: 1.4rem; color: var(--gold-pure); margin-bottom: 4px; }
-    .avatar-sanskrit { font-family: 'Rozha One', serif; color: var(--gold-amber); font-size: 0.95rem; margin-bottom: 12px; }
+    .avatar-name {
+      font-family: 'Cinzel Decorative', serif; font-size: 1.45rem; color: #ffffff;
+      margin-bottom: 4px; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    .avatar-sanskrit { font-family: 'Rozha One', serif; color: var(--gold-pure); font-size: 1rem; margin-bottom: 12px; }
     .avatar-mantra {
-      background: rgba(0, 0, 0, 0.45); border-left: 3px solid var(--gold-pure);
-      padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem;
-      color: #ffdca8; font-style: italic; margin-bottom: 15px;
+      background: rgba(0, 0, 0, 0.65); border-left: 3px solid #ffffff;
+      padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.86rem;
+      color: #fff2db; font-style: italic; margin-bottom: 15px;
     }
 
     .avatar-specs { list-style: none; font-size: 0.86rem; color: var(--text-muted); margin-bottom: 15px; display: flex; flex-direction: column; gap: 6px; }
-    .avatar-specs strong { color: var(--gold-pure); }
+    .avatar-specs strong { color: #ffffff; }
+
+    /* Card Mini QR Offering Badge */
+    .card-qr-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 215, 0, 0.35);
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card-qr-strip:hover {
+      background: rgba(255, 215, 0, 0.12);
+    }
+    .card-qr-thumb {
+      width: 42px;
+      height: 42px;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 2px;
+      object-fit: contain;
+    }
+    .card-qr-text {
+      font-size: 0.75rem;
+      color: #ffdca8;
+      font-family: 'Rozha One', serif;
+      line-height: 1.3;
+    }
 
     .open-modal-btn {
-      margin-top: auto; background: rgba(255, 215, 0, 0.12); border: 1px solid var(--border-gold);
-      color: var(--gold-pure); padding: 11px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.25s;
+      margin-top: auto; background: rgba(255, 255, 255, 0.08); border: 1.5px solid var(--border-gold);
+      color: #ffffff; padding: 11px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.25s;
+      font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px;
     }
-    .open-modal-btn:hover { background: var(--gold-pure); color: #0a0204; }
+    .open-modal-btn:hover {
+      background: linear-gradient(135deg, #ffffff, #ffd700);
+      color: #0a0204;
+      box-shadow: 0 0 22px rgba(255, 255, 255, 0.7);
+    }
 
     /* Modal Backdrop */
     .modal-backdrop {
-      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88);
-      backdrop-filter: blur(8px); z-index: 2000; align-items: center; justify-content: center; padding: 20px;
+      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.90);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 2000; align-items: center; justify-content: center; padding: 20px;
     }
     .modal-backdrop.active { display: flex; }
     .modal-box {
-      background: var(--surface-card); border: 2px solid var(--gold-pure); border-radius: 24px;
-      max-width: 600px; width: 100%; padding: 32px; position: relative;
+      background: radial-gradient(circle, #2a050e 0%, #0d0104 100%);
+      border: 2px solid #ffffff; border-radius: 24px;
+      max-width: 580px; width: 100%; padding: 30px 26px; position: relative;
+      box-shadow: 0 0 50px rgba(255, 255, 255, 0.35), 0 0 30px rgba(255, 215, 0, 0.4);
+      max-height: 92vh;
+      overflow-y: auto;
     }
-    .close-btn { position: absolute; top: 18px; right: 20px; background: none; border: none; color: var(--gold-pure); font-size: 1.6rem; cursor: pointer; }
+    .close-btn {
+      position: absolute; top: 16px; right: 20px; background: none; border: none;
+      color: #ffffff; font-size: 1.8rem; cursor: pointer; transition: transform 0.2s;
+    }
+    .close-btn:hover { transform: scale(1.2); color: var(--gold-pure); }
+
+    /* Modal QR Frame Styling */
+    .modal-qr-section {
+      margin-top: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      border-radius: 16px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .modal-qr-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #7a0013, #4a000c);
+      border: 1px solid #ffd700;
+      color: #ffd700;
+      padding: 4px 14px;
+      border-radius: 15px;
+      font-size: 0.78rem;
+      font-family: 'Rozha One', serif;
+      margin-bottom: 10px;
+    }
+    .modal-qr-image {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 2px solid #ffffff;
+      background: #ffffff;
+      padding: 6px;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+    }
+    .modal-qr-note {
+      font-size: 0.75rem;
+      color: #eed5be;
+      margin-top: 8px;
+      font-family: 'Montserrat', sans-serif;
+    }
     
     /* Footer */
     .sanctum-footer {
-      background: #190104; text-align: center; padding: 20px; font-family: 'Rozha One', serif;
-      color: var(--gold-pure); font-size: 1.1rem; letter-spacing: 1.5px; border-top: 1px solid var(--border-gold);
+      background: #140104; text-align: center; padding: 22px; font-family: 'Rozha One', serif;
+      color: #ffffff; font-size: 1.05rem; letter-spacing: 1.5px; border-top: 1px solid var(--border-gold);
+      position: relative; z-index: 10;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     }
   </style>
 </head>
 <body>
 
+  <!-- Floating Golden Diya / Embers Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Interactive Parikrama Light Trail Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Scrolling Divine Maa Durga Background Image (m1.jpg) -->
+  <div class="divine-bg-half" aria-hidden="true">
+    <div class="divine-bg-aura"></div>
+    <img src="m1.jpg" alt="Divine Maa Durga" class="divine-bg-img">
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="mahakali-audio" loop preload="auto">
+    <source src="song.mpeg" type="audio/mpeg">
+  </audio>
+
+  <!-- Sanctum Navbar -->
   <header class="sanctum-navbar">
     <a href="index.html" class="brand-group">
-      <span class="brand-title">&#x1F3F5; DURGA PUJA</span>
+      <svg class="brand-symbol" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#ffd700" stroke-width="2"/>
+        <path d="M50 15 L50 85 M30 35 Q50 20 70 35 M25 55 Q50 75 75 55" stroke="#ffd700" stroke-width="3" fill="none"/>
+        <circle cx="50" cy="50" r="7" fill="#ff4500"/>
+      </svg>
+      <div>
+        <span class="brand-title">DURGA PUJA</span>
+        <span class="brand-sub">Bihar Sharif Darshan</span>
+      </div>
     </a>
-    <ul class="nav-links-wrap">
+
+    <!-- Navigation Links -->
+    <ul class="nav-links-wrap" id="nav-links">
       <li><a href="index.html" class="nav-btn"><i class="fa-solid fa-om"></i> Mahotsav</a></li>
       <li><a href="navdurga.html" class="nav-btn active"><i class="fa-solid fa-hands-praying"></i> 9 Navdurga</a></li>
-      <li><a href="rituals.html" class="nav-btn"><i class="fa-solid fa-calendar-days"></i> Rituals</a></li>
-      <li><a href="pandals.html" class="nav-btn"><i class="fa-solid fa-monument"></i> Pandals</a></li>
-      <li><a href="activities.html" class="nav-btn"><i class="fa-solid fa-drum"></i> Activities</a></li>
+      <li><a href="rituals.html" class="nav-btn"><i class="fa-solid fa-calendar-days"></i> Rituals &amp; Dandiya</a></li>
+      <li><a href="pandals.html" class="nav-btn"><i class="fa-solid fa-monument"></i> Bihar Sharif Pandals</a></li>
+      <li><a href="activities.html" class="nav-btn"><i class="fa-solid fa-drum"></i> Dandiya Night</a></li>
     </ul>
+
+    <!-- Header Actions (Swarna Ghanti + Play/Stop Button + Hamburger) -->
+    <div class="nav-actions-right">
+      <button class="hanging-bell-btn" id="bell-btn" onclick="ringHangingBell()" title="Ringing Divine Bell (घण्टा वादन)">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+
+      <button class="music-toggle-btn" id="music-toggle-btn" onclick="toggleAudio()" aria-label="Toggle Background Music">
+        <i class="fa-solid fa-volume-xmark" id="music-icon"></i>
+        <span id="music-text">Music OFF</span>
+        <div class="equalizer-bars">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+      </button>
+
+      <button class="mobile-menu-toggle" id="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars" id="menu-icon"></i>
+      </button>
+    </div>
   </header>
 
+  <!-- Page Headline with Behtar White Headlines -->
   <section class="page-header">
+    <div class="page-sacred-badge">
+      <i class="fa-solid fa-om"></i> नवदुर्गा पावन दर्शनम्
+    </div>
     <h1 class="page-title">The 9 Divine Navdurga Manifestations</h1>
-    <p class="page-subtitle">Each sacred form of Maa Durga governs an essential virtue, celestial weapon, and cosmic spiritual work.</p>
+    <p class="page-subtitle">Each sacred form of Maa Durga governs an essential cosmic virtue, celestial weapon, and auspicious spiritual grace.</p>
   </section>
 
+  <!-- Navdurga Cards Grid -->
   <main class="navdurga-grid" id="grid-container"></main>
 
   <!-- Modal Shell -->
-  <div class="modal-backdrop" id="modal-container">
+  <div class="modal-backdrop" id="modal-container" onclick="handleBackdropClick(event)">
     <div class="modal-box">
       <button class="close-btn" onclick="closeModal()">&times;</button>
       <div id="modal-body"></div>
     </div>
   </div>
-  <footer class="sanctum-footer">Celebrating the nine nights of devotion, light, and divine power. ✨</footer>
+
+  <footer class="sanctum-footer">Celebrating the nine nights of devotion, light, and divine power &bull; Bihar Sharif ✨</footer>
+
+  <!-- JavaScript Engine -->
   <script>
+    // ================= AUDIO PLAY/STOP ENGINE =================
+    const audio = document.getElementById("mahakali-audio");
+    const musicBtn = document.getElementById("music-toggle-btn");
+    const musicIcon = document.getElementById("music-icon");
+    const musicText = document.getElementById("music-text");
+
+    function updateAudioUI(isPlaying) {
+      if (isPlaying) {
+        musicBtn.classList.add("playing");
+        musicIcon.className = "fa-solid fa-volume-high";
+        musicText.innerText = "Music ON";
+      } else {
+        musicBtn.classList.remove("playing");
+        musicIcon.className = "fa-solid fa-volume-xmark";
+        musicText.innerText = "Music OFF";
+      }
+    }
+
+    function toggleAudio() {
+      if (!audio) return;
+      if (audio.paused) {
+        audio.play().then(() => {
+          updateAudioUI(true);
+        }).catch(err => {
+          console.warn("Audio playback error:", err);
+        });
+      } else {
+        audio.pause();
+        updateAudioUI(false);
+      }
+    }
+
+    audio.addEventListener("play", () => updateAudioUI(true));
+    audio.addEventListener("pause", () => updateAudioUI(false));
+
+    function unlockAudioOnGesture() {
+      if (audio && audio.paused) {
+        audio.play().then(() => {
+          updateAudioUI(true);
+          cleanupGestureListeners();
+        }).catch(() => {});
+      }
+    }
+
+    function cleanupGestureListeners() {
+      document.removeEventListener("click", unlockAudioOnGesture);
+      document.removeEventListener("touchstart", unlockAudioOnGesture);
+    }
+    document.addEventListener("click", unlockAudioOnGesture, { once: true });
+    document.addEventListener("touchstart", unlockAudioOnGesture, { once: true });
+
+    // ================= WEB AUDIO BELL SYNTHESIS =================
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playMandirGhanti() {
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      const harmonics = [1180, 1420, 2120, 2900];
+      const gains = [0.4, 0.25, 0.15, 0.08];
+
+      harmonics.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now);
+
+        gainNode.gain.setValueAtTime(gains[idx], now);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 2.2);
+
+        osc.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 2.2);
+      });
+    }
+
+    function ringHangingBell() {
+      const bell = document.getElementById("bell-btn");
+      bell.classList.remove("swing");
+      void bell.offsetWidth;
+      bell.classList.add("swing");
+      playMandirGhanti();
+    }
+
+    // ================= MOBILE NAVIGATION =================
+    function toggleMobileNav() {
+      const nav = document.getElementById("nav-links");
+      const icon = document.getElementById("menu-icon");
+      nav.classList.toggle("open");
+      if (nav.classList.contains("open")) {
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-xmark");
+      } else {
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+      }
+    }
+
+    document.querySelectorAll(".nav-btn").forEach(link => {
+      link.addEventListener("click", () => {
+        const nav = document.getElementById("nav-links");
+        const icon = document.getElementById("menu-icon");
+        if (nav.classList.contains("open")) {
+          nav.classList.remove("open");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      });
+    });
+
+    // ================= FLOATING AMBIENT CANVAS =================
+    const ambCanvas = document.getElementById("ambient-canvas");
+    const ambCtx = ambCanvas.getContext("2d");
+    let aw = ambCanvas.width = window.innerWidth;
+    let ah = ambCanvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      aw = ambCanvas.width = window.innerWidth;
+      ah = ambCanvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 45 }, () => ({
+      x: Math.random() * aw,
+      y: Math.random() * ah,
+      r: Math.random() * 2.2 + 0.8,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -(Math.random() * 0.7 + 0.3),
+      alpha: Math.random() * 0.7 + 0.3
+    }));
+
+    function animateParticles() {
+      ambCtx.clearRect(0, 0, aw, ah);
+      particles.forEach(p => {
+        p.y += p.vy;
+        p.x += p.vx;
+        if (p.y < -10) { p.y = ah + 10; p.x = Math.random() * aw; }
+        ambCtx.fillStyle = `rgba(255, 215, 40, ${p.alpha})`;
+        ambCtx.beginPath();
+        ambCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ambCtx.fill();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ================= PARIKRAMA GOLDEN CURSOR / TOUCH SPARKS =================
+    const curCanvas = document.getElementById("cursor-canvas");
+    const curCtx = curCanvas.getContext("2d");
+    let cw = curCanvas.width = window.innerWidth;
+    let ch = curCanvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      cw = curCanvas.width = window.innerWidth;
+      ch = curCanvas.height = window.innerHeight;
+    });
+
+    let trailSparks = [];
+    function addSparks(x, y) {
+      for (let i = 0; i < 3; i++) {
+        trailSparks.push({
+          x: x + (Math.random() - 0.5) * 12,
+          y: y + (Math.random() - 0.5) * 12,
+          r: Math.random() * 2.5 + 1.2,
+          alpha: 1,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: Math.random() * -1.5 - 0.5
+        });
+      }
+    }
+
+    window.addEventListener("mousemove", (e) => addSparks(e.clientX, e.clientY));
+    window.addEventListener("touchmove", (e) => {
+      if (e.touches[0]) addSparks(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    function animateCursorTrail() {
+      curCtx.clearRect(0, 0, cw, ch);
+      for (let i = trailSparks.length - 1; i >= 0; i--) {
+        const s = trailSparks[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.alpha -= 0.035;
+        if (s.alpha <= 0) {
+          trailSparks.splice(i, 1);
+          continue;
+        }
+        curCtx.beginPath();
+        curCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        curCtx.fillStyle = `rgba(255, 215, 0, ${s.alpha})`;
+        curCtx.shadowColor = "#ffaa00";
+        curCtx.shadowBlur = 6;
+        curCtx.fill();
+      }
+      requestAnimationFrame(animateCursorTrail);
+    }
+    animateCursorTrail();
+
+    // ================= NAVDURGA DATABASE & QR INTEGRATION =================
     const avatars = [
       { day: "Day 1 - Pratipada", name: "Maa Shailaputri", sanskrit: "शैलपुत्री (Daughter of Himavat)", icon: "🏔️", mount: "Nandi Bull", weapon: "Trishula & Lotus", color: "Yellow & Crimson", mantra: "ॐ देवी शैलपुत्र्यै नमः॥", work: "Awakens the primal Root (Mooladhara) Chakra and purifies worldly karmas." },
       { day: "Day 2 - Dwitiya", name: "Maa Brahmacharini", sanskrit: "ब्रह्मचारिणी (The Seeker of Brahman)", icon: "📿", mount: "Barefoot Walker", weapon: "Japamala & Kamandalu", color: "White & Green", mantra: "ॐ देवी ब्रह्मचारिण्यै नमः॥", work: "Bestows divine determination, moral mastery, and unbroken spiritual focus." },
@@ -181,8 +844,18 @@
             <li><strong>Divine Weapons:</strong> ${a.weapon}</li>
             <li><strong>Auspicious Color:</strong> ${a.color}</li>
           </ul>
-          <p style="font-size:0.86rem; color:#eedcc9; margin-bottom:15px;">${a.work}</p>
-          <button class="open-modal-btn" onclick="openModal(${idx})"><i class="fa-solid fa-eye"></i> View Sacred Blessing</button>
+          <p style="font-size:0.86rem; color:#eedcc9; margin-bottom:14px;">${a.work}</p>
+
+          <!-- Integrated QR Offering Strip -->
+          <div class="card-qr-strip" onclick="openModal(${idx})">
+            <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+            <div class="card-qr-text">
+              <strong>पावन दक्षिणा व भोग अर्पण</strong><br>
+              <span>Click to view blessing &amp; scan QR</span>
+            </div>
+          </div>
+
+          <button class="open-modal-btn" onclick="openModal(${idx})"><i class="fa-solid fa-eye"></i> View Sacred Blessing &amp; QR</button>
         </div>
       </article>
     `).join("");
@@ -191,21 +864,40 @@
       const a = avatars[i];
       document.getElementById("modal-body").innerHTML = `
         <div style="text-align:center; margin-bottom:15px;">
-          <div style="font-size:3rem;">${a.icon}</div>
-          <h2 style="font-family:'Cinzel Decorative'; color:var(--gold-pure);">${a.name}</h2>
-          <p style="color:var(--gold-amber);">${a.sanskrit}</p>
+          <div style="font-size:3.2rem; filter:drop-shadow(0 0 15px #ffd700);">${a.icon}</div>
+          <h2 style="font-family:'Cinzel Decorative'; color:#ffffff; font-size:1.6rem; margin-top:5px; text-shadow:0 0 15px rgba(255,255,255,0.8);">${a.name}</h2>
+          <p style="color:var(--gold-pure); font-family:'Rozha One'; font-size:1.1rem;">${a.sanskrit}</p>
         </div>
-        <div style="background:rgba(0,0,0,0.5); padding:14px; border-radius:10px; margin-bottom:15px;">
-          <strong style="color:var(--gold-pure);">Chant Mantra:</strong>
-          <p style="color:#ffdca8; margin-top:5px; font-style:italic;">${a.mantra}</p>
+        <div style="background:rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.4); padding:16px; border-radius:14px; margin-bottom:15px; text-align:center;">
+          <strong style="color:#ffffff; font-family:'Rozha One'; font-size:1.05rem;">पावन बीज मंत्र:</strong>
+          <p style="color:#ffdca8; margin-top:6px; font-style:italic; font-size:1.05rem;">${a.mantra}</p>
         </div>
-        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.7;"><strong>Spiritual Work:</strong> ${a.work}</p>
+        <div style="background:rgba(255,255,255,0.04); padding:14px; border-radius:12px; margin-bottom:14px;">
+          <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.7;"><strong>Spiritual Work:</strong> ${a.work}</p>
+          <p style="color:#ffffff; font-size:0.85rem; margin-top:6px;"><strong>Auspicious Color:</strong> ${a.color} | <strong>Mount:</strong> ${a.mount}</p>
+        </div>
+
+        <!-- Attached QR Code in Modal -->
+        <div class="modal-qr-section">
+          <div class="modal-qr-badge">
+            <i class="fa-solid fa-qrcode"></i> ${a.name} - पावन दक्षिणा एवं भोग अर्पण
+          </div>
+          <img src="QR_1792189397.png" alt="Devotional QR Code" class="modal-qr-image">
+          <div class="modal-qr-note">Scan this QR Code to offer your devotional prayer &amp; donation</div>
+        </div>
       `;
       document.getElementById("modal-container").classList.add("active");
+      playMandirGhanti();
     }
 
     function closeModal() {
       document.getElementById("modal-container").classList.remove("active");
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === "modal-container") {
+        closeModal();
+      }
     }
   </script>
 </body>

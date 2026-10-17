@@ -21,10 +21,10 @@
       --gold-amber: #ffaa00;
       --text-bright: #fffdf9;
       --text-muted: #e2cbb2;
-      --surface-glass: rgba(22, 6, 10, 0.82);
-      --surface-card: rgba(35, 8, 15, 0.90);
-      --border-gold: rgba(255, 215, 0, 0.35);
-      --border-glow: 0 0 25px rgba(255, 215, 0, 0.25);
+      --surface-glass: rgba(22, 6, 10, 0.84);
+      --surface-card: rgba(35, 8, 15, 0.88);
+      --border-gold: rgba(255, 215, 0, 0.38);
+      --border-glow: 0 0 25px rgba(255, 215, 0, 0.28);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -36,88 +36,439 @@
       overflow-x: hidden;
       min-height: 100vh;
       line-height: 1.6;
+      position: relative;
     }
 
-    /* Ambient Sparkles Background Canvas */
-    #ambient-canvas {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      pointer-events: none; z-index: 0;
+    /* ================= TOP GOLDEN SCROLL PROGRESS BAR ================= */
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3.5px;
+      width: 0%;
+      background: linear-gradient(90deg, #ff5100, #ffd700, #ffffff, #ffd700);
+      box-shadow: 0 0 12px #ffd700;
+      z-index: 1000005;
+      transition: width 0.1s ease-out;
     }
 
-    /* Navbar */
+    /* Ambient Sparkles, Flower Shower & Cursor Trail Canvases */
+    #ambient-canvas, #cursor-canvas, #flower-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    #ambient-canvas { z-index: 2; }
+    #cursor-canvas { z-index: 100001; }
+    #flower-canvas { z-index: 100002; }
+
+    /* ================= FULL-SCREEN ALL-DEVICES BACKGROUND IMAGE (me.jpg) ================= */
+    .divine-bg-full {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .divine-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.44;
+      filter: contrast(122%) saturate(135%) brightness(1.06);
+      mix-blend-mode: screen;
+      -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 35%, rgba(0,0,0,0.98) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.2) 100%),
+                          linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 88%, rgba(0,0,0,0.15) 100%);
+      mask-image: radial-gradient(ellipse 95% 90% at 50% 35%, rgba(0,0,0,0.98) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.2) 100%),
+                  linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 88%, rgba(0,0,0,0.15) 100%);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+      animation: subtleBgBreath 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes subtleBgBreath {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.04); }
+    }
+
+    .divine-bg-aura {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(92vw, 760px);
+      height: min(92vw, 760px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 180, 0, 0.26) 0%, rgba(133, 0, 20, 0.14) 60%, transparent 75%);
+      filter: blur(75px);
+      pointer-events: none;
+      animation: divineRotate 25s linear infinite;
+    }
+
+    @keyframes divineRotate {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @media (max-width: 900px) {
+      .divine-bg-full { width: 100vw; height: 100vh; }
+      .divine-bg-img { object-position: center top; opacity: 0.40; }
+    }
+
+    /* ================= SANCTUM NAVBAR ================= */
     .sanctum-navbar {
-      position: fixed; top: 0; left: 0; width: 100%; height: 78px;
+      position: fixed; top: 0; left: 0; width: 100%; height: 75px;
       background: rgba(10, 2, 4, 0.95); backdrop-filter: blur(14px);
       border-bottom: 2px solid var(--border-gold);
       display: flex; justify-content: space-between; align-items: center;
-      padding: 0 5%; z-index: 1000; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+      padding: 0 4%; z-index: 99999; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
     }
 
-    .brand-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    /* Traditional Marigold & Mango Leaf Toran Below Navbar */
+    .festive-toran-strip {
+      position: fixed;
+      top: 75px;
+      left: 0;
+      width: 100%;
+      height: 26px;
+      z-index: 99990;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-around;
+      overflow: hidden;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7));
+    }
+
+    .toran-Loop {
+      flex: 1;
+      min-width: 90px;
+      height: 22px;
+      border-bottom: 4px dotted #ff9900;
+      border-radius: 0 0 50% 50%;
+      background: radial-gradient(circle at 50% 0%, rgba(46, 125, 50, 0.55) 0%, transparent 75%);
+      position: relative;
+      animation: gentleSway 3.5s ease-in-out infinite alternate;
+    }
+
+    .toran-Loop::after {
+      content: '🏵️';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.78rem;
+    }
+
+    @keyframes gentleSway {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(2.5px); }
+    }
+
+    .brand-group { display: flex; align-items: center; gap: 10px; text-decoration: none; z-index: 100000; }
+    .brand-symbol {
+      width: 42px; height: 42px;
+      filter: drop-shadow(0 0 10px var(--gold-amber));
+      animation: divinePulse 3s infinite alternate;
+    }
+    @keyframes divinePulse {
+      0% { transform: scale(0.96); filter: drop-shadow(0 0 6px var(--gold-amber)); }
+      100% { transform: scale(1.05); filter: drop-shadow(0 0 18px var(--gold-pure)); }
+    }
+
     .brand-title {
-      font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; font-weight: 900;
+      font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; font-weight: 900;
       background: linear-gradient(135deg, #fff, var(--gold-pure), var(--gold-amber));
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; letter-spacing: 1px;
     }
+    .brand-sub { display: block; font-family: 'Rozha One', serif; font-size: 0.65rem; color: var(--gold-deep); letter-spacing: 2px; text-transform: uppercase; }
 
-    .nav-links-wrap { display: flex; gap: 10px; list-style: none; }
+    .nav-links-wrap { display: flex; gap: 6px; list-style: none; align-items: center; }
     .nav-btn {
-      color: var(--text-muted); font-size: 0.85rem; font-weight: 600; padding: 8px 18px;
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600; padding: 7px 14px;
       border-radius: 40px; text-decoration: none; transition: all 0.3s ease;
-      display: flex; align-items: center; gap: 7px;
+      display: flex; align-items: center; gap: 6px;
     }
-    .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.08); transform: translateY(-2px); }
+    .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.12); transform: translateY(-2px); }
     .nav-btn.active {
       color: #0b0204; background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber));
       font-weight: 700; box-shadow: 0 0 16px rgba(255, 215, 0, 0.5);
     }
 
-    /* Main Container */
+    .nav-actions-right { display: flex; align-items: center; gap: 10px; z-index: 100000; }
+
+    .hanging-bell-btn {
+      border: none; color: var(--gold-pure); font-size: 1.35rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease; transform-origin: top center;
+    }
+    .hanging-bell-btn:hover { background: rgba(255, 215, 0, 0.25); box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
+    .hanging-bell-btn.swing { animation: bellSwing 0.7s ease-in-out; }
+    @keyframes bellSwing {
+      0% { transform: rotate(0deg); }
+      20% { transform: rotate(18deg); }
+      40% { transform: rotate(-15deg); }
+      60% { transform: rotate(10deg); }
+      80% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .music-toggle-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(133, 0, 20, 0.45); color: var(--gold-pure);
+      border: 1.5px solid var(--gold-pure); border-radius: 30px;
+      padding: 7px 16px; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 0 14px rgba(255, 215, 0, 0.25);
+      transition: all 0.3s ease; font-family: inherit;
+    }
+    .music-toggle-btn:hover { background: var(--gold-pure); color: #0c0204; transform: translateY(-2px); }
+    .music-toggle-btn.playing {
+      background: linear-gradient(135deg, #ffd700, #ff9900);
+      color: #0a0204; border-color: #ffd700;
+    }
+
+    .equalizer-bars { display: flex; align-items: flex-end; gap: 2.5px; height: 14px; }
+    .eq-bar { width: 2.5px; height: 4px; background: currentColor; border-radius: 2px; transition: height 0.2s ease; }
+    .music-toggle-btn.playing .eq-bar:nth-child(1) { animation: soundWave 0.7s infinite alternate ease-in-out; }
+    .music-toggle-btn.playing .eq-bar:nth-child(2) { animation: soundWave 0.9s infinite alternate 0.15s ease-in-out; }
+    .music-toggle-btn.playing .eq-bar:nth-child(3) { animation: soundWave 0.6s infinite alternate 0.3s ease-in-out; }
+    @keyframes soundWave { from { height: 3px; } to { height: 14px; } }
+
+    .mobile-menu-toggle {
+      display: none; background: rgba(255, 215, 0, 0.12); border: 1.5px solid #ffd700;
+      color: #ffd700; width: 40px; height: 40px; border-radius: 10px;
+      font-size: 1.2rem; cursor: pointer; align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .mobile-menu-toggle { display: flex; }
+      .nav-links-wrap {
+        position: fixed; top: 75px; left: 0; width: 100%;
+        background: rgba(14, 2, 6, 0.98); backdrop-filter: blur(16px);
+        border-bottom: 2px solid #ffd700; flex-direction: column;
+        padding: 20px 24px 30px; gap: 12px;
+        transform: translateY(-160%); opacity: 0; pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.35s ease; z-index: 99998;
+      }
+      .nav-links-wrap.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .nav-btn { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.95rem; border: 1px solid rgba(255, 215, 0, 0.25); }
+    }
+
+    /* ================= MAIN CONTAINER & GRADIENT HEADINGS ================= */
     .content-container {
-      position: relative; z-index: 10; max-width: 1150px;
-      margin: 0 auto; padding: 110px 4% 60px;
+      position: relative; z-index: 10; max-width: 1180px;
+      margin: 0 auto; padding: 130px 4% 70px;
     }
 
     .header-box { text-align: center; margin-bottom: 35px; }
-    .sacred-tag { font-family: 'Rozha One', serif; color: var(--gold-amber); letter-spacing: 2px; font-size: 0.95rem; }
-    .page-title {
-      font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 4.2vw, 3.2rem);
-      color: var(--gold-pure); text-shadow: 0 0 25px rgba(255, 215, 0, 0.35); margin: 6px 0 8px;
-    }
-    .location-subtitle {
-      font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: #ffaa55;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
+
+    .page-sacred-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(133, 0, 20, 0.6);
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      color: var(--gold-pure);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.84rem;
+      font-family: 'Rozha One', serif;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
     }
 
-    /* 6-Photo Gallery (Screenshot Grid Style) */
+    .sacred-tag { display: block; font-family: 'Rozha One', serif; color: var(--gold-amber); letter-spacing: 2px; font-size: 0.95rem; }
+
+    .page-title, .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2rem, 4.4vw, 3.3rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 10%, #ffd700 48%, #ff7700 88%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 22px rgba(255, 215, 0, 0.38));
+      margin: 6px 0 10px;
+      text-align: center;
+    }
+
+    .section-title { font-size: clamp(1.6rem, 3.4vw, 2.4rem); }
+
+    .location-subtitle {
+      font-family: 'Montserrat', sans-serif; font-size: 0.95rem; color: #ffaa55;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-weight: 600; margin-bottom: 18px;
+    }
+
+    /* Collective Festive Shower Bar */
+    .collective-arpan-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      background: rgba(20, 3, 8, 0.86);
+      border: 1px solid rgba(255, 215, 0, 0.45);
+      padding: 10px 22px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+      max-width: 900px;
+      margin: 0 auto 35px;
+    }
+
+    .maha-pushpanjali-btn {
+      background: linear-gradient(135deg, #ffd700, #ff6a00);
+      border: 1.5px solid #ffffff;
+      color: #0b0204;
+      padding: 9px 22px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-family: 'Rozha One', serif;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 18px rgba(255, 170, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+    .maha-pushpanjali-btn:hover { transform: scale(1.04); box-shadow: 0 0 26px rgba(255, 215, 0, 0.85); }
+
+    /* ================= 6-PHOTO GALLERY (ORIGINAL PRESERVED + ENHANCED) ================= */
     .gallery-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 45px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 50px;
     }
     .gallery-card {
-      background: #000; border: 1px solid var(--border-gold); border-radius: 12px;
-      overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      background: rgba(15, 2, 6, 0.9); border: 1.5px solid var(--border-gold); border-radius: 16px;
+      overflow: hidden; box-shadow: 0 8px 26px rgba(0, 0, 0, 0.75);
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
       display: flex; flex-direction: column;
+      backdrop-filter: blur(10px);
     }
-    .gallery-card:hover { transform: translateY(-5px); border-color: var(--gold-pure); box-shadow: var(--border-glow); }
-    .gallery-img-box { height: 185px; width: 100%; overflow: hidden; background: #1a0308; }
+    .gallery-card:hover { transform: translateY(-7px); border-color: #ffffff; box-shadow: 0 12px 35px rgba(255, 215, 0, 0.4); }
+    .gallery-img-box { height: 195px; width: 100%; overflow: hidden; background: #1a0308; position: relative; }
     .gallery-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .gallery-card:hover .gallery-img-box img { transform: scale(1.08); }
+    .gallery-card:hover .gallery-img-box img { transform: scale(1.09); }
     .gallery-caption {
       background: linear-gradient(135deg, #42040d, #6e0013);
-      color: #ffe6ea; text-align: center; padding: 10px 6px; font-size: 0.82rem;
-      font-weight: 700; letter-spacing: 0.5px; border-top: 1px solid rgba(255, 215, 0, 0.25);
+      color: #ffe6ea; text-align: center; padding: 11px 10px; font-size: 0.86rem;
+      font-weight: 700; letter-spacing: 0.5px; border-top: 1px solid rgba(255, 215, 0, 0.3);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .gallery-like-btn {
+      background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold-pure); color: var(--gold-pure);
+      padding: 3px 10px; border-radius: 15px; font-size: 0.74rem; cursor: pointer; font-weight: 700;
+      transition: all 0.2s;
+    }
+    .gallery-like-btn:hover { background: var(--gold-pure); color: #000; }
+
+    /* ================= NEW: DANDIYA RAAS NIGHT SCHEDULE CARDS (FROM RITUALS) ================= */
+    .dandiya-nights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 22px;
+      margin-bottom: 50px;
     }
 
-    /* Why Famous Royal Container */
+    .night-schedule-card {
+      background: var(--surface-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 22px;
+      padding: 24px 22px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+    }
+
+    .night-schedule-card:hover {
+      transform: translateY(-6px);
+      border-color: #ffffff;
+      box-shadow: 0 12px 35px rgba(255, 215, 0, 0.38);
+    }
+
+    .night-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: linear-gradient(135deg, var(--crimson-pure), #4a000c);
+      border: 1px solid var(--gold-pure);
+      color: var(--gold-pure);
+      font-family: 'Rozha One', serif;
+      font-size: 0.78rem;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .night-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.3rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .night-venue {
+      color: var(--gold-amber);
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .dandiya-badge-box {
+      margin-bottom: 14px;
+      background: rgba(255, 111, 0, 0.16);
+      border: 1px dashed var(--gold-amber);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      color: #ffe2bd;
+    }
+
+    .card-qr-strip {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 215, 0, 0.35);
+      padding: 8px 12px; border-radius: 12px; margin-bottom: 14px;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .card-qr-strip:hover { background: rgba(255, 215, 0, 0.12); }
+    .card-qr-thumb { width: 40px; height: 40px; background: #fff; border-radius: 6px; padding: 2px; object-fit: contain; }
+    .card-qr-text { font-size: 0.74rem; color: #ffdca8; font-family: 'Rozha One', serif; line-height: 1.3; }
+
+    .card-action-dual-row { margin-top: auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px; }
+    .quick-arpan-btn {
+      background: rgba(255, 215, 0, 0.12); border: 1.5px solid var(--gold-pure); color: var(--gold-pure);
+      padding: 9px; border-radius: 12px; font-weight: 700; font-size: 0.78rem; cursor: pointer;
+    }
+    .quick-arpan-btn:hover { background: var(--gold-pure); color: #0b0204; }
+    .open-modal-btn {
+      background: rgba(255, 255, 255, 0.08); border: 1.5px solid var(--border-gold); color: #ffffff;
+      padding: 9px; border-radius: 12px; font-weight: 700; font-size: 0.78rem; cursor: pointer;
+    }
+    .open-modal-btn:hover { background: linear-gradient(135deg, #ffffff, #ffd700); color: #0a0204; }
+
+    /* ================= WHY FAMOUS ROYAL CONTAINER (ORIGINAL PRESERVED) ================= */
     .fame-container {
-      background: var(--surface-card); border: 1px solid var(--border-gold);
-      border-left: 5px solid var(--gold-amber); border-radius: 20px;
-      padding: 34px 30px; box-shadow: var(--border-glow); margin-bottom: 45px;
+      background: var(--surface-card); border: 1.5px solid var(--border-gold);
+      border-left: 5px solid var(--gold-amber); border-radius: 22px;
+      padding: 34px 30px; box-shadow: var(--border-glow); margin-bottom: 50px;
+      backdrop-filter: blur(12px);
     }
     .fame-heading {
-      font-family: 'Rozha One', serif; font-size: 1.6rem; color: var(--gold-pure);
+      font-family: 'Rozha One', serif; font-size: 1.65rem; color: var(--gold-pure);
       margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
     }
     .fame-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
@@ -129,33 +480,184 @@
     }
     .fame-list li strong { color: var(--text-bright); }
 
-    /* Dandiya Beat Machine */
+    /* ================= DANDIYA RAAS STUDIO + BEAT MACHINE (MERGED & ENHANCED) ================= */
     .machine-board {
-      background: var(--surface-card); border: 1px solid var(--border-gold);
-      border-radius: 20px; padding: 34px; text-align: center; box-shadow: var(--border-glow);
+      background: var(--surface-card); border: 1.5px solid var(--border-gold);
+      border-radius: 24px; padding: 36px 28px; text-align: center;
+      box-shadow: var(--border-glow); margin-bottom: 50px;
+      backdrop-filter: blur(14px);
     }
-    .machine-title { font-family: 'Rozha One', serif; font-size: 1.5rem; color: var(--gold-pure); margin-bottom: 6px; }
-    .machine-desc { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 22px; }
-    .pads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px; margin-bottom: 18px; }
+    .machine-title {
+      font-family: 'Cinzel Decorative', serif; font-size: clamp(1.5rem, 3vw, 2.1rem);
+      background: linear-gradient(135deg, #ffffff, #ffd700, #ff8800);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .machine-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; }
+
+    /* Animated Clashing Dandiya Sticks Stage */
+    .dandiya-sticks-stage {
+      height: 115px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .dandiya-stick {
+      width: 130px;
+      height: 15px;
+      border-radius: 10px;
+      background: repeating-linear-gradient(45deg, #ff0033, #ff0033 12px, #ffd700 12px, #ffd700 24px, #00e676 24px, #00e676 36px);
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.65);
+      transition: transform 0.16s ease;
+    }
+
+    .dandiya-stick.left-stick { transform: rotate(35deg); }
+    .dandiya-stick.right-stick { transform: rotate(-35deg); }
+
+    .dandiya-sticks-stage.clash .left-stick {
+      transform: translateX(34px) rotate(54deg) scale(1.1);
+      box-shadow: 0 0 30px #ffffff;
+    }
+    .dandiya-sticks-stage.clash .right-stick {
+      transform: translateX(-34px) rotate(-54deg) scale(1.1);
+      box-shadow: 0 0 30px #ffffff;
+    }
+
+    .pads-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 16px; margin-bottom: 18px;
+    }
     .pad-btn {
-      height: 120px; background: linear-gradient(145deg, #1f0408, #42060f);
-      border: 2px solid var(--border-gold); border-radius: 16px; color: var(--gold-pure);
+      height: 122px; background: linear-gradient(145deg, #1f0408, #42060f);
+      border: 2px solid var(--border-gold); border-radius: 18px; color: var(--gold-pure);
       font-weight: 700; cursor: pointer; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 8px; font-size: 0.92rem; transition: all 0.15s ease;
+      align-items: center; justify-content: center; gap: 8px; font-size: 0.92rem;
+      transition: all 0.15s ease; font-family: inherit;
     }
+    .pad-btn i { font-size: 1.7rem; }
+    .pad-btn:hover { border-color: #ffffff; transform: translateY(-3px); }
     .pad-btn:active, .pad-btn.pressed {
-      background: var(--gold-pure); color: #080103; transform: scale(0.96); box-shadow: 0 0 25px var(--gold-pure);
+      background: linear-gradient(135deg, #ffffff, var(--gold-pure));
+      color: #080103; transform: scale(0.96); box-shadow: 0 0 28px var(--gold-pure);
+    }
+
+    /* ================= NEW: INSTANT DANDIYA VIP ENTRY PASS GENERATOR ================= */
+    .pass-generator-section {
+      background: var(--surface-glass);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 26px;
+      padding: 36px 28px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--border-glow);
+      text-align: center;
+    }
+
+    .pass-form-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr auto;
+      gap: 12px;
+      max-width: 780px;
+      margin: 20px auto 26px;
+    }
+
+    .pass-input, .pass-select {
+      background: rgba(12, 2, 5, 0.9);
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .vip-pass-preview {
+      max-width: 560px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #3a040e 0%, #140105 60%, #4d2600 100%);
+      border: 2px solid var(--gold-pure);
+      border-radius: 20px;
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      text-align: left;
+      box-shadow: 0 0 35px rgba(255, 215, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vip-pass-left h4 {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--gold-pure);
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+
+    .vip-pass-right img {
+      width: 90px;
+      height: 90px;
+      background: #ffffff;
+      padding: 4px;
+      border-radius: 10px;
+      border: 2px solid var(--gold-pure);
+      object-fit: contain;
+    }
+
+    @media (max-width: 760px) {
+      .pass-form-row { grid-template-columns: 1fr; }
+      .vip-pass-preview { flex-direction: column; text-align: center; }
+    }
+
+    /* ================= MODAL BACKDROP ================= */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.90);
+      backdrop-filter: blur(10px); z-index: 1000000;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-box {
+      background: radial-gradient(circle, #2a050e 0%, #0d0104 100%);
+      border: 2px solid var(--gold-pure); border-radius: 24px;
+      max-width: 540px; width: 100%; padding: 28px 24px; position: relative;
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.45);
+      max-height: 92vh; overflow-y: auto; text-align: center;
+    }
+    .close-btn {
+      position: absolute; top: 14px; right: 20px; background: none; border: none;
+      color: #ffffff; font-size: 1.8rem; cursor: pointer;
+    }
+    .modal-qr-section {
+      margin-top: 16px; background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 215, 0, 0.45); border-radius: 16px;
+      padding: 14px; display: flex; flex-direction: column; align-items: center;
+    }
+    .modal-qr-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, #7a0013, #4a000c);
+      border: 1px solid #ffd700; color: #ffd700; padding: 4px 14px;
+      border-radius: 15px; font-size: 0.78rem; font-family: 'Rozha One', serif; margin-bottom: 10px;
+    }
+    .modal-qr-image {
+      width: 150px; height: 150px; object-fit: contain;
+      border-radius: 12px; border: 2px solid #ffd700; background: #ffffff; padding: 6px;
     }
 
     /* Footer */
     .sanctum-footer {
-      background: #190104; text-align: center; padding: 20px; font-family: 'Rozha One', serif;
-      color: var(--gold-pure); font-size: 1.1rem; letter-spacing: 1.5px; border-top: 1px solid var(--border-gold);
+      background: #140104; text-align: center; padding: 22px; font-family: 'Rozha One', serif;
+      color: var(--gold-pure); font-size: 1.05rem; letter-spacing: 1.5px;
+      border-top: 1px solid var(--border-gold); position: relative; z-index: 10;
     }
 
     @media (max-width: 850px) {
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .nav-links-wrap { display: none; }
     }
     @media (max-width: 520px) {
       .gallery-grid { grid-template-columns: 1fr; }
@@ -165,74 +667,229 @@
 </head>
 <body>
 
-  <canvas id="ambient-canvas"></canvas>
+  <!-- Top Golden Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
 
+  <!-- Ambient Sparkles, Cursor Trail & Flower Shower Canvases -->
+  <canvas id="ambient-canvas"></canvas>
+  <canvas id="cursor-canvas"></canvas>
+  <canvas id="flower-canvas"></canvas>
+
+  <!-- FULL-SCREEN ALL-DEVICES BACKGROUND IMAGE (me.jpg) -->
+  <div class="divine-bg-full" aria-hidden="true">
+    <div class="divine-bg-aura"></div>
+    <img src="me.jpg" alt="Dandiya Night Bihar Sharif" class="divine-bg-img">
+  </div>
+
+  <!-- Audio Element Saved as song 4.mp3 -->
+  <audio id="mahakali-audio" loop preload="auto">
+    <source src="song 4.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Sanctum Navbar -->
   <header class="sanctum-navbar">
     <a href="index.html" class="brand-group">
-      <span class="brand-title">&#x1F3F5; DURGA PUJA</span>
+      <svg class="brand-symbol" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#ffd700" stroke-width="2"/>
+        <path d="M50 15 L50 85 M30 35 Q50 20 70 35 M25 55 Q50 75 75 55" stroke="#ffd700" stroke-width="3" fill="none"/>
+        <circle cx="50" cy="50" r="7" fill="#ff4500"/>
+      </svg>
+      <div>
+        <span class="brand-title">DURGA PUJA</span>
+        <span class="brand-sub">Bihar Sharif Darshan</span>
+      </div>
     </a>
-    <ul class="nav-links-wrap">
+
+    <ul class="nav-links-wrap" id="nav-links">
       <li><a href="index.html" class="nav-btn"><i class="fa-solid fa-om"></i> Mahotsav</a></li>
       <li><a href="navdurga.html" class="nav-btn"><i class="fa-solid fa-hands-praying"></i> 9 Navdurga</a></li>
       <li><a href="rituals.html" class="nav-btn"><i class="fa-solid fa-calendar-days"></i> Rituals</a></li>
       <li><a href="pandals.html" class="nav-btn"><i class="fa-solid fa-monument"></i> Pandals</a></li>
       <li><a href="activities.html" class="nav-btn active"><i class="fa-solid fa-drum"></i> Dandiya Night</a></li>
     </ul>
+
+    <div class="nav-actions-right">
+      <button class="hanging-bell-btn" id="bell-btn" onclick="ringHangingBell()" title="Ring Divine Bell">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+
+      <button class="music-toggle-btn" id="music-toggle-btn" onclick="toggleAudio()" aria-label="Toggle Background Music">
+        <i class="fa-solid fa-volume-xmark" id="music-icon"></i>
+        <span id="music-text">Music OFF</span>
+        <div class="equalizer-bars">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+      </button>
+
+      <button class="mobile-menu-toggle" id="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars" id="menu-icon"></i>
+      </button>
+    </div>
   </header>
+
+  <!-- Traditional Marigold & Mango Leaf Toran Below Navbar -->
+  <div class="festive-toran-strip" aria-hidden="true">
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+  </div>
 
   <main class="content-container">
     <div class="header-box">
+      <div class="page-sacred-badge">
+        <i class="fa-solid fa-drum"></i> शारदीय नवरात्रि डांडिया रास एवं गरबा महोत्सव
+      </div>
       <span class="sacred-tag">&#x1FA80; NAVRATRI NIGHT FESTIVITY</span>
-      <h1 class="page-title">Dandiya Raas & Garba Night</h1>
+      <h1 class="page-title">Dandiya Raas &amp; Garba Night</h1>
       <div class="location-subtitle"><i class="fa-solid fa-location-dot"></i> Bihar Sharif, Nalanda</div>
+
+      <div class="collective-arpan-bar">
+        <button class="maha-pushpanjali-btn" onclick="celebrateDandiyaShower()">
+          🌺 Shower Festive Marigolds &amp; Strike Dandiya Sticks
+        </button>
+        <a href="#rhythm-studio" class="maha-pushpanjali-btn" style="background:linear-gradient(135deg,#ffffff,#ffd700); text-decoration:none;">
+          🥢 Jump to Live Dandiya Beat Studio
+        </a>
+      </div>
     </div>
 
-    <!-- 6 Photos Grid Format matching screenshot style -->
+    <!-- 6 Photos Grid Format matching screenshot style (All 6 Original Photos Preserved) -->
     <div class="gallery-grid">
       <div class="gallery-card">
         <div class="gallery-img-box">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn3JI4AvcNuau8nLm1Ybu6AMbGyusQ6HZ6rDIUWBuapw&s" alt="Clashing Dandiya Sticks">
         </div>
-        <div class="gallery-caption">Clashing Dandiya Sticks</div>
+        <div class="gallery-caption">
+          <span>Clashing Dandiya Sticks</span>
+          <button class="gallery-like-btn" onclick="cheerGallery(this)">🥢 Cheer (142)</button>
+        </div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-img-box">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUOZ47yN9q1JXUTWV-dzmTW1ucMsqQEsiaKsM4OsO7dg&s=10" alt="Garba Circle Celebration">
         </div>
-        <div class="gallery-caption">Garba Raas Circle</div>
+        <div class="gallery-caption">
+          <span>Garba Raas Circle</span>
+          <button class="gallery-like-btn" onclick="cheerGallery(this)">💃 Cheer (168)</button>
+        </div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-img-box">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHdvv7QPxmFohGjcUm-H5Csxto7dnRDiPl00JxcJQlA&s=10" alt="Night Lights & Arena">
         </div>
-        <div class="gallery-caption">Night Lights & Arena</div>
+        <div class="gallery-caption">
+          <span>Night Lights &amp; Arena</span>
+          <button class="gallery-like-btn" onclick="cheerGallery(this)">✨ Cheer (135)</button>
+        </div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-img-box">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEFU2BNk1xmHmR8Y0-0Qq5yT8o9dHXf1QH1g-TkUDyEA&s=10" alt="Maa Ambe Aarti Opening">
         </div>
-        <div class="gallery-caption">Maa Ambe Aarti Opening</div>
+        <div class="gallery-caption">
+          <span>Maa Ambe Aarti Opening</span>
+          <button class="gallery-like-btn" onclick="cheerGallery(this)">🪔 Cheer (194)</button>
+        </div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-img-box">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4DxrP9mMMFwsGORh4xG8Y5S9RwS7Jc6UHsIpQY2O8gw&s=10" alt="Chaniya Choli & Kurtas">
         </div>
-        <div class="gallery-caption">Chaniya Choli & Kurtas</div>
+        <div class="gallery-caption">
+          <span>Chaniya Choli &amp; Kurtas</span>
+          <button class="gallery-like-btn" onclick="cheerGallery(this)">👑 Cheer (156)</button>
+        </div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-img-box">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk1SBDlyZxYrxzFgsYWdQya4-UlQ6xsZ-Io2M-odJf9g&s=10" alt="Youth & Family Celebration">
         </div>
-        <div class="gallery-caption">Youth & Family Celebration</div>
+        <div class="gallery-caption">
+          <span>Youth &amp; Family Celebration</span>
+          <button class="gallery-like-btn" onclick="cheerGallery(this)">🎉 Cheer (210)</button>
+        </div>
       </div>
     </div>
 
-    <!-- Why Famous Card matching main file styling -->
+    <!-- ================= NEW: DANDIYA RAAS NIGHT SCHEDULE (MOVED FROM RITUALS.HTML) ================= -->
+    <section style="margin-bottom: 50px;">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="page-sacred-badge"><i class="fa-solid fa-calendar-check"></i> बिहार शरीफ डांडिया रास रात्रि कार्यक्रम</div>
+        <h2 class="section-title">Bihar Sharif Dandiya Raas Schedule</h2>
+      </div>
+
+      <div class="dandiya-nights-grid">
+        <div class="night-schedule-card">
+          <span class="night-badge">Maha Saptami &bull; Dandiya Night 1</span>
+          <h3 class="night-title">Opening Garba &amp; Maa Ambe Aarti</h3>
+          <div class="night-venue"><i class="fa-solid fa-location-dot"></i> Amber Chowk &amp; Community Grounds, Bihar Sharif</div>
+          <div class="dandiya-badge-box">&#x1FA80; <strong>Dandiya Night 1:</strong> Community grounds in Amber Chowk host vibrant Garba circles after evening Aarti.</div>
+          <div class="card-qr-strip" onclick="openDandiyaModal(0)">
+            <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+            <div class="card-qr-text">
+              <strong>डांडिया उत्सव सहयोग व महाआरती भेंट</strong><br>
+              <span>Click for Night Details &amp; QR</span>
+            </div>
+          </div>
+          <div class="card-action-dual-row">
+            <button class="quick-arpan-btn" onclick="celebrateDandiyaShower()">🌺 Pushpanjali</button>
+            <button class="open-modal-btn" onclick="openDandiyaModal(0)"><i class="fa-solid fa-eye"></i> Details &amp; QR</button>
+          </div>
+        </div>
+
+        <div class="night-schedule-card">
+          <span class="night-badge">Maha Ashtami &bull; Grand Raas Night</span>
+          <h3 class="night-title">Grand Dandiya Raas &amp; Stick Clash</h3>
+          <div class="night-venue"><i class="fa-solid fa-location-dot"></i> Tarachand Resort &amp; Ramchandrapur Arena</div>
+          <div class="dandiya-badge-box">&#x1FA80; <strong>Grand Dandiya Raas:</strong> Traditional chaniya cholis, laser lights, and clashing sticks late into the night.</div>
+          <div class="card-qr-strip" onclick="openDandiyaModal(1)">
+            <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+            <div class="card-qr-text">
+              <strong>महाष्टमी डांडिया रास व प्रसाद सेवा</strong><br>
+              <span>Click for Night Details &amp; QR</span>
+            </div>
+          </div>
+          <div class="card-action-dual-row">
+            <button class="quick-arpan-btn" onclick="celebrateDandiyaShower()">🌺 Pushpanjali</button>
+            <button class="open-modal-btn" onclick="openDandiyaModal(1)"><i class="fa-solid fa-eye"></i> Details &amp; QR</button>
+          </div>
+        </div>
+
+        <div class="night-schedule-card">
+          <span class="night-badge">Maha Navami &bull; Mega Finale</span>
+          <h3 class="night-title">Dhunuchi &amp; Folk Garba Finale</h3>
+          <div class="night-venue"><i class="fa-solid fa-location-dot"></i> Hospital Chowk &amp; Sohsarai Grounds</div>
+          <div class="dandiya-badge-box">&#x1FA80; <strong>Maha Navami Finale:</strong> High-energy Bhojpuri Devi Geet &amp; Gujarati Garba fusion with Best Costume Awards.</div>
+          <div class="card-qr-strip" onclick="openDandiyaModal(2)">
+            <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+            <div class="card-qr-text">
+              <strong>महानवमी समापन उत्सव व पुरस्कार सहयोग</strong><br>
+              <span>Click for Night Details &amp; QR</span>
+            </div>
+          </div>
+          <div class="card-action-dual-row">
+            <button class="quick-arpan-btn" onclick="celebrateDandiyaShower()">🌺 Pushpanjali</button>
+            <button class="open-modal-btn" onclick="openDandiyaModal(2)"><i class="fa-solid fa-eye"></i> Details &amp; QR</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Famous Card matching main file styling (All 8 Original Points Preserved) -->
     <section class="fame-container">
       <h2 class="fame-heading"><i class="fa-solid fa-star"></i> Why is Dandiya Night in Bihar Sharif famous?</h2>
       <ul class="fame-list">
@@ -241,16 +898,27 @@
         <li><strong>Energetic Folk Fusion Beats:</strong> The musical track features a fast-paced blend of traditional Gujarati Garba rhythms and beloved Bhojpuri Devi geet, keeping dancers on their feet until midnight.</li>
         <li><strong>Traditional Attire Splendor:</strong> Dancers don mirror-work Gujarati chaniya cholis, bandhani dupattas, and embroidered kurtas, turning the arena into a vivid spectacle of colors.</li>
         <li><strong>Sacred Opening Aarti:</strong> Every celebration begins with a community Maha Aarti dedicated to Maa Amba, seeking divine grace before sticks clash.</li>
-        <li><strong>Costume & Dance Competitions:</strong> Exciting contests are organized for Best Dancer, Best Traditional Attire, and Best Dandiya Pair with commemorative trophies.</li>
+        <li><strong>Costume &amp; Dance Competitions:</strong> Exciting contests are organized for Best Dancer, Best Traditional Attire, and Best Dandiya Pair with commemorative trophies.</li>
         <li><strong>Safe Family Environment:</strong> Dedicated family enclosures and volunteer teams ensure that women, students, and children dance in a secure, comfortable atmosphere.</li>
         <li><strong>All-Night Festive Street Stalls:</strong> Authentic food stalls surrounding the arena serve hot litti chokha, samosas, chaat, sweets, and masala chai.</li>
       </ul>
     </section>
 
-    <!-- Virtual Dandiya Beat Synthesizer -->
-    <section class="machine-board">
-      <h3 class="machine-title">Virtual Dandiya Rhythm Synthesizer</h3>
-      <p class="machine-desc">Click pads or tap keyboard keys <strong>[1], [2], [3], [4]</strong> to strike live synthesized Dandiya beats!</p>
+    <!-- Virtual Dandiya Beat Synthesizer + Animated Clashing Sticks Studio -->
+    <section class="machine-board" id="rhythm-studio">
+      <div class="page-sacred-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> लाइव डांडिया स्टिक एवं ढोल सिंथेसाइज़र</div>
+      <h3 class="machine-title">Virtual Dandiya Rhythm Synthesizer &amp; Raas Studio</h3>
+      <p class="machine-desc">Click pads or tap keyboard keys <strong>[1], [2], [3], [4]</strong> to strike live synthesized Dandiya beats &amp; watch the sticks clash!</p>
+
+      <!-- Animated Dandiya Sticks Stage -->
+      <div class="dandiya-sticks-stage" id="dandiya-stage">
+        <div class="dandiya-stick left-stick"></div>
+        <div class="dandiya-stick right-stick"></div>
+      </div>
+
+      <p style="color:var(--gold-pure); font-family:'Rozha One', serif; font-size:1rem; margin-bottom:16px;" id="rhythm-status-text">
+        🎶 Press [1], [2], [3], [4] or start the Auto 3-Step Garba Beat Loop!
+      </p>
 
       <div class="pads-grid">
         <button class="pad-btn" id="pad-1" onclick="playSound('stick1', this)">
@@ -269,15 +937,118 @@
           <i class="fa-solid fa-wind"></i>
           <span>Shankh Drone (4)</span>
         </button>
+        <button class="pad-btn" id="pad-auto" onclick="toggleAutoGarbaLoop(this)">
+          <i class="fa-solid fa-compact-disc"></i>
+          <span id="auto-loop-label">Auto Garba Loop</span>
+        </button>
       </div>
       <p style="color:var(--gold-amber); font-size:0.84rem;">Tip: Alternate keys [1] and [2] for a 3-step Garba rhythm!</p>
     </section>
+
+    <!-- ================= NEW: INSTANT DANDIYA VIP DIGITAL PASS GENERATOR ================= -->
+    <section class="pass-generator-section">
+      <div class="page-sacred-badge"><i class="fa-solid fa-ticket"></i> बिहार शरीफ डांडिया रास डिजिटल प्रवेश पास</div>
+      <h2 class="section-title">🎟️ Generate Your Dandiya Night VIP Pass</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; max-width:680px; margin:0 auto;">
+        Enter your name and group type below to customize your commemorative Bihar Sharif Dandiya Raas Entry Pass!
+      </p>
+
+      <form class="pass-form-row" onsubmit="generateDandiyaPass(event)">
+        <input type="text" id="pass-holder-name" class="pass-input" placeholder="Enter Your Name (e.g., Anjali / Rahul)" required maxlength="32">
+        <select id="pass-holder-type" class="pass-select">
+          <option value="💃 Royal Garba Solo Pass">💃 Royal Garba Solo Pass</option>
+          <option value="🥢 Best Dandiya Pair Pass">🥢 Best Dandiya Pair Pass</option>
+          <option value="👨‍👩‍👧‍👦 Family Enclosure VIP Pass">👨‍👩‍👧‍👦 Family Enclosure VIP Pass</option>
+          <option value="🎉 Youth Troupe Arena Pass">🎉 Youth Troupe Arena Pass</option>
+        </select>
+        <button type="submit" class="maha-pushpanjali-btn">✨ Create Pass</button>
+      </form>
+
+      <div class="vip-pass-preview" id="vip-pass-card">
+        <div class="vip-pass-left">
+          <span class="night-badge" id="pass-badge-type">💃 Royal Garba Solo Pass</span>
+          <h4 id="pass-display-name">Honored Guest &bull; Bihar Sharif</h4>
+          <p style="font-size:0.82rem; color:#ffe2bd; margin-bottom:4px;">
+            <i class="fa-solid fa-location-dot"></i> Venue: Tarachand Resort &amp; Amber Chowk Arena
+          </p>
+          <p style="font-size:0.78rem; color:var(--gold-pure);">
+            ⏰ Timing: 7:00 PM Onwards &bull; Dress Code: Traditional Ethnic
+          </p>
+        </div>
+        <div class="vip-pass-right">
+          <img src="QR_1792189397.png" alt="Pass QR Code">
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="sanctum-footer">Dancing feet, joyful hearts, and endless memories. ✨</footer>
+  <!-- Modal Shell for Dandiya Night Details & QR -->
+  <div class="modal-backdrop" id="modal-container" onclick="handleBackdropClick(event)">
+    <div class="modal-box">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <footer class="sanctum-footer">Dancing feet, joyful hearts, and endless memories &bull; Bihar Sharif ✨</footer>
 
   <script>
-    // Audio Synthesizer
+    // ================= SCROLL PROGRESS BAR =================
+    window.addEventListener("scroll", () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById("scroll-progress").style.width = pct + "%";
+    }, { passive: true });
+
+    // ================= BACKGROUND MUSIC (song 4.mp3) =================
+    const bgAudio = document.getElementById("mahakali-audio");
+    const musicBtn = document.getElementById("music-toggle-btn");
+    const musicIcon = document.getElementById("music-icon");
+    const musicText = document.getElementById("music-text");
+
+    function updateAudioUI(isPlaying) {
+      if (isPlaying) {
+        musicBtn.classList.add("playing");
+        musicIcon.className = "fa-solid fa-volume-high";
+        musicText.innerText = "Music ON";
+      } else {
+        musicBtn.classList.remove("playing");
+        musicIcon.className = "fa-solid fa-volume-xmark";
+        musicText.innerText = "Music OFF";
+      }
+    }
+
+    function toggleAudio() {
+      if (!bgAudio) return;
+      if (bgAudio.paused) {
+        bgAudio.play().then(() => updateAudioUI(true)).catch(() => {});
+      } else {
+        bgAudio.pause();
+        updateAudioUI(false);
+      }
+    }
+
+    bgAudio.addEventListener("play", () => updateAudioUI(true));
+    bgAudio.addEventListener("pause", () => updateAudioUI(false));
+
+    function unlockAudioOnGesture() {
+      if (bgAudio && bgAudio.paused) {
+        bgAudio.play().then(() => updateAudioUI(true)).catch(() => {});
+      }
+    }
+    document.addEventListener("click", unlockAudioOnGesture, { once: true });
+    document.addEventListener("touchstart", unlockAudioOnGesture, { once: true });
+
+    // ================= MOBILE NAVIGATION =================
+    function toggleMobileNav() {
+      const nav = document.getElementById("nav-links");
+      const icon = document.getElementById("menu-icon");
+      nav.classList.toggle("open");
+      icon.className = nav.classList.contains("open") ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+    }
+
+    // ================= AUDIO SYNTHESIZER & CLASHING STICKS =================
     let audioCtx = null;
     function getAudio() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -285,11 +1056,22 @@
       return audioCtx;
     }
 
+    function animateStickClash() {
+      const stage = document.getElementById("dandiya-stage");
+      if (!stage) return;
+      stage.classList.remove("clash");
+      void stage.offsetWidth;
+      stage.classList.add("clash");
+      setTimeout(() => stage.classList.remove("clash"), 150);
+    }
+
     function playSound(type, btn) {
       if (btn) {
         btn.classList.add("pressed");
         setTimeout(() => btn.classList.remove("pressed"), 150);
       }
+      animateStickClash();
+
       const ctx = getAudio();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -301,6 +1083,7 @@
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
         osc.connect(gain); gain.connect(ctx.destination);
         osc.start(); osc.stop(ctx.currentTime + 0.12);
+        document.getElementById("rhythm-status-text").innerText = "🥢 Tak-Dhina-Dhin! Crisp Dandiya Stick Clack!";
       } else if (type === 'bass') {
         osc.type = "sine";
         osc.frequency.setValueAtTime(110, ctx.currentTime);
@@ -308,6 +1091,7 @@
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.32);
         osc.connect(gain); gain.connect(ctx.destination);
         osc.start(); osc.stop(ctx.currentTime + 0.32);
+        document.getElementById("rhythm-status-text").innerText = "🥁 Dhol Bass Boom! Deep Garba heartbeat!";
       } else if (type === 'bell') {
         osc.type = "sine";
         osc.frequency.setValueAtTime(1400, ctx.currentTime);
@@ -315,6 +1099,7 @@
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
         osc.connect(gain); gain.connect(ctx.destination);
         osc.start(); osc.stop(ctx.currentTime + 0.35);
+        document.getElementById("rhythm-status-text").innerText = "🔔 Kanshi Bell Chime!";
       } else if (type === 'shankh') {
         osc.type = "sawtooth";
         osc.frequency.setValueAtTime(260, ctx.currentTime);
@@ -322,26 +1107,173 @@
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
         osc.connect(gain); gain.connect(ctx.destination);
         osc.start(); osc.stop(ctx.currentTime + 1.2);
+        document.getElementById("rhythm-status-text").innerText = "🐚 Auspicious Shankh Drone invoked!";
+      }
+    }
+
+    function ringHangingBell() {
+      const bell = document.getElementById("bell-btn");
+      bell.classList.remove("swing");
+      void bell.offsetWidth;
+      bell.classList.add("swing");
+      playSound('bell');
+    }
+
+    let autoGarbaTimer = null;
+    function toggleAutoGarbaLoop(btn) {
+      const label = document.getElementById("auto-loop-label");
+      if (autoGarbaTimer) {
+        clearInterval(autoGarbaTimer);
+        autoGarbaTimer = null;
+        btn.classList.remove("pressed");
+        label.innerText = "Auto Garba Loop";
+        document.getElementById("rhythm-status-text").innerText = "🙏 Auto Garba rhythm loop paused.";
+      } else {
+        btn.classList.add("pressed");
+        label.innerText = "Stop Garba Loop";
+        let step = 0;
+        const pattern = ['bass', 'stick1', 'stick1', 'bell'];
+        autoGarbaTimer = setInterval(() => {
+          const type = pattern[step % pattern.length];
+          playSound(type, document.getElementById(`pad-${(step % 3) + 1}`));
+          step++;
+        }, 380);
       }
     }
 
     window.addEventListener("keydown", (e) => {
+      if (e.target.tagName === "INPUT") return;
       if (e.key === "1") playSound('stick1', document.getElementById("pad-1"));
       if (e.key === "2") playSound('bass', document.getElementById("pad-2"));
       if (e.key === "3") playSound('bell', document.getElementById("pad-3"));
       if (e.key === "4") playSound('shankh', document.getElementById("pad-4"));
     });
 
-    // Ambient floating sparks
+    // ================= GALLERY CHEER & VIP PASS GENERATOR =================
+    function cheerGallery(btn) {
+      const match = btn.innerText.match(/\((\d+)\)/);
+      if (match) {
+        const next = parseInt(match[1], 10) + 1;
+        btn.innerText = btn.innerText.replace(/\(\d+\)/, `(${next})`);
+      }
+      celebrateDandiyaShower();
+    }
+
+    function generateDandiyaPass(e) {
+      e.preventDefault();
+      const name = document.getElementById("pass-holder-name").value.trim();
+      const type = document.getElementById("pass-holder-type").value;
+      document.getElementById("pass-display-name").innerText = `${name} • Bihar Sharif`;
+      document.getElementById("pass-badge-type").innerText = type;
+      celebrateDandiyaShower();
+    }
+
+    // ================= DANDIYA MODAL WITH QR =================
+    const dandiyaNightsData = [
+      {
+        badge: "Maha Saptami • Dandiya Night 1",
+        title: "Opening Garba & Maa Ambe Aarti",
+        venue: "Amber Chowk & Community Grounds, Bihar Sharif",
+        desc: "Begins at 7:00 PM with 108-lamp Maha Aarti of Maa Jagadamba followed by traditional 3-step Gujarati Garba circles and family Raas."
+      },
+      {
+        badge: "Maha Ashtami • Grand Raas Night",
+        title: "Grand Dandiya Raas & Stick Clash",
+        venue: "Tarachand Resort & Ramchandrapur Arena",
+        desc: "The biggest night of Navratri featuring concert sound systems, laser lighting, mirror-work Chaniya Cholis, and Best Dandiya Pair awards."
+      },
+      {
+        badge: "Maha Navami • Mega Finale",
+        title: "Dhunuchi & Folk Garba Finale",
+        venue: "Hospital Chowk & Sohsarai Grounds",
+        desc: "Grand culmination combining Bengali Dhunuchi dance, Bhojpuri Devi Geet, and energetic Dandiya Raas until midnight."
+      }
+    ];
+
+    function openDandiyaModal(idx) {
+      const d = dandiyaNightsData[idx];
+      document.getElementById("modal-body").innerHTML = `
+        <div style="font-size:2.8rem; margin-bottom:6px;">🥢</div>
+        <span class="night-badge">${d.badge}</span>
+        <h2 style="font-family:'Cinzel Decorative'; color:#ffffff; font-size:1.5rem; margin:6px 0;">${d.title}</h2>
+        <p style="color:var(--gold-amber); font-size:0.88rem; font-weight:700; margin-bottom:12px;">📍 ${d.venue}</p>
+        <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.6; background:rgba(255,255,255,0.05); padding:12px; border-radius:12px;">
+          ${d.desc}
+        </p>
+        <div class="modal-qr-section">
+          <div class="modal-qr-badge">
+            <i class="fa-solid fa-qrcode"></i> ${d.title} - उत्सव सहयोग एवं पास सेवा
+          </div>
+          <img src="QR_1792189397.png" alt="Devotional QR Code" class="modal-qr-image">
+          <div style="font-size:0.75rem; color:#eed5be; margin-top:8px;">Scan with any UPI app for festival contribution &amp; seva</div>
+        </div>
+      `;
+      document.getElementById("modal-container").classList.add("active");
+      playSound('bell');
+    }
+
+    function closeModal() {
+      document.getElementById("modal-container").classList.remove("active");
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === "modal-container") closeModal();
+    }
+
+    // ================= FLOWER SHOWER, AMBIENT SPARKS & CURSOR TRAIL =================
+    const fCanvas = document.getElementById("flower-canvas");
+    const fCtx = fCanvas.getContext("2d");
     const canvas = document.getElementById("ambient-canvas");
     const cCtx = canvas.getContext("2d");
-    let w = canvas.width = window.innerWidth;
-    let h = canvas.height = window.innerHeight;
-    window.addEventListener("resize", () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
-    const embers = Array.from({ length: 40 }, () => ({
+    const curCanvas = document.getElementById("cursor-canvas");
+    const curCtx = curCanvas.getContext("2d");
+
+    let w = canvas.width = fCanvas.width = curCanvas.width = window.innerWidth;
+    let h = canvas.height = fCanvas.height = curCanvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      w = canvas.width = fCanvas.width = curCanvas.width = window.innerWidth;
+      h = canvas.height = fCanvas.height = curCanvas.height = window.innerHeight;
+    });
+
+    let petals = [];
+    function celebrateDandiyaShower() {
+      playSound('stick1');
+      for (let i = 0; i < 45; i++) {
+        petals.push({
+          x: Math.random() * w,
+          y: -20 - Math.random() * 50,
+          r: Math.random() * 7 + 5,
+          vy: Math.random() * 2.8 + 2,
+          vx: (Math.random() - 0.5) * 2,
+          color: Math.random() > 0.5 ? "#ffd700" : "#ff1744"
+        });
+      }
+    }
+
+    const embers = Array.from({ length: 42 }, () => ({
       x: Math.random() * w, y: Math.random() * h, r: Math.random() * 2.2 + 0.8,
       vy: -(Math.random() * 0.7 + 0.3), vx: (Math.random() - 0.5) * 0.4, alpha: Math.random() * 0.7 + 0.3
     }));
+
+    let trailSparks = [];
+    function addSparks(x, y) {
+      for (let i = 0; i < 3; i++) {
+        trailSparks.push({
+          x: x + (Math.random() - 0.5) * 12,
+          y: y + (Math.random() - 0.5) * 12,
+          r: Math.random() * 2.5 + 1.2,
+          alpha: 1,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: Math.random() * -1.5 - 0.5
+        });
+      }
+    }
+    window.addEventListener("mousemove", (e) => addSparks(e.clientX, e.clientY));
+    window.addEventListener("touchmove", (e) => {
+      if (e.touches[0]) addSparks(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
     function loop() {
       cCtx.clearRect(0, 0, w, h);
       embers.forEach(p => {
@@ -350,6 +1282,26 @@
         cCtx.fillStyle = `rgba(255, 205, 40, ${p.alpha})`;
         cCtx.beginPath(); cCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); cCtx.fill();
       });
+
+      fCtx.clearRect(0, 0, w, h);
+      for (let i = petals.length - 1; i >= 0; i--) {
+        const pt = petals[i];
+        pt.y += pt.vy; pt.x += pt.vx;
+        fCtx.fillStyle = pt.color;
+        fCtx.beginPath(); fCtx.arc(pt.x, pt.y, pt.r, 0, Math.PI * 2); fCtx.fill();
+        if (pt.y > h + 30) petals.splice(i, 1);
+      }
+
+      curCtx.clearRect(0, 0, w, h);
+      for (let i = trailSparks.length - 1; i >= 0; i--) {
+        const s = trailSparks[i];
+        s.x += s.vx; s.y += s.vy; s.alpha -= 0.035;
+        if (s.alpha <= 0) { trailSparks.splice(i, 1); continue; }
+        curCtx.beginPath(); curCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        curCtx.fillStyle = `rgba(255, 215, 0, ${s.alpha})`;
+        curCtx.fill();
+      }
+
       requestAnimationFrame(loop);
     }
     loop();

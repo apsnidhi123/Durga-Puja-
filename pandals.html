@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>&#x1F6A9; Bihar Sharif Pandal Darshan & Murti Heritage &bull; Nalanda</title>
+  <title>&#x1F6A9; Bihar Sharif Pandal Darshan &amp; Murti Heritage &bull; Nalanda</title>
   
+  <!-- External Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rozha+One&family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -14,249 +15,1156 @@
     :root {
       --bg-dark: #0a0405;
       --gold-pure: #ffd700;
+      --gold-deep: #c59b27;
       --gold-amber: #ffaa00;
       --crimson-pure: #850014;
       --crimson-glow: #e60026;
       --text-bright: #fffdf9;
       --text-muted: #e2cbb2;
-      --surface-card: rgba(35, 8, 15, 0.94);
-      --border-gold: rgba(255, 215, 0, 0.35);
-      --border-glow: 0 0 25px rgba(255, 215, 0, 0.25);
+      --surface-card: rgba(32, 6, 14, 0.88);
+      --surface-glass: rgba(22, 4, 10, 0.85);
+      --border-gold: rgba(255, 215, 0, 0.38);
+      --border-glow: 0 0 25px rgba(255, 215, 0, 0.28);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-    body { background: var(--bg-dark); color: var(--text-bright); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-bright);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
 
-    /* Sticky Navbar */
+    /* ================= TOP GOLDEN SCROLL PROGRESS BAR ================= */
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3.5px;
+      width: 0%;
+      background: linear-gradient(90deg, #ff5100, #ffd700, #ffffff, #ffd700);
+      box-shadow: 0 0 12px #ffd700;
+      z-index: 1000005;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Ambient Sparks, Flower Shower & Cursor Trails */
+    #ambient-canvas, #cursor-canvas, #flower-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    #ambient-canvas { z-index: 2; }
+    #cursor-canvas { z-index: 100001; }
+    #flower-canvas { z-index: 100002; }
+
+    /* ================= FULL-SCREEN ALL-DEVICES BACKGROUND IMAGE (m3.jpg) ================= */
+    .divine-bg-full {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .divine-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.44;
+      filter: contrast(122%) saturate(135%) brightness(1.06);
+      mix-blend-mode: screen;
+      -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 35%, rgba(0,0,0,0.98) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.2) 100%),
+                          linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 88%, rgba(0,0,0,0.15) 100%);
+      mask-image: radial-gradient(ellipse 95% 90% at 50% 35%, rgba(0,0,0,0.98) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.2) 100%),
+                  linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 88%, rgba(0,0,0,0.15) 100%);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+      animation: subtleBgBreath 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes subtleBgBreath {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.04); }
+    }
+
+    .divine-bg-aura {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(92vw, 760px);
+      height: min(92vw, 760px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 180, 0, 0.26) 0%, rgba(133, 0, 20, 0.14) 60%, transparent 75%);
+      filter: blur(75px);
+      pointer-events: none;
+      animation: divineRotate 25s linear infinite;
+    }
+
+    @keyframes divineRotate {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @media (max-width: 900px) {
+      .divine-bg-full { width: 100vw; height: 100vh; }
+      .divine-bg-img { object-position: center top; opacity: 0.40; }
+    }
+
+    /* ================= STICKY SANCTUM NAVBAR ================= */
     .sanctum-navbar {
-      position: fixed; top: 0; left: 0; width: 100%; height: 78px;
+      position: fixed; top: 0; left: 0; width: 100%; height: 75px;
       background: rgba(10, 2, 4, 0.96); backdrop-filter: blur(14px);
       border-bottom: 2px solid var(--border-gold);
-      display: flex; justify-content: space-between; align-items: center; padding: 0 5%; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 4%; z-index: 99999; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
     }
-    .brand-group { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+    /* Traditional Marigold & Mango Leaf Toran Below Navbar */
+    .festive-toran-strip {
+      position: fixed;
+      top: 75px;
+      left: 0;
+      width: 100%;
+      height: 26px;
+      z-index: 99990;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-around;
+      overflow: hidden;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7));
+    }
+
+    .toran-Loop {
+      flex: 1;
+      min-width: 90px;
+      height: 22px;
+      border-bottom: 4px dotted #ff9900;
+      border-radius: 0 0 50% 50%;
+      background: radial-gradient(circle at 50% 0%, rgba(46, 125, 50, 0.55) 0%, transparent 75%);
+      position: relative;
+      animation: gentleSway 3.5s ease-in-out infinite alternate;
+    }
+
+    .toran-Loop::after {
+      content: '🏵️';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.78rem;
+    }
+
+    @keyframes gentleSway {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(2.5px); }
+    }
+
+    .brand-group { display: flex; align-items: center; gap: 10px; text-decoration: none; z-index: 100000; }
+    .brand-symbol {
+      width: 42px; height: 42px;
+      filter: drop-shadow(0 0 10px var(--gold-amber));
+      animation: divinePulse 3s infinite alternate;
+    }
+    @keyframes divinePulse {
+      0% { transform: scale(0.96); filter: drop-shadow(0 0 6px var(--gold-amber)); }
+      100% { transform: scale(1.05); filter: drop-shadow(0 0 18px var(--gold-pure)); }
+    }
+
     .brand-title {
-      font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; font-weight: 900;
+      font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; font-weight: 900;
       background: linear-gradient(135deg, #fff, var(--gold-pure), var(--gold-amber));
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .nav-links-wrap { display: flex; gap: 10px; list-style: none; }
+    .brand-sub { display: block; font-family: 'Rozha One', serif; font-size: 0.65rem; color: var(--gold-deep); letter-spacing: 2px; text-transform: uppercase; }
+
+    .nav-links-wrap { display: flex; gap: 6px; list-style: none; align-items: center; }
     .nav-btn {
-      color: var(--text-muted); font-size: 0.85rem; font-weight: 600; padding: 8px 16px;
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600; padding: 7px 14px;
       border-radius: 30px; text-decoration: none; transition: 0.3s;
+      display: flex; align-items: center; gap: 6px;
     }
-    .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.08); }
-    .nav-btn.active { background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber)); color: #080103; font-weight: 700; }
+    .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.12); }
+    .nav-btn.active { background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber)); color: #080103; font-weight: 700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.45); }
 
-    /* Page Header */
-    .page-header { text-align: center; padding: 125px 6% 35px; max-width: 1050px; margin: 0 auto; }
-    .sacred-tag { font-family: 'Rozha One', serif; color: var(--gold-amber); letter-spacing: 2px; font-size: 0.95rem; }
-    .page-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 4.2vw, 3.2rem); margin: 8px 0 14px; text-shadow: 0 0 25px rgba(255, 215, 0, 0.35); }
-    .page-desc { color: var(--text-muted); font-size: clamp(0.92rem, 1.3vw, 1.05rem); }
+    .nav-actions-right { display: flex; align-items: center; gap: 10px; z-index: 100000; }
 
-    /* City Overview Banner */
+    .hanging-bell-btn {
+      border: none; color: var(--gold-pure); font-size: 1.35rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease; transform-origin: top center;
+    }
+    .hanging-bell-btn:hover { background: rgba(255, 215, 0, 0.25); box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
+    .hanging-bell-btn.swing { animation: bellSwing 0.7s ease-in-out; }
+    @keyframes bellSwing {
+      0% { transform: rotate(0deg); }
+      20% { transform: rotate(18deg); }
+      40% { transform: rotate(-15deg); }
+      60% { transform: rotate(10deg); }
+      80% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .music-toggle-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(133, 0, 20, 0.45); color: var(--gold-pure);
+      border: 1.5px solid var(--gold-pure); border-radius: 30px;
+      padding: 7px 16px; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 0 14px rgba(255, 215, 0, 0.25);
+      transition: all 0.3s ease; font-family: inherit;
+    }
+    .music-toggle-btn:hover { background: var(--gold-pure); color: #0c0204; transform: translateY(-2px); }
+    .music-toggle-btn.playing {
+      background: linear-gradient(135deg, #ffd700, #ff9900);
+      color: #0a0204; border-color: #ffd700;
+    }
+
+    .equalizer-bars { display: flex; align-items: flex-end; gap: 2.5px; height: 14px; }
+    .eq-bar { width: 2.5px; height: 4px; background: currentColor; border-radius: 2px; transition: height 0.2s ease; }
+    .music-toggle-btn.playing .eq-bar:nth-child(1) { animation: soundWave 0.7s infinite alternate ease-in-out; }
+    .music-toggle-btn.playing .eq-bar:nth-child(2) { animation: soundWave 0.9s infinite alternate 0.15s ease-in-out; }
+    .music-toggle-btn.playing .eq-bar:nth-child(3) { animation: soundWave 0.6s infinite alternate 0.3s ease-in-out; }
+    @keyframes soundWave { from { height: 3px; } to { height: 14px; } }
+
+    .mobile-menu-toggle {
+      display: none; background: rgba(255, 215, 0, 0.12); border: 1.5px solid #ffd700;
+      color: #ffd700; width: 40px; height: 40px; border-radius: 10px;
+      font-size: 1.2rem; cursor: pointer; align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .mobile-menu-toggle { display: flex; }
+      .nav-links-wrap {
+        position: fixed; top: 75px; left: 0; width: 100%;
+        background: rgba(14, 2, 6, 0.98); backdrop-filter: blur(16px);
+        border-bottom: 2px solid #ffd700; flex-direction: column;
+        padding: 20px 24px 30px; gap: 12px;
+        transform: translateY(-160%); opacity: 0; pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.35s ease; z-index: 99998;
+      }
+      .nav-links-wrap.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .nav-btn { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.95rem; border: 1px solid rgba(255, 215, 0, 0.25); }
+    }
+
+    /* ================= PAGE HEADER ================= */
+    .page-header {
+      text-align: center;
+      padding: 135px 6% 30px;
+      max-width: 1080px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .page-sacred-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(133, 0, 20, 0.6);
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      color: var(--gold-pure);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.84rem;
+      font-family: 'Rozha One', serif;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+    }
+
+    .sacred-tag { display: block; font-family: 'Rozha One', serif; color: var(--gold-amber); letter-spacing: 2px; font-size: 0.95rem; }
+
+    .page-title, .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2rem, 4.3vw, 3.3rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 10%, #ffd700 48%, #ff7700 88%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 8px 0 14px;
+      filter: drop-shadow(0 0 22px rgba(255, 215, 0, 0.35));
+    }
+
+    .section-title { font-size: clamp(1.6rem, 3.4vw, 2.3rem); text-align: center; }
+
+    .page-desc { color: #f7ede2; font-size: clamp(0.94rem, 1.3vw, 1.08rem); text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
+
+    /* ================= CITY OVERVIEW BANNER (PRESERVED & UPGRADED) ================= */
     .city-overview-card {
-      max-width: 1300px; margin: 0 auto 40px; padding: 28px 34px;
-      background: linear-gradient(135deg, rgba(74, 5, 15, 0.75), rgba(20, 3, 6, 0.92));
-      border: 1px solid var(--border-gold); border-radius: 20px;
-      display: grid; grid-template-columns: 2fr 1fr; gap: 25px; align-items: center;
+      position: relative;
+      z-index: 10;
+      max-width: 1300px;
+      margin: 0 auto 30px;
+      padding: 28px 34px;
+      background: linear-gradient(135deg, rgba(74, 5, 15, 0.82), rgba(20, 3, 6, 0.92));
+      border: 1.5px solid var(--border-gold);
+      border-radius: 24px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 25px;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--border-glow);
     }
-    .overview-heading { font-family: 'Rozha One', serif; font-size: 1.5rem; color: var(--gold-pure); margin-bottom: 10px; }
-    .overview-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+    .overview-heading { font-family: 'Rozha One', serif; font-size: 1.55rem; color: var(--gold-pure); margin-bottom: 10px; }
+    .overview-text { font-size: 0.91rem; color: var(--text-muted); line-height: 1.7; }
     .city-stat-box {
-      border: 2px solid var(--gold-pure); border-radius: 16px; padding: 20px;
-      background: rgba(0, 0, 0, 0.5); text-align: center;
+      border: 2px solid var(--gold-pure);
+      border-radius: 18px;
+      padding: 22px;
+      background: rgba(0, 0, 0, 0.55);
+      text-align: center;
+      box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.18);
     }
 
-    /* Filter Chips */
-    .filter-shelf { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 40px; padding: 0 4%; }
+    /* ================= NEW: PARIKRAMA DARSHAN PROGRESS PASSPORT BAR ================= */
+    .parikrama-passport-bar {
+      position: relative;
+      z-index: 10;
+      max-width: 1300px;
+      margin: 0 auto 30px;
+      padding: 18px 26px;
+      background: rgba(24, 4, 10, 0.88);
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      border-radius: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      backdrop-filter: blur(12px);
+    }
+
+    .passport-progress-track {
+      flex: 1;
+      min-width: 220px;
+      height: 13px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+    }
+
+    .passport-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff6a00, #ffd700, #ffffff);
+      box-shadow: 0 0 14px #ffd700;
+      transition: width 0.4s ease;
+    }
+
+    .maha-pushpanjali-btn {
+      background: linear-gradient(135deg, #ffd700, #ff7700);
+      border: 1.5px solid #ffffff;
+      color: #0b0204;
+      padding: 9px 20px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-family: 'Rozha One', serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 16px rgba(255, 170, 0, 0.45);
+      transition: all 0.3s ease;
+    }
+    .maha-pushpanjali-btn:hover { transform: scale(1.04); box-shadow: 0 0 24px rgba(255, 215, 0, 0.85); }
+
+    /* ================= FILTER CHIPS ================= */
+    .filter-shelf {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 38px;
+      padding: 0 4%;
+    }
     .filter-btn {
-      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-gold);
-      color: var(--text-muted); padding: 8px 18px; border-radius: 25px; cursor: pointer; transition: 0.3s; font-size: 0.85rem; font-weight: 600;
+      background: rgba(28, 5, 12, 0.85);
+      border: 1px solid var(--border-gold);
+      color: var(--text-muted);
+      padding: 9px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.84rem;
+      font-weight: 600;
+      font-family: inherit;
     }
-    .filter-btn.active, .filter-btn:hover { background: var(--gold-pure); color: #0b0204; border-color: var(--gold-pure); font-weight: 700; }
+    .filter-btn.active, .filter-btn:hover {
+      background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber));
+      color: #0b0204;
+      border-color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.5);
+      transform: translateY(-2px);
+    }
 
-    /* Pandals Grid */
+    /* ================= PANDALS GRID & CARDS ================= */
     .pandals-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 32px; max-width: 1350px; margin: 0 auto; padding: 0 5% 90px;
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 0 5% 75px;
     }
 
     .pandal-card {
-      background: var(--surface-card); border: 1px solid var(--border-gold);
-      border-radius: 22px; overflow: hidden; transition: all 0.35s ease; position: relative;
-      display: flex; flex-direction: column;
+      background: var(--surface-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.35s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6);
     }
-    .pandal-card:hover { transform: translateY(-7px); border-color: var(--gold-pure); box-shadow: 0 12px 35px rgba(255, 170, 0, 0.3); }
+    .pandal-card:hover {
+      transform: translateY(-8px);
+      border-color: #ffffff;
+      box-shadow: 0 14px 40px rgba(255, 170, 0, 0.38), 0 0 22px rgba(255, 255, 255, 0.2);
+    }
 
-    .pandal-media-box { height: 250px; position: relative; overflow: hidden; }
-    .pandal-media-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-    .pandal-card:hover .pandal-media-box img { transform: scale(1.08); }
+    /* Clickable Image Box that Opens Google Maps Location */
+    .pandal-media-box {
+      height: 255px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+    }
+    .pandal-media-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .pandal-card:hover .pandal-media-box img {
+      transform: scale(1.09);
+    }
+
+    .established-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: linear-gradient(135deg, var(--crimson-pure), #3d0009);
+      border: 1px solid #ffffff;
+      color: #ffffff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: 'Rozha One', serif;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
 
     .location-landmark-badge {
-      position: absolute; top: 14px; right: 14px; background: rgba(10, 2, 4, 0.9);
-      border: 1px solid var(--gold-pure); color: var(--gold-pure); padding: 4px 12px;
-      border-radius: 20px; font-size: 0.72rem; font-weight: 700; backdrop-filter: blur(8px);
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(10, 2, 4, 0.9);
+      border: 1px solid var(--gold-pure);
+      color: var(--gold-pure);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Hover / Persistent Map Pin Hint on Image */
+    .image-map-click-banner {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(8, 1, 3, 0.95) 0%, rgba(133, 0, 20, 0.82) 70%, transparent 100%);
+      color: #ffd700;
+      padding: 18px 14px 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s ease;
+    }
+    .pandal-media-box:hover .image-map-click-banner {
+      color: #ffffff;
+      background: linear-gradient(to top, rgba(133, 0, 20, 0.96) 0%, rgba(255, 111, 0, 0.85) 100%);
     }
 
     .pandal-card-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
-    .pandal-name { font-family: 'Rozha One', serif; font-size: 1.35rem; color: var(--gold-pure); margin-bottom: 4px; }
-    .pandal-landmark { color: var(--gold-amber); font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
+    .pandal-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.32rem;
+      color: #ffffff;
+      margin-bottom: 5px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+
+    .pandal-landmark {
+      color: var(--gold-amber);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .pandal-landmark:hover { color: #ffffff; text-decoration: underline; }
 
     .fame-reason-box {
-      background: rgba(0, 0, 0, 0.45); border-left: 3px solid var(--crimson-glow);
-      padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem;
-      color: #ffe0b3; margin-bottom: 14px; line-height: 1.55;
+      background: rgba(0, 0, 0, 0.5);
+      border-left: 3px solid var(--gold-pure);
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.84rem;
+      color: #ffe0b3;
+      margin-bottom: 12px;
+      line-height: 1.55;
     }
 
-    .murti-detail-text { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
-    
-    .tags-cloud { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; margin-bottom: 18px; }
-    .feature-tag {
-      font-size: 0.72rem; padding: 3px 10px; border-radius: 12px;
-      background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.25); color: #ffe5c4;
+    .murti-detail-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
     }
+
+    /* Additional Details Grid inside Card */
+    .pandal-extra-specs {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 215, 0, 0.22);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      font-size: 0.79rem;
+      color: #f3dfd1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .pandal-extra-specs strong { color: var(--gold-pure); }
+
+    .tags-cloud { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .feature-tag {
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      color: #ffe5c4;
+    }
+
+    /* QR Offering Strip inside Card */
+    .card-qr-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 215, 0, 0.35);
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-top: auto;
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card-qr-strip:hover { background: rgba(255, 215, 0, 0.12); }
+    .card-qr-thumb { width: 40px; height: 40px; background: #ffffff; border-radius: 6px; padding: 2px; object-fit: contain; }
+    .card-qr-text { font-size: 0.74rem; color: #ffdca8; font-family: 'Rozha One', serif; line-height: 1.3; }
+
+    /* Action Buttons Row */
+    .pandal-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .map-direct-btn {
+      background: rgba(255, 215, 0, 0.14);
+      border: 1.5px solid var(--gold-pure);
+      color: var(--gold-pure);
+      padding: 9px 10px;
+      border-radius: 11px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: 0.25s;
+    }
+    .map-direct-btn:hover { background: var(--gold-pure); color: #080103; }
+
+    .modal-info-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid var(--border-gold);
+      color: #ffffff;
+      padding: 9px 10px;
+      border-radius: 11px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: 0.25s;
+      font-family: inherit;
+    }
+    .modal-info-btn:hover { background: linear-gradient(135deg, #ffffff, #ffd700); color: #080103; }
 
     .checkin-btn {
-      width: 100%; background: rgba(133, 0, 20, 0.4); border: 1px solid var(--gold-pure);
-      color: var(--gold-pure); padding: 11px; border-radius: 12px; font-weight: 700;
-      font-size: 0.84rem; cursor: pointer; transition: 0.25s; display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%;
+      background: rgba(133, 0, 20, 0.55);
+      border: 1.5px solid var(--gold-pure);
+      color: var(--gold-pure);
+      padding: 11px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      cursor: pointer;
+      transition: 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
     }
-    .checkin-btn:hover { background: var(--gold-pure); color: #0a0204; }
+    .checkin-btn:hover, .checkin-btn.visited-btn {
+      background: linear-gradient(135deg, #ffd700, #ff9900);
+      color: #0a0204;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.55);
+    }
+
+    /* ================= NEW: BIHAR SHARIF PARIKRAMA ROUTE PLANNER SECTION ================= */
+    .route-guide-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1250px;
+      margin: 0 auto 85px;
+      padding: 0 5%;
+    }
+
+    .route-glass-box {
+      background: var(--surface-glass);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 26px;
+      padding: 36px 28px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--border-glow);
+      text-align: center;
+    }
+
+    .route-steps-flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .route-stop-box {
+      background: rgba(38, 6, 15, 0.9);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      border-radius: 16px;
+      padding: 16px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+    }
+    .route-stop-box:hover {
+      transform: translateY(-4px);
+      border-color: #ffffff;
+    }
+    .route-step-num {
+      display: inline-block;
+      background: var(--gold-pure);
+      color: #080103;
+      font-weight: 800;
+      font-size: 0.72rem;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+    }
+
+    /* ================= MODAL BACKDROP ================= */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.90);
+      backdrop-filter: blur(10px); z-index: 1000000;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-box {
+      background: radial-gradient(circle, #2a050e 0%, #0d0104 100%);
+      border: 2px solid var(--gold-pure); border-radius: 24px;
+      max-width: 600px; width: 100%; padding: 28px 24px; position: relative;
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.45);
+      max-height: 92vh; overflow-y: auto;
+    }
+    .close-btn {
+      position: absolute; top: 14px; right: 20px; background: none; border: none;
+      color: #ffffff; font-size: 1.8rem; cursor: pointer;
+    }
+    .modal-map-frame {
+      width: 100%;
+      height: 200px;
+      border-radius: 14px;
+      border: 1.5px solid var(--gold-pure);
+      margin-bottom: 14px;
+    }
+    .modal-qr-section {
+      margin-top: 14px; background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 215, 0, 0.45); border-radius: 16px;
+      padding: 14px; display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .modal-qr-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, #7a0013, #4a000c);
+      border: 1px solid #ffd700; color: #ffd700; padding: 4px 14px;
+      border-radius: 15px; font-size: 0.78rem; font-family: 'Rozha One', serif; margin-bottom: 10px;
+    }
+    .modal-qr-image {
+      width: 145px; height: 145px; object-fit: contain;
+      border-radius: 12px; border: 2px solid #ffd700; background: #ffffff; padding: 6px;
+    }
 
     @media (max-width: 900px) {
       .city-overview-card { grid-template-columns: 1fr; }
-      .nav-links-wrap { display: none; }
+      .pandals-grid { grid-template-columns: 1fr; }
     }
+
     /* Footer */
     .sanctum-footer {
-      background: #190104; text-align: center; padding: 20px; font-family: 'Rozha One', serif;
-      color: var(--gold-pure); font-size: 1.1rem; letter-spacing: 1.5px; border-top: 1px solid var(--border-gold);
+      background: #140104; text-align: center; padding: 22px; font-family: 'Rozha One', serif;
+      color: var(--gold-pure); font-size: 1.05rem; letter-spacing: 1.5px;
+      border-top: 1px solid var(--border-gold); position: relative; z-index: 10;
     }
   </style>
 </head>
 <body>
 
+  <!-- Top Golden Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Ambient Sparks, Cursor Trail & Flower Shower Canvases -->
+  <canvas id="ambient-canvas"></canvas>
+  <canvas id="cursor-canvas"></canvas>
+  <canvas id="flower-canvas"></canvas>
+
+  <!-- FULL-SCREEN ALL-DEVICES BACKGROUND IMAGE (m3.jpg) -->
+  <div class="divine-bg-full" aria-hidden="true">
+    <div class="divine-bg-aura"></div>
+    <img src="m3.jpg" alt="Bihar Sharif Durga Puja Pandals" class="divine-bg-img" onerror="this.src='durga-maa.jpg'">
+  </div>
+
+  <!-- Audio Element Saved as song 2.mp3 -->
+  <audio id="mahakali-audio" loop preload="auto">
+    <source src="song 2.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- Sticky Navbar -->
   <header class="sanctum-navbar">
     <a href="index.html" class="brand-group">
-      <span class="brand-title">&#x1F3F5; DURGA PUJA</span>
+      <svg class="brand-symbol" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#ffd700" stroke-width="2"/>
+        <path d="M50 15 L50 85 M30 35 Q50 20 70 35 M25 55 Q50 75 75 55" stroke="#ffd700" stroke-width="3" fill="none"/>
+        <circle cx="50" cy="50" r="7" fill="#ff4500"/>
+      </svg>
+      <div>
+        <span class="brand-title">DURGA PUJA</span>
+        <span class="brand-sub">Bihar Sharif Darshan</span>
+      </div>
     </a>
-    <ul class="nav-links-wrap">
+
+    <ul class="nav-links-wrap" id="nav-links">
       <li><a href="index.html" class="nav-btn"><i class="fa-solid fa-om"></i> Mahotsav</a></li>
       <li><a href="navdurga.html" class="nav-btn"><i class="fa-solid fa-hands-praying"></i> 9 Navdurga</a></li>
       <li><a href="rituals.html" class="nav-btn"><i class="fa-solid fa-calendar-days"></i> Rituals</a></li>
       <li><a href="pandals.html" class="nav-btn active"><i class="fa-solid fa-monument"></i> Pandals</a></li>
-      <li><a href="activities.html" class="nav-btn"><i class="fa-solid fa-drum"></i> Activities</a></li>
+      <li><a href="activities.html" class="nav-btn"><i class="fa-solid fa-drum"></i> Dandiya Night</a></li>
     </ul>
+
+    <div class="nav-actions-right">
+      <button class="hanging-bell-btn" id="bell-btn" onclick="ringHangingBell()" title="Ring Divine Bell">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+
+      <button class="music-toggle-btn" id="music-toggle-btn" onclick="toggleAudio()" aria-label="Toggle Background Music">
+        <i class="fa-solid fa-volume-xmark" id="music-icon"></i>
+        <span id="music-text">Music OFF</span>
+        <div class="equalizer-bars">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+      </button>
+
+      <button class="mobile-menu-toggle" id="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars" id="menu-icon"></i>
+      </button>
+    </div>
   </header>
+
+  <!-- Traditional Marigold & Mango Leaf Toran Below Navbar -->
+  <div class="festive-toran-strip" aria-hidden="true">
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+  </div>
 
   <!-- Page Headline -->
   <div class="page-header">
-    <span class="sacred-tag">&#x1F6A9; NAVRATRI MURTI & PANDALS</span>
-    <h1 class="page-title">Bihar Sharif Pandal Darshan & Murti Art</h1>
+    <div class="page-sacred-badge">
+      <i class="fa-solid fa-map-location-dot"></i> बिहार शरीफ (नालंदा) के ऐतिहासिक पूजा पंडाल एवं प्रतिमा दर्शन
+    </div>
+    <span class="sacred-tag">&#x1F6A9; NAVRATRI MURTI &amp; PANDALS</span>
+    <h1 class="page-title">Bihar Sharif Pandal Darshan &amp; Murti Art</h1>
     <p class="page-desc">
-      Explore the famous crossroads, centuries-old traditions, and master artisan clay idols that make Bihar Sharif the epicenter of Durga Puja celebrations in Nalanda district.
+      Explore the famous crossroads, centuries-old traditions, and master artisan clay idols that make Bihar Sharif the epicenter of Durga Puja celebrations in Nalanda district. <strong>(👆 Click on any Pandal photo to open its live Google Maps location!)</strong>
     </p>
   </div>
 
   <!-- City Overview Info -->
-  <div class="city-overview-card">
-    <div>
-      <h2 class="overview-heading">Why Bihar Sharif's Pandals Are Renowned Across Bihar</h2>
-      <p class="overview-text">
-        During Navratri, the streets of Bihar Sharif transform into a massive cultural confluence. Master sculptors from Kumartuli (Kolkata) and local Nalanda clay artisans spend months shaping sacred soil from the holy Ganges. Pandals here are renowned for architectural replicas (such as the Amarnath Cave, Akshardham Temple, and historical Indian monuments), dazzling LED light gates, and deep communal harmony where thousands gather for all-night parikramas.
-      </p>
+  <div style="padding: 0 5%;">
+    <div class="city-overview-card">
+      <div>
+        <h2 class="overview-heading">Why Bihar Sharif's Pandals Are Renowned Across Bihar</h2>
+        <p class="overview-text">
+          During Navratri, the streets of Bihar Sharif transform into a massive cultural confluence. Master sculptors from Kumartuli (Kolkata) and local Nalanda clay artisans spend months shaping sacred soil from the holy Ganges. Pandals here are renowned for architectural replicas (such as the Amarnath Cave, Akshardham Temple, and historical Indian monuments), dazzling LED light gates, and deep communal harmony where thousands gather for all-night parikramas.
+        </p>
+      </div>
+      <div class="city-stat-box">
+        <div style="font-size: 2.2rem; color: var(--gold-pure); margin-bottom: 5px;">&#127882; 70+</div>
+        <h3 style="font-size: 1.1rem; color: #fff;">Major Pandals</h3>
+        <p style="font-size: 0.78rem; color: var(--gold-amber);">Bhaisasur, Amber, Hospital Mor &amp; Main Bazaar</p>
+      </div>
     </div>
-    <div class="city-stat-box">
-      <div style="font-size: 2.2rem; color: var(--gold-pure); margin-bottom: 5px;">&#127882; 70+</div>
-      <h3 style="font-size: 1.1rem; color: #fff;">Major Pandals</h3>
-      <p style="font-size: 0.78rem; color: var(--gold-amber);">Bhaisasur, Amber, Hospital Mor & Main Bazaar</p>
+
+    <!-- Parikrama Progress Tracker Bar -->
+    <div class="parikrama-passport-bar">
+      <div>
+        <strong style="color: var(--gold-pure); font-family: 'Rozha One', serif; font-size: 1.08rem;" id="passport-status-text">
+          🏮 Bihar Sharif Parikrama Passport: 0 / 7 Major Pandals Visited
+        </strong>
+        <p style="font-size: 0.78rem; color: var(--text-muted);">
+          Click "Mark Virtual Darshan" on cards below or click any image to navigate on Google Maps
+        </p>
+      </div>
+      <div class="passport-progress-track">
+        <div class="passport-progress-fill" id="passport-fill-bar"></div>
+      </div>
+      <button class="maha-pushpanjali-btn" onclick="offerAllPandalsPushpanjali()">
+        🌺 Offer Pushpanjali to All Pandals
+      </button>
     </div>
   </div>
 
   <!-- Filter Shelf -->
   <div class="filter-shelf">
-    <button class="filter-btn active" onclick="filterPandals('all')">All Bihar Sharif Pandals</button>
-    <button class="filter-btn" onclick="filterPandals('Bhaisasur')">Bhaisasur Chauraha</button>
-    <button class="filter-btn" onclick="filterPandals('Hospital')">Hospital Mor (Badi Pahari)</button>
-    <button class="filter-btn" onclick="filterPandals('Amber')">Amber Mor (Kachahri)</button>
-    <button class="filter-btn" onclick="filterPandals('Pulpar')">Pulpar & Main Bazaar</button>
-    <button class="filter-btn" onclick="filterPandals('Ramchandrapur')">Ramchandrapur</button>
-    <button class="filter-btn" onclick="filterPandals('Mohaddinegar')">Mohaddinegar</button>
-    <button class="filter-btn" onclick="filterPandals('Khandakpar')">Khandakpar</button>
+    <button class="filter-btn active" onclick="filterPandals('all', this)">All Bihar Sharif Pandals</button>
+    <button class="filter-btn" onclick="filterPandals('Bhaisasur', this)">Bhaisasur Chauraha</button>
+    <button class="filter-btn" onclick="filterPandals('Hospital', this)">Hospital Mor (Badi Pahari)</button>
+    <button class="filter-btn" onclick="filterPandals('Amber', this)">Amber Mor (Kachahri)</button>
+    <button class="filter-btn" onclick="filterPandals('Pulpar', this)">Pulpar &amp; Main Bazaar</button>
+    <button class="filter-btn" onclick="filterPandals('Ramchandrapur', this)">Ramchandrapur</button>
+    <button class="filter-btn" onclick="filterPandals('Mohaddinegar', this)">Mohaddinegar</button>
+    <button class="filter-btn" onclick="filterPandals('Khandakpar', this)">Khandakpar</button>
   </div>
 
   <!-- Pandals Grid Container -->
   <main class="pandals-grid" id="pandals-container"></main>
-  <footer class="sanctum-footer">Celebrating faith, art, and tradition. ✨</footer>
+
+  <!-- ================= NEW: BIHAR SHARIF PARIKRAMA ROUTE PLANNER ================= -->
+  <section class="route-guide-section">
+    <div class="route-glass-box">
+      <div class="page-sacred-badge">
+        <i class="fa-solid fa-route"></i> बिहार शरीफ रात्रि पंडाल परिक्रमा मार्गदर्शिका
+      </div>
+      <h2 class="section-title">🗺️ Suggested Bihar Sharif Pandal Parikrama Route</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; max-width:760px; margin:0 auto;">
+        Planning an evening walk with family? Follow this connected route from North-East entry to West Bihar Sharif to cover all 7 iconic pandals smoothly. Click any stop to open Google Maps!
+      </p>
+
+      <div class="route-steps-flow">
+        <div class="route-stop-box" onclick="openGoogleMap('Hospital More Badi Pahari Bihar Sharif Nalanda')">
+          <span class="route-step-num">STOP 1 &bull; 6:00 PM</span>
+          <h4 style="color:#fff; font-family:'Rozha One', serif; font-size:1.05rem;">Hospital Mor (Badi Pahari)</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted);">Start at the grand highway light gates &amp; 20ft Daaker Saaj idol.</p>
+        </div>
+
+        <div class="route-stop-box" onclick="openGoogleMap('Bhaisasur Chauraha Ranchi Road Bihar Sharif Nalanda')">
+          <span class="route-step-num">STOP 2 &bull; 7:00 PM</span>
+          <h4 style="color:#fff; font-family:'Rozha One', serif; font-size:1.05rem;">Bhaisasur Chauraha</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted);">Walk down Ranchi Road to witness the 150-yr heritage cave pandal.</p>
+        </div>
+
+        <div class="route-stop-box" onclick="openGoogleMap('Amber Chowk Kachahari Road Bihar Sharif Nalanda')">
+          <span class="route-step-num">STOP 3 &bull; 8:00 PM</span>
+          <h4 style="color:#fff; font-family:'Rozha One', serif; font-size:1.05rem;">Amber Mor (Kachahri)</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted);">Experience Vedic temple replicas &amp; evening Dhunuchi Aarti.</p>
+        </div>
+
+        <div class="route-stop-box" onclick="openGoogleMap('Pulpar Bihar Sharif Nalanda Bihar')">
+          <span class="route-step-num">STOP 4 &bull; 9:00 PM</span>
+          <h4 style="color:#fff; font-family:'Rozha One', serif; font-size:1.05rem;">Pulpar &amp; Mohaddinegar</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted);">Cross the illuminated market bridge &amp; see Parilok animatronics.</p>
+        </div>
+
+        <div class="route-stop-box" onclick="openGoogleMap('Ramchandrapur Bihar Sharif Nalanda Bihar')">
+          <span class="route-step-num">STOP 5 &bull; 10:15 PM</span>
+          <h4 style="color:#fff; font-family:'Rozha One', serif; font-size:1.05rem;">Khandakpar &amp; Ramchandrapur</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted);">Conclude with 1000-Diya Aarti &amp; the grand Ramchandrapur Mela.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Shell for Live Map Preview, Details & QR -->
+  <div class="modal-backdrop" id="modal-container" onclick="handleBackdropClick(event)">
+    <div class="modal-box">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <footer class="sanctum-footer">Celebrating faith, art, and tradition &bull; Bihar Sharif (Nalanda) ✨</footer>
+
   <script>
+    // ================= SCROLL PROGRESS BAR =================
+    window.addEventListener("scroll", () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById("scroll-progress").style.width = pct + "%";
+    }, { passive: true });
+
+    // ================= BACKGROUND MUSIC (song 2.mp3) =================
+    const bgAudio = document.getElementById("mahakali-audio");
+    const musicBtn = document.getElementById("music-toggle-btn");
+    const musicIcon = document.getElementById("music-icon");
+    const musicText = document.getElementById("music-text");
+
+    function updateAudioUI(isPlaying) {
+      if (isPlaying) {
+        musicBtn.classList.add("playing");
+        musicIcon.className = "fa-solid fa-volume-high";
+        musicText.innerText = "Music ON";
+      } else {
+        musicBtn.classList.remove("playing");
+        musicIcon.className = "fa-solid fa-volume-xmark";
+        musicText.innerText = "Music OFF";
+      }
+    }
+
+    function toggleAudio() {
+      if (!bgAudio) return;
+      if (bgAudio.paused) {
+        bgAudio.play().then(() => updateAudioUI(true)).catch(() => {});
+      } else {
+        bgAudio.pause();
+        updateAudioUI(false);
+      }
+    }
+
+    bgAudio.addEventListener("play", () => updateAudioUI(true));
+    bgAudio.addEventListener("pause", () => updateAudioUI(false));
+
+    function unlockAudioOnGesture() {
+      if (bgAudio && bgAudio.paused) {
+        bgAudio.play().then(() => updateAudioUI(true)).catch(() => {});
+      }
+    }
+    document.addEventListener("click", unlockAudioOnGesture, { once: true });
+    document.addEventListener("touchstart", unlockAudioOnGesture, { once: true });
+
+    // ================= WEB AUDIO BELL SYNTHESIZER =================
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playMandirGhanti() {
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      const harmonics = [1180, 1420, 2120, 2900];
+      const gains = [0.35, 0.22, 0.14, 0.08];
+      harmonics.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now);
+        gainNode.gain.setValueAtTime(gains[idx], now);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 2.0);
+        osc.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 2.0);
+      });
+    }
+
+    function ringHangingBell() {
+      const bell = document.getElementById("bell-btn");
+      bell.classList.remove("swing");
+      void bell.offsetWidth;
+      bell.classList.add("swing");
+      playMandirGhanti();
+    }
+
+    // ================= MOBILE NAVIGATION =================
+    function toggleMobileNav() {
+      const nav = document.getElementById("nav-links");
+      const icon = document.getElementById("menu-icon");
+      nav.classList.toggle("open");
+      icon.className = nav.classList.contains("open") ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+    }
+
+    // ================= BIHAR SHARIF PANDALS DATABASE WITH EXACT MAP LOCATIONS =================
     const pandalDatabase = [
       {
+        id: "bhaisasur",
         name: "Bhaisasur Chauraha Durga & Kali Pandal",
-        landmark: "Bhaisasur Chauraha, Near Ranchi Road, Bihar Sharif",
+        landmark: "Bhaisasur Chauraha, Near Ranchi Road, Bihar Sharif, Nalanda (803101)",
+        mapQuery: "Bhaisasur+Chauraha+Ranchi+Road+Bihar+Sharif+Nalanda+Bihar",
+        coords: "25.1982° N, 85.5194° E",
         tagLoc: "Bhaisasur",
         established: "150+ Years Historic Heritage",
+        aartiTime: "Sandhya Aarti: 7:15 PM • Maha Bhandara: Dashami",
+        bhogSpecial: "Famous Post-Visarjan Halwa-Puri Maha Bhandara",
+        routeTip: "2 mins walk from Ranchi Road / Hospital Chauraha",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdSI2yqhKaguRsi-NaJ5GCQKrKj5UxbynQHEMkhQA1Fg&s=10",
         whyFamous: "Famous for its 150+ year legacy and breathtaking architectural themes like the 55-foot Amarnath Cave replica with 100 ascending stairs, realistic wild rock caves, and massive post-Visarjan city-wide Bhandara feasts.",
         murtiArt: "Revered for its awe-inspiring, lifelike Kali and Mahishasuramardini clay idols sculpted with intricate joot and organic river clays, drawing devotees from all over Magadh.",
         features: ["150-Yr Heritage", "Cave & Mountain Architecture", "City-wide Halwa Bhandara"]
       },
       {
+        id: "hospital",
         name: "Hospital Mor (Badi Pahari) Mahasabha Pandal",
-        landmark: "Hospital Mor Junction, Near Sadar Hospital & Badi Pahari",
+        landmark: "Hospital Mor Junction, Near Sadar Hospital & Badi Pahari, Bihar Sharif",
+        mapQuery: "Hospital+More+Badi+Pahari+Bihar+Sharif+Nalanda+Bihar",
+        coords: "25.2035° N, 85.5241° E",
         tagLoc: "Hospital",
         established: "Est. 1954 • Daaker Saaj Tradition",
+        aartiTime: "Sandhya Aarti: 7:00 PM • Sandhi Puja: 108 Lamps",
+        bhogSpecial: "Saptami Khichuri & Ashtami Kheer Bhog",
+        routeTip: "Main Patna-Ranchi Road Junction near Sadar Hospital",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwIGR3ZBBMcRpGDM72Zxm6IduqacWv5eMf93Y-_XYTgA&s=10",
         whyFamous: "Famous as the grand gateway entrance to Bihar Sharif. Known for colossal 20+ foot traditional clay idols and multi-story electric light gates that stretch hundreds of meters down Patna-Ranchi Highway.",
         murtiArt: "The idol is renowned for its signature 'Daaker Saaj' silver foil embossing and hypnotic elongated almond-shaped eyes that radiate serene divinity and wrath against evil.",
         features: ["Gateway Grand Light Gates", "20ft Daaker Saaj Idol", "Centenary Darshan Hub"]
       },
       {
+        id: "amber",
         name: "Amber Mor (Kachahri) Durga Puja Samiti",
-        landmark: "Amber Chowk, District Court / Collectorate Road",
+        landmark: "Amber Chowk, District Court / Collectorate Road, Bihar Sharif",
+        mapQuery: "Amber+Chowk+Kachahari+Road+Bihar+Sharif+Nalanda+Bihar",
+        coords: "25.1998° N, 85.5146° E",
         tagLoc: "Amber",
         established: "Est. 1972 • Vedic Temple Replicas",
+        aartiTime: "Dhunuchi Aarti: 8:00 PM • Garba Raas: 9:00 PM",
+        bhogSpecial: "Panchamrit, Deshi Ghee Laddoo & Navami Halwa",
+        routeTip: "Adjacent to Nalanda Collectorate & Kachahri Road",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqjJYSQ44WDnuIe7EwKw9azru54e8er8GSJFJnMYM2sg&s=10",
         whyFamous: "Famous for replicating world-renowned Indian sanctuaries (Prem Mandir, Akshardham, and historical forts) with millimeter-level wooden and cloth carving, plus high-voltage Dhunuchi dance competitions.",
         murtiArt: "Features an eco-friendly 10-armed Mahishasuramardini adorned in pure Banarasi silk with handcrafted bronze armaments in every hand.",
         features: ["Vedic Architectural Replicas", "Dhunuchi Dance Battle Arena", "Collectorate Core"]
       },
       {
+        id: "pulpar",
         name: "Pulpar Main Bazaar Pandal",
-        landmark: "Pulpar Central Market, Near Post Office Road",
+        landmark: "Pulpar Central Market, Near Post Office Road, Bihar Sharif",
+        mapQuery: "Pulpar+Main+Bazar+Bihar+Sharif+Nalanda+Bihar",
+        coords: "25.1942° N, 85.5218° E",
         tagLoc: "Pulpar",
         established: "Est. 1965 • Heritage Market Festivity",
+        aartiTime: "Maha Aarti: 7:30 PM • All-Night Illumination",
+        bhogSpecial: "Traditional Bengali Mishti, Sandesh & Fruit Prasad",
+        routeTip: "Central Panchane River Bridge Market Crossroads",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdCtjJPXeh-C0D1jZ_B-ESs6GoVPiL3keHhTiDlIO6KA&s=10",
         whyFamous: "Famous for sitting right in the buzzing commercial center of Bihar Sharif. Renowned for hyper-realistic modern socio-cultural themes, Akshardham dome mockups, and the most dazzling Chandannagar neon street lights in the city.",
         murtiArt: "Classical Sabeki style clay sculpture surrounded by Lakshmi, Saraswati, Ganesha, and Kartikeya with natural organic vegetable pigments.",
         features: ["Chandannagar Lighting", "Bustling Market Parikrama", "Akshardham Theme"]
       },
       {
+        id: "ramchandrapur",
         name: "Ramchandrapur Utsav Pandal",
-        landmark: "Ramchandrapur Bypass / New Bus Stand Road",
+        landmark: "Ramchandrapur Bypass / New Bus Stand Road, Bihar Sharif",
+        mapQuery: "Ramchandrapur+Bihar+Sharif+Nalanda+Bihar",
+        coords: "25.1965° N, 85.5042° E",
         tagLoc: "Ramchandrapur",
         established: "Est. 1985 • Royal Rajbari Palace",
+        aartiTime: "Grand Aarti: 7:45 PM • Mela Open till 1:00 AM",
+        bhogSpecial: "Maha Ashtami Kanya Bhoj & Navami Bhog",
+        routeTip: "Wide road access near Ramchandrapur Bus Stand & Market",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6lkAo6AiGvAjltFPbOnCDVDgrg-kqw32bkMNJO0u7RA&s=10",
         whyFamous: "Famous for hosting the largest festive carnival mela in town—complete with giant Ferris wheels, street-food stalls, open-air cultural stages, and the most crowded family parikrama routes.",
         murtiArt: "The roaring golden lion and the fierce expression of the clay demon Mahishasura are sculpted with exceptional muscle definition and dramatic movement.",
         features: ["Mega Festive Mela", "Royal Palace Facades", "Family Parikrama Hub"]
       },
       {
+        id: "mohaddinegar",
         name: "Mohaddinegar Illusion & Parilok Pandal",
         landmark: "Mohaddinegar Lanes, Near Nala Road, Bihar Sharif",
+        mapQuery: "Mohaddinagar+Nala+Road+Bihar+Sharif+Nalanda+Bihar",
+        coords: "25.1915° N, 85.5180° E",
         tagLoc: "Mohaddinegar",
         established: "Est. 1980 • Kinetic Art Pioneers",
+        aartiTime: "Light & Sound Show: Every 30 Mins from 6:30 PM",
+        bhogSpecial: "Coconut Laddoo & Kesar Peda Prasad",
+        routeTip: "Accessible via Nala Road & Pulpar walking lane",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE0rW_FD46DpxylENWraHa79LSCBHnIx9MTD3pIx91OQ&s=10",
         whyFamous: "Famous across Nalanda for pioneering kinetic animatronics and whimsical illusion themes such as 'Parilok' (Fairy Realm) and automated robotic dioramas depicting Puranic battles with natural sound effects.",
         murtiArt: "Intricate miniature clay figurines accompanying Maa Durga, surrounded by artificial waterfalls and shimmering fiber-optic lighting.",
         features: ["Automated Animatronics", "Sound & Light Waterfall", "Parilok Fairytale Theme"]
       },
       {
+        id: "khandakpar",
         name: "Khandakpar Historical Durga Pandal",
         landmark: "Khandakpar Chowk, Old Bihar Sharif Heritage Quarter",
+        mapQuery: "Khandakpar+Bihar+Sharif+Nalanda+Bihar",
+        coords: "25.1885° N, 85.5125° E",
         tagLoc: "Khandakpar",
         established: "Est. 1968 • Vedic Shastra Recitation",
+        aartiTime: "1000-Diya Sandhya Aarti: 6:45 PM • Chandi Path: Dawn",
+        bhogSpecial: "Pure Ghee Halwa, Chana & Tulsi Panchamrit",
+        routeTip: "Located at historic Khandakpar Chowk near Bihar Sharif Junction",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCZA_yG7psoIFSQkddK5FLqFABXDfeekRbivPSflUmzQ&s=10",
         whyFamous: "Famous for preserving the orthodox ritual purity of Durga Saptashati Chandi Path. Known for traditional clay oil lamps (Diyas) instead of electric floodlights and soul-stirring sandhya aartis.",
         murtiArt: "Molded exclusively by master sculptors from Bengal using clay collected from the holy Triveni Sangam and sacred cowsheds, symbolizing total purity.",
@@ -264,39 +1172,103 @@
       }
     ];
 
-    function renderPandals(list) {
-      const container = document.getElementById("pandals-container");
-      container.innerHTML = list.map(p => `
-        <article class="pandal-card">
-          <div class="pandal-media-box">
-            <img src="${p.img}" alt="${p.name}">
-            <span class="location-landmark-badge"><i class="fa-solid fa-map-pin"></i> ${p.tagLoc}</span>
-          </div>
-          <div class="pandal-card-body">
-            <h3 class="pandal-name">${p.name}</h3>
-            <div class="pandal-landmark"><i class="fa-solid fa-location-dot"></i> ${p.landmark}</div>
-            
-            <div class="fame-reason-box">
-              <strong><i class="fa-solid fa-star"></i> Why It's Famous:</strong> ${p.whyFamous}
-            </div>
+    let visitedPandalIds = JSON.parse(localStorage.getItem("bs_visited_pandals_v2") || "[]");
+    let currentFilter = "all";
 
-            <p class="murti-detail-text"><strong>Murti Craftsmanship:</strong> ${p.murtiArt}</p>
-            
-            <div class="tags-cloud">
-              ${p.features.map(f => `<span class="feature-tag">${f}</span>`).join("")}
-            </div>
-
-            <button class="checkin-btn" onclick="checkinDarshan('${p.name}', '${p.landmark}')">
-              <i class="fa-solid fa-hands-praying"></i> Mark Virtual Darshan
-            </button>
-          </div>
-        </article>
-      `).join("");
+    function openGoogleMap(query) {
+      const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    function filterPandals(loc) {
+    function updatePassportProgress() {
+      const count = visitedPandalIds.length;
+      const total = pandalDatabase.length;
+      const pct = Math.round((count / total) * 100);
+      document.getElementById("passport-fill-bar").style.width = pct + "%";
+      const label = document.getElementById("passport-status-text");
+      if (count === total) {
+        label.innerText = "🏆 Divya Parikrama Complete! You have visited all 7 Iconic Bihar Sharif Pandals!";
+      } else {
+        label.innerText = `🏮 Bihar Sharif Parikrama Passport: ${count} / ${total} Major Pandals Visited (${pct}%)`;
+      }
+    }
+
+    function renderPandals(list) {
+      const container = document.getElementById("pandals-container");
+      container.innerHTML = list.map((p) => {
+        const realIndex = pandalDatabase.findIndex(item => item.id === p.id);
+        const isVisited = visitedPandalIds.includes(p.id);
+        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${p.mapQuery}`;
+
+        return `
+          <article class="pandal-card">
+            <!-- Clicking the image directly opens Google Maps location -->
+            <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="pandal-media-box" title="Click image to open ${p.name} on Google Maps">
+              <img src="${p.img}" alt="${p.name}">
+              <span class="established-badge">${p.established}</span>
+              <span class="location-landmark-badge"><i class="fa-solid fa-map-pin"></i> ${p.tagLoc}</span>
+              <div class="image-map-click-banner">
+                <span><i class="fa-solid fa-location-crosshairs"></i> Click Photo to Open Live Google Map</span>
+                <span>${p.coords} ↗</span>
+              </div>
+            </a>
+
+            <div class="pandal-card-body">
+              <h3 class="pandal-name">${p.name}</h3>
+              <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="pandal-landmark" title="Open in Google Maps">
+                <i class="fa-solid fa-location-dot"></i> ${p.landmark} (Open Map ↗)
+              </a>
+              
+              <div class="fame-reason-box">
+                <strong><i class="fa-solid fa-star"></i> Why It's Famous:</strong> ${p.whyFamous}
+              </div>
+
+              <p class="murti-detail-text"><strong>Murti Craftsmanship:</strong> ${p.murtiArt}</p>
+
+              <!-- Additional Pandal Details -->
+              <div class="pandal-extra-specs">
+                <div><strong>⏰ Aarti &amp; Timing:</strong> ${p.aartiTime}</div>
+                <div><strong>🍯 Special Bhog:</strong> ${p.bhogSpecial}</div>
+                <div><strong>🧭 Route Access:</strong> ${p.routeTip}</div>
+              </div>
+              
+              <div class="tags-cloud">
+                ${p.features.map(f => `<span class="feature-tag">${f}</span>`).join("")}
+              </div>
+
+              <!-- QR Strip -->
+              <div class="card-qr-strip" onclick="openPandalModal(${realIndex})">
+                <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+                <div class="card-qr-text">
+                  <strong>पावन पंडाल सहयोग व भोग अर्पण</strong><br>
+                  <span>Click for Live Map Preview, Mantra &amp; QR</span>
+                </div>
+              </div>
+
+              <div class="pandal-actions-grid">
+                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="map-direct-btn">
+                  <i class="fa-solid fa-diamond-turn-right"></i> Google Map
+                </a>
+                <button class="modal-info-btn" onclick="openPandalModal(${realIndex})">
+                  <i class="fa-solid fa-eye"></i> Map &amp; QR
+                </button>
+              </div>
+
+              <button class="checkin-btn ${isVisited ? 'visited-btn' : ''}" onclick="checkinDarshan('${p.id}', '${p.name}', '${p.landmark}')">
+                <i class="fa-solid ${isVisited ? 'fa-circle-check' : 'fa-hands-praying'}"></i>
+                ${isVisited ? 'Darshan Completed ✓ (Visited)' : 'Mark Virtual Darshan & Offer Pushpanjali'}
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
+      updatePassportProgress();
+    }
+
+    function filterPandals(loc, btnEl) {
+      currentFilter = loc;
       document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-      event.target.classList.add("active");
+      if (btnEl) btnEl.classList.add("active");
 
       if (loc === "all") {
         renderPandals(pandalDatabase);
@@ -304,14 +1276,172 @@
         const filtered = pandalDatabase.filter(p => p.tagLoc.toLowerCase() === loc.toLowerCase());
         renderPandals(filtered);
       }
+      playMandirGhanti();
     }
 
-    function checkinDarshan(name, landmark) {
-      alert(`🙏 Divine Darshan Blessed!\nYou checked in at ${name} (${landmark}). May Maa Durga bless your home with peace and prosperity!`);
+    function checkinDarshan(id, name, landmark) {
+      if (!visitedPandalIds.includes(id)) {
+        visitedPandalIds.push(id);
+        localStorage.setItem("bs_visited_pandals_v2", JSON.stringify(visitedPandalIds));
+      }
+      triggerPushpanjaliShower(55);
+      playMandirGhanti();
+      if (currentFilter === "all") {
+        renderPandals(pandalDatabase);
+      } else {
+        renderPandals(pandalDatabase.filter(p => p.tagLoc.toLowerCase() === currentFilter.toLowerCase()));
+      }
     }
+
+    function offerAllPandalsPushpanjali() {
+      pandalDatabase.forEach(p => {
+        if (!visitedPandalIds.includes(p.id)) visitedPandalIds.push(p.id);
+      });
+      localStorage.setItem("bs_visited_pandals_v2", JSON.stringify(visitedPandalIds));
+      renderPandals(pandalDatabase);
+      triggerPushpanjaliShower(80);
+      playMandirGhanti();
+    }
+
+    // ================= MODAL WITH LIVE EMBEDDED GOOGLE MAP & QR =================
+    function openPandalModal(idx) {
+      const p = pandalDatabase[idx];
+      const mapUrl = `https://www.google.com/maps/search/?api=1&query=${p.mapQuery}`;
+      const embedUrl = `https://www.google.com/maps?q=${p.mapQuery}&output=embed`;
+
+      document.getElementById("modal-body").innerHTML = `
+        <div style="text-align:center; margin-bottom:12px;">
+          <span style="color:var(--gold-pure); font-family:'Rozha One'; font-size:0.85rem;">${p.established}</span>
+          <h2 style="font-family:'Cinzel Decorative'; color:#ffffff; font-size:1.4rem; margin:4px 0;">${p.name}</h2>
+          <p style="color:var(--gold-amber); font-size:0.84rem; font-weight:700;">📍 ${p.landmark}</p>
+        </div>
+
+        <iframe class="modal-map-frame" src="${embedUrl}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${p.name} Map"></iframe>
+
+        <div style="text-align:center; margin-bottom:12px;">
+          <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="maha-pushpanjali-btn" style="text-decoration:none;">
+            <i class="fa-solid fa-location-arrow"></i> Open Full Navigation in Google Maps
+          </a>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:12px; font-size:0.84rem; color:var(--text-muted); margin-bottom:12px;">
+          <div><strong style="color:#ffd700;">Aarti Schedule:</strong> ${p.aartiTime}</div>
+          <div><strong style="color:#ffd700;">Special Bhog:</strong> ${p.bhogSpecial}</div>
+          <div><strong style="color:#ffd700;">GPS Coordinates:</strong> ${p.coords}</div>
+        </div>
+
+        <div class="modal-qr-section">
+          <div class="modal-qr-badge">
+            <i class="fa-solid fa-qrcode"></i> ${p.name} - पावन दक्षिणा एवं भोग अर्पण
+          </div>
+          <img src="QR_1792189397.png" alt="Devotional QR Code" class="modal-qr-image">
+          <div style="font-size:0.75rem; color:#eed5be; margin-top:8px;">Scan this QR Code with any UPI app to offer your devotional Seva</div>
+        </div>
+      `;
+      document.getElementById("modal-container").classList.add("active");
+      playMandirGhanti();
+    }
+
+    function closeModal() {
+      document.getElementById("modal-container").classList.remove("active");
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === "modal-container") closeModal();
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
 
     // Initial render
     renderPandals(pandalDatabase);
+
+    // ================= AMBIENT SPARKS, FLOWER SHOWER & CURSOR TRAIL =================
+    const ambCanvas = document.getElementById("ambient-canvas");
+    const ambCtx = ambCanvas.getContext("2d");
+    const curCanvas = document.getElementById("cursor-canvas");
+    const curCtx = curCanvas.getContext("2d");
+    const fCanvas = document.getElementById("flower-canvas");
+    const fCtx = fCanvas.getContext("2d");
+
+    let w = ambCanvas.width = curCanvas.width = fCanvas.width = window.innerWidth;
+    let h = ambCanvas.height = curCanvas.height = fCanvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      w = ambCanvas.width = curCanvas.width = fCanvas.width = window.innerWidth;
+      h = ambCanvas.height = curCanvas.height = fCanvas.height = window.innerHeight;
+    });
+
+    const embers = Array.from({ length: 42 }, () => ({
+      x: Math.random() * w, y: Math.random() * h, r: Math.random() * 2.2 + 0.8,
+      vy: -(Math.random() * 0.7 + 0.3), vx: (Math.random() - 0.5) * 0.4, alpha: Math.random() * 0.7 + 0.3
+    }));
+
+    let petals = [];
+    function triggerPushpanjaliShower(count = 45) {
+      for (let i = 0; i < count; i++) {
+        petals.push({
+          x: Math.random() * w,
+          y: -20 - Math.random() * 50,
+          r: Math.random() * 7 + 5,
+          vy: Math.random() * 2.8 + 2,
+          vx: (Math.random() - 0.5) * 2,
+          color: Math.random() > 0.45 ? "#ffd700" : "#ff0033"
+        });
+      }
+    }
+
+    let trailSparks = [];
+    function addSparks(x, y) {
+      for (let i = 0; i < 3; i++) {
+        trailSparks.push({
+          x: x + (Math.random() - 0.5) * 12,
+          y: y + (Math.random() - 0.5) * 12,
+          r: Math.random() * 2.5 + 1.2,
+          alpha: 1,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: Math.random() * -1.5 - 0.5
+        });
+      }
+    }
+
+    window.addEventListener("mousemove", (e) => addSparks(e.clientX, e.clientY));
+    window.addEventListener("touchmove", (e) => {
+      if (e.touches[0]) addSparks(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    function animateAllCanvases() {
+      ambCtx.clearRect(0, 0, w, h);
+      embers.forEach(p => {
+        p.y += p.vy; p.x += p.vx;
+        if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+        ambCtx.fillStyle = `rgba(255, 205, 40, ${p.alpha})`;
+        ambCtx.beginPath(); ambCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ambCtx.fill();
+      });
+
+      fCtx.clearRect(0, 0, w, h);
+      for (let i = petals.length - 1; i >= 0; i--) {
+        const pt = petals[i];
+        pt.y += pt.vy; pt.x += pt.vx;
+        fCtx.fillStyle = pt.color;
+        fCtx.beginPath(); fCtx.arc(pt.x, pt.y, pt.r, 0, Math.PI * 2); fCtx.fill();
+        if (pt.y > h + 30) petals.splice(i, 1);
+      }
+
+      curCtx.clearRect(0, 0, w, h);
+      for (let i = trailSparks.length - 1; i >= 0; i--) {
+        const s = trailSparks[i];
+        s.x += s.vx; s.y += s.vy; s.alpha -= 0.035;
+        if (s.alpha <= 0) { trailSparks.splice(i, 1); continue; }
+        curCtx.beginPath(); curCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        curCtx.fillStyle = `rgba(255, 215, 0, ${s.alpha})`;
+        curCtx.fill();
+      }
+
+      requestAnimationFrame(animateAllCanvases);
+    }
+    animateAllCanvases();
   </script>
 </body>
 </html>

@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>&#x1F4C5; Day-by-Day Rituals & Dandiya &bull; Durga Puja</title>
+  <title>📅 Day-by-Day Sacred Rituals &bull; Durga Puja</title>
   
+  <!-- External Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rozha+One&family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -12,148 +13,1768 @@
 
   <style>
     :root {
-      --bg-dark: #0a0405;
-      --gold-pure: #ffd700;
-      --gold-amber: #ffaa00;
+      --bg-dark: #070204;
       --crimson-pure: #850014;
+      --crimson-royal: #b3001e;
+      --gold-pure: #ffd700;
+      --gold-deep: #c59b27;
+      --gold-amber: #ffaa00;
+      --saffron: #ff6f00;
       --text-bright: #fffdf9;
-      --text-muted: #e2cbb2;
-      --surface-card: rgba(35, 8, 15, 0.92);
-      --border-gold: rgba(255, 215, 0, 0.35);
+      --text-muted: #e8d7c8;
+      --surface-card: rgba(30, 6, 13, 0.86);
+      --surface-glass: rgba(22, 4, 10, 0.84);
+      --border-gold: rgba(255, 215, 0, 0.38);
+      --border-glow: 0 0 25px rgba(255, 215, 0, 0.30);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: var(--bg-dark); color: var(--text-bright); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-bright);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
 
+    /* ================= TOP GOLDEN SCROLL PROGRESS BAR ================= */
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3.5px;
+      width: 0%;
+      background: linear-gradient(90deg, #ff5100, #ffd700, #ffffff, #ffd700);
+      box-shadow: 0 0 12px #ffd700;
+      z-index: 1000005;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Ambient Sparks, Flower Shower & Cursor Trails */
+    #ambient-canvas, #cursor-canvas, #flower-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    #ambient-canvas { z-index: 2; }
+    #cursor-canvas { z-index: 100001; }
+    #flower-canvas { z-index: 100002; }
+
+    /* ================= FULL-SCREEN ALL-DEVICES MAA DURGA BACKGROUND (m2.jpg) ================= */
+    .divine-bg-full {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .divine-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.44;
+      filter: contrast(122%) saturate(135%) brightness(1.06);
+      mix-blend-mode: screen;
+      -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 35%, rgba(0,0,0,0.98) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.2) 100%),
+                          linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 88%, rgba(0,0,0,0.15) 100%);
+      mask-image: radial-gradient(ellipse 95% 90% at 50% 35%, rgba(0,0,0,0.98) 25%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.2) 100%),
+                  linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 88%, rgba(0,0,0,0.15) 100%);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+      animation: subtleBgBreath 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes subtleBgBreath {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.04); }
+    }
+
+    .divine-bg-aura {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(92vw, 760px);
+      height: min(92vw, 760px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 180, 0, 0.26) 0%, rgba(133, 0, 20, 0.14) 60%, transparent 75%);
+      filter: blur(75px);
+      pointer-events: none;
+      animation: divineRotate 25s linear infinite;
+    }
+
+    @keyframes divineRotate {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @media (max-width: 900px) {
+      .divine-bg-full {
+        width: 100vw;
+        height: 100vh;
+      }
+      .divine-bg-img {
+        object-position: center top;
+        opacity: 0.40;
+      }
+    }
+
+    /* ================= SANCTUM NAVBAR ================= */
     .sanctum-navbar {
-      position: fixed; top: 0; left: 0; width: 100%; height: 78px;
-      background: rgba(10, 2, 4, 0.95); border-bottom: 2px solid var(--border-gold);
-      display: flex; justify-content: space-between; align-items: center; padding: 0 5%; z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; height: 75px;
+      background: rgba(10, 2, 4, 0.95); backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--border-gold); display: flex;
+      justify-content: space-between; align-items: center; padding: 0 4%; z-index: 99999;
     }
-    .brand-title { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; color: var(--gold-pure); text-decoration: none; }
-    .nav-links-wrap { display: flex; gap: 10px; list-style: none; }
-    .nav-btn { color: var(--text-muted); font-size: 0.85rem; padding: 8px 16px; border-radius: 30px; text-decoration: none; }
-    .nav-btn.active { background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber)); color: #000; font-weight: 700; }
 
-    .page-header { text-align: center; padding: 120px 5% 40px; max-width: 900px; margin: 0 auto; }
-    .page-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 10px; }
+    /* Traditional Marigold & Mango Leaf Toran Below Navbar */
+    .festive-toran-strip {
+      position: fixed;
+      top: 75px;
+      left: 0;
+      width: 100%;
+      height: 26px;
+      z-index: 99990;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-around;
+      overflow: hidden;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7));
+    }
 
-    .timeline-container { max-width: 1000px; margin: 0 auto; padding: 0 5% 80px; position: relative; }
-    .timeline-line {
-      position: absolute; top: 0; bottom: 0; left: 50%; width: 3px;
-      background: linear-gradient(180deg, var(--gold-pure), var(--crimson-pure), var(--gold-amber));
+    .toran-Loop {
+      flex: 1;
+      min-width: 90px;
+      height: 22px;
+      border-bottom: 4px dotted #ff9900;
+      border-radius: 0 0 50% 50%;
+      background: radial-gradient(circle at 50% 0%, rgba(46, 125, 50, 0.55) 0%, transparent 75%);
+      position: relative;
+      animation: gentleSway 3.5s ease-in-out infinite alternate;
+    }
+
+    .toran-Loop::after {
+      content: '🏵️';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
       transform: translateX(-50%);
+      font-size: 0.78rem;
     }
 
-    .timeline-item { display: flex; justify-content: flex-end; padding-bottom: 40px; position: relative; width: 50%; }
-    .timeline-item:nth-child(even) { align-self: flex-end; margin-left: 50%; justify-content: flex-start; }
+    @keyframes gentleSway {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(2.5px); }
+    }
+
+    .brand-group { display: flex; align-items: center; gap: 10px; text-decoration: none; z-index: 100000; }
+    .brand-symbol {
+      width: 42px; height: 42px;
+      filter: drop-shadow(0 0 10px var(--gold-amber));
+      animation: divinePulse 3s infinite alternate;
+    }
+    @keyframes divinePulse {
+      0% { transform: scale(0.96); filter: drop-shadow(0 0 6px var(--gold-amber)); }
+      100% { transform: scale(1.05); filter: drop-shadow(0 0 18px var(--gold-pure)); }
+    }
+
+    .brand-title {
+      font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; font-weight: 900;
+      background: linear-gradient(135deg, #ffffff, #ffd700, #ffaa00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-sub { display: block; font-family: 'Rozha One', serif; font-size: 0.65rem; color: var(--gold-deep); letter-spacing: 2px; text-transform: uppercase; }
+
+    .nav-links-wrap { display: flex; gap: 6px; list-style: none; align-items: center; }
+    .nav-btn {
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600; padding: 7px 14px;
+      border-radius: 40px; text-decoration: none; transition: 0.3s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-btn:hover { color: #ffffff; background: rgba(255, 215, 0, 0.15); }
+    .nav-btn.active {
+      color: #0c0204; background: linear-gradient(135deg, #ffd700, #ffaa00); font-weight: 700;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    }
+
+    .nav-actions-right { display: flex; align-items: center; gap: 10px; z-index: 100000; }
+
+    .hanging-bell-btn {
+      border: none; color: var(--gold-pure); font-size: 1.35rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease; transform-origin: top center;
+    }
+    .hanging-bell-btn:hover { background: rgba(255, 215, 0, 0.25); box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
+    .hanging-bell-btn.swing { animation: bellSwing 0.7s ease-in-out; }
+    @keyframes bellSwing {
+      0% { transform: rotate(0deg); }
+      20% { transform: rotate(18deg); }
+      40% { transform: rotate(-15deg); }
+      60% { transform: rotate(10deg); }
+      80% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .music-toggle-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(133, 0, 20, 0.45); color: var(--gold-pure);
+      border: 1.5px solid var(--gold-pure); border-radius: 30px;
+      padding: 7px 16px; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 0 14px rgba(255, 215, 0, 0.25);
+      transition: all 0.3s ease; font-family: inherit;
+    }
+    .music-toggle-btn:hover { background: var(--gold-pure); color: #0c0204; transform: translateY(-2px); }
+    .music-toggle-btn.playing {
+      background: linear-gradient(135deg, #ffd700, #ff9900);
+      color: #0a0204; border-color: #ffd700;
+    }
+
+    .equalizer-bars { display: flex; align-items: flex-end; gap: 2.5px; height: 14px; }
+    .eq-bar { width: 2.5px; height: 4px; background: currentColor; border-radius: 2px; transition: height 0.2s ease; }
+    .music-toggle-btn.playing .eq-bar:nth-child(1) { animation: soundWave 0.7s infinite alternate ease-in-out; }
+    .music-toggle-btn.playing .eq-bar:nth-child(2) { animation: soundWave 0.9s infinite alternate 0.15s ease-in-out; }
+    .music-toggle-btn.playing .eq-bar:nth-child(3) { animation: soundWave 0.6s infinite alternate 0.3s ease-in-out; }
+    @keyframes soundWave { from { height: 3px; } to { height: 14px; } }
+
+    .mobile-menu-toggle {
+      display: none; background: rgba(255, 215, 0, 0.12); border: 1.5px solid #ffd700;
+      color: #ffd700; width: 40px; height: 40px; border-radius: 10px;
+      font-size: 1.2rem; cursor: pointer; align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .mobile-menu-toggle { display: flex; }
+      .nav-links-wrap {
+        position: fixed; top: 75px; left: 0; width: 100%;
+        background: rgba(14, 2, 6, 0.98); backdrop-filter: blur(16px);
+        border-bottom: 2px solid #ffd700; flex-direction: column;
+        padding: 20px 24px 30px; gap: 12px;
+        transform: translateY(-160%); opacity: 0; pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.35s ease; z-index: 99998;
+      }
+      .nav-links-wrap.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .nav-btn { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.95rem; border: 1px solid rgba(255, 215, 0, 0.25); }
+    }
+
+    /* ================= PAGE HEADER & COMMON HEADINGS ================= */
+    .page-header {
+      text-align: center;
+      padding: 135px 5% 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .page-sacred-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(133, 0, 20, 0.6);
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      color: var(--gold-pure);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.84rem;
+      font-family: 'Rozha One', serif;
+      letter-spacing: 1.5px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+    }
+
+    .page-title, .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2rem, 4.4vw, 3.3rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 10%, #ffd700 48%, #ff7700 88%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.38));
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: clamp(1.65rem, 3.6vw, 2.5rem);
+    }
+
+    .page-subtitle, .section-subtitle {
+      color: #f7ede2;
+      font-size: clamp(0.95rem, 1.4vw, 1.12rem);
+      max-width: 800px;
+      margin: 0 auto 22px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+      text-align: center;
+    }
+
+    /* ================= FILTER TABS & COLLECTIVE PUSHPANJALI BAR ================= */
+    .ritual-controls-bar {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 0 auto 35px;
+      padding: 0 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .ritual-filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .filter-pill-btn {
+      background: rgba(28, 5, 12, 0.85);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      color: #f0dfd1;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .filter-pill-btn:hover,
+    .filter-pill-btn.active-filter {
+      background: linear-gradient(135deg, #ffd700, #ff9900);
+      color: #0b0204;
+      border-color: #ffffff;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.55);
+      transform: translateY(-2px);
+    }
+
+    .collective-arpan-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      background: rgba(20, 3, 8, 0.86);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      padding: 10px 22px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+    }
+
+    .maha-pushpanjali-btn {
+      background: linear-gradient(135deg, #ffd700, #ff6a00);
+      border: 1.5px solid #ffffff;
+      color: #0b0204;
+      padding: 9px 22px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-family: 'Rozha One', serif;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 18px rgba(255, 170, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .maha-pushpanjali-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 26px rgba(255, 215, 0, 0.85);
+    }
+
+    .live-darshan-toast {
+      font-family: 'Rozha One', serif;
+      color: var(--gold-pure);
+      font-size: 0.94rem;
+    }
+
+    /* ================= UPGRADED VERTICAL TIMELINE ================= */
+    .timeline-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 10px 5% 80px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .timeline-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3.5px;
+      background: linear-gradient(180deg, var(--gold-pure), var(--crimson-pure), var(--gold-amber), #ffffff);
+      transform: translateX(-50%);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-bottom: 42px;
+      position: relative;
+      width: 50%;
+    }
+
+    .timeline-item:nth-child(even) {
+      align-self: flex-end;
+      margin-left: 50%;
+      justify-content: flex-start;
+    }
 
     .timeline-pin {
-      position: absolute; right: -12px; top: 20px; width: 24px; height: 24px;
-      background: var(--gold-pure); border: 4px solid var(--bg-dark); border-radius: 50%; z-index: 4;
-      box-shadow: 0 0 12px var(--gold-pure);
+      position: absolute;
+      right: -14px;
+      top: 24px;
+      width: 28px;
+      height: 28px;
+      background: radial-gradient(circle, #ffffff, var(--gold-pure));
+      border: 4px solid #2a040c;
+      border-radius: 50%;
+      z-index: 4;
+      box-shadow: 0 0 16px var(--gold-pure);
     }
-    .timeline-item:nth-child(even) .timeline-pin { left: -12px; right: auto; }
+
+    .timeline-item:nth-child(even) .timeline-pin {
+      left: -14px;
+      right: auto;
+    }
 
     .timeline-card {
-      width: 90%; background: var(--surface-card); border: 1px solid var(--border-gold);
-      border-radius: 18px; padding: 24px; transition: transform 0.3s;
+      width: 92%;
+      background: var(--surface-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 22px;
+      padding: 26px 24px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
+      transition: all 0.35s ease;
+      position: relative;
     }
-    .timeline-card:hover { transform: scale(1.02); border-color: var(--gold-pure); }
 
-    .day-pill { color: var(--gold-pure); font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
-    .ritual-name { font-family: 'Rozha One', serif; font-size: 1.3rem; color: #fff; margin-bottom: 8px; }
-    .ritual-desc { font-size: 0.88rem; color: var(--text-muted); }
+    .timeline-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: #ffffff;
+      background: rgba(45, 7, 17, 0.92);
+      box-shadow: 0 14px 40px rgba(255, 215, 0, 0.38), 0 0 22px rgba(255, 255, 255, 0.18);
+    }
 
-    .dandiya-badge-box {
-      margin-top: 12px; background: rgba(255, 111, 0, 0.15); border: 1px dashed var(--gold-amber);
-      padding: 10px; border-radius: 10px; font-size: 0.82rem; color: #ffe2bd;
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .day-pill {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--crimson-pure), #4a000c);
+      border: 1px solid var(--gold-pure);
+      color: var(--gold-pure);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 4px 13px;
+      border-radius: 20px;
+    }
+
+    .ritual-icon-orb {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.12);
+      border: 1.5px solid var(--gold-pure);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.3);
+    }
+
+    .ritual-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.38rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
+    }
+
+    .ritual-muhurat {
+      font-family: 'Rozha One', serif;
+      font-size: 0.88rem;
+      color: var(--gold-amber);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ritual-mantra-strip {
+      background: rgba(0, 0, 0, 0.55);
+      border-left: 3px solid var(--gold-pure);
+      padding: 8px 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.83rem;
+      color: #ffe8b8;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .ritual-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Card Mini QR Strip & Action Buttons */
+    .card-qr-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 215, 0, 0.35);
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card-qr-strip:hover {
+      background: rgba(255, 215, 0, 0.12);
+    }
+    .card-qr-thumb {
+      width: 40px;
+      height: 40px;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 2px;
+      object-fit: contain;
+    }
+    .card-qr-text {
+      font-size: 0.74rem;
+      color: #ffdca8;
+      font-family: 'Rozha One', serif;
+      line-height: 1.3;
+    }
+
+    .card-action-dual-row {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 10px;
+    }
+
+    .quick-arpan-btn {
+      background: rgba(255, 215, 0, 0.12);
+      border: 1.5px solid var(--gold-pure);
+      color: var(--gold-pure);
+      padding: 9px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .quick-arpan-btn:hover {
+      background: var(--gold-pure);
+      color: #0b0204;
+      box-shadow: 0 0 16px rgba(255, 215, 0, 0.6);
+    }
+
+    .open-modal-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid var(--border-gold);
+      color: #ffffff;
+      padding: 9px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.25s;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .open-modal-btn:hover {
+      background: linear-gradient(135deg, #ffffff, #ffd700);
+      color: #0a0204;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
     }
 
     @media (max-width: 850px) {
       .timeline-line { left: 20px; }
       .timeline-item { width: 100%; padding-left: 50px; justify-content: flex-start !important; margin-left: 0 !important; }
-      .timeline-item .timeline-pin { left: 8px !important; }
+      .timeline-item .timeline-pin { left: 6px !important; right: auto !important; }
       .timeline-card { width: 100%; }
+    }
+
+    /* ================= SANDHI PUJA 108 DIYAS SANCTUM ================= */
+    .sandhi-108-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1120px;
+      margin: 0 auto 80px;
+      padding: 0 5%;
+      text-align: center;
+    }
+
+    .sandhi-glass-frame {
+      background: var(--surface-glass);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 26px;
+      padding: 34px 24px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--border-glow);
+    }
+
+    .diyas-108-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+      gap: 8px;
+      max-width: 880px;
+      margin: 22px auto;
+      padding: 16px;
+      background: rgba(10, 2, 5, 0.75);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 18px;
+    }
+
+    .mini-sandhi-diya {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      filter: grayscale(100%) opacity(0.45);
+      user-select: none;
+    }
+
+    .mini-sandhi-diya.lit {
+      filter: grayscale(0%) opacity(1);
+      background: radial-gradient(circle, rgba(255, 230, 0, 0.45), rgba(255, 102, 0, 0.2));
+      border-color: #ffd700;
+      box-shadow: 0 0 12px #ffaa00;
+      transform: scale(1.08);
+    }
+
+    .sandhi-controls-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    /* ================= MAHA NAVAMI VEDIC HAVAN KUND ================= */
+    .havan-kund-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1080px;
+      margin: 0 auto 85px;
+      padding: 0 5%;
+      text-align: center;
+    }
+
+    .havan-glass-box {
+      background: var(--surface-glass);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 26px;
+      padding: 36px 26px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--border-glow);
+    }
+
+    .havan-altar-stage {
+      width: 220px;
+      height: 210px;
+      margin: 10px auto 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .havan-fire-blaze {
+      width: 90px;
+      height: 115px;
+      background: radial-gradient(ellipse at 50% 80%, #ffffff 0%, #ffea00 32%, #ff5100 68%, transparent 100%);
+      border-radius: 50% 50% 35% 35% / 75% 75% 30% 30%;
+      filter: drop-shadow(0 0 28px #ff7700);
+      animation: havanBlaze 0.9s infinite alternate ease-in-out;
+      transform-origin: bottom center;
+      transition: transform 0.35s ease, filter 0.35s ease;
+      z-index: 2;
+    }
+
+    .havan-fire-blaze.flare-up {
+      transform: scale(1.38, 1.48) !important;
+      filter: drop-shadow(0 0 48px #ffd700) !important;
+    }
+
+    @keyframes havanBlaze {
+      0% { transform: scale(0.95, 0.98) rotate(-2deg); }
+      50% { transform: scale(1.06, 1.08) rotate(2deg); }
+      100% { transform: scale(0.98, 1.04) rotate(-1deg); }
+    }
+
+    .havan-kund-base {
+      width: 185px;
+      height: 68px;
+      background: linear-gradient(180deg, #b73b16 0%, #751b06 55%, #3d0c02 100%);
+      border: 2.5px solid var(--gold-pure);
+      border-radius: 8px 8px 26px 26px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), inset 0 4px 14px rgba(255, 215, 0, 0.45);
+      margin-top: -16px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Rozha One', serif;
+      color: var(--gold-pure);
+      font-size: 0.92rem;
+      letter-spacing: 1.5px;
+    }
+
+    .ahuti-buttons-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .ahuti-btn {
+      background: rgba(45, 8, 18, 0.85);
+      border: 1.5px solid var(--border-gold);
+      color: #ffffff;
+      padding: 11px 20px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+    }
+
+    .ahuti-btn:hover {
+      background: linear-gradient(135deg, #ffd700, #ff6a00);
+      color: #0b0204;
+      border-color: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 170, 0, 0.5);
+    }
+
+    /* ================= MODAL BACKDROP ================= */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.90);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 1000000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-box {
+      background: radial-gradient(circle, #2a050e 0%, #0d0104 100%);
+      border: 2px solid var(--gold-pure); border-radius: 24px;
+      max-width: 560px; width: 100%; padding: 28px 24px; position: relative;
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.45);
+      max-height: 92vh; overflow-y: auto;
+    }
+    .close-btn {
+      position: absolute; top: 14px; right: 20px; background: none; border: none;
+      color: #ffffff; font-size: 1.8rem; cursor: pointer;
+    }
+
+    .modal-jaap-box {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px; background: rgba(255, 215, 0, 0.1);
+      border: 1px solid var(--gold-pure); padding: 11px 16px;
+      border-radius: 14px; margin-bottom: 14px;
+    }
+
+    .modal-chant-btn {
+      background: linear-gradient(135deg, #ffd700, #ff9900);
+      color: #0b0204; border: none; padding: 8px 18px;
+      border-radius: 25px; font-weight: 800; cursor: pointer; font-size: 0.82rem;
+    }
+
+    .modal-qr-section {
+      margin-top: 16px; background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 215, 0, 0.45); border-radius: 16px;
+      padding: 14px; display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .modal-qr-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, #7a0013, #4a000c);
+      border: 1px solid #ffd700; color: #ffd700; padding: 4px 14px;
+      border-radius: 15px; font-size: 0.78rem; font-family: 'Rozha One', serif; margin-bottom: 10px;
+    }
+    .modal-qr-image {
+      width: 150px; height: 150px; object-fit: contain;
+      border-radius: 12px; border: 2px solid #ffd700; background: #ffffff; padding: 6px;
+    }
+
+    /* Footer */
+    .sanctum-footer {
+      background: #140104; text-align: center; padding: 22px; font-family: 'Rozha One', serif;
+      color: var(--gold-pure); font-size: 1.05rem; letter-spacing: 1.5px; border-top: 1px solid var(--border-gold);
+      position: relative; z-index: 10;
     }
   </style>
 </head>
 <body>
 
+  <!-- Top Golden Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Floating Golden Diya / Embers Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Interactive Parikrama Light Trail Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Flower, Belpatra & Sindoor Shower Canvas -->
+  <canvas id="flower-canvas"></canvas>
+
+  <!-- FULL-SCREEN ALL-DEVICES Divine Maa Durga Background Image (m2.jpg) -->
+  <div class="divine-bg-full" aria-hidden="true">
+    <div class="divine-bg-aura"></div>
+    <img src="m2.jpg" alt="Divine Maa Durga" class="divine-bg-img">
+  </div>
+
+  <!-- Audio Element Saved as song 2.mp3 -->
+  <audio id="mahakali-audio" loop preload="auto">
+    <source src="song 2.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Sanctum Navbar -->
   <header class="sanctum-navbar">
-    <a href="index.html" class="brand-title">&#x1F3F5; DURGA PUJA</a>
-    <ul class="nav-links-wrap">
+    <a href="index.html" class="brand-group">
+      <svg class="brand-symbol" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#ffd700" stroke-width="2"/>
+        <path d="M50 15 L50 85 M30 35 Q50 20 70 35 M25 55 Q50 75 75 55" stroke="#ffd700" stroke-width="3" fill="none"/>
+        <circle cx="50" cy="50" r="7" fill="#ff4500"/>
+      </svg>
+      <div>
+        <span class="brand-title">DURGA PUJA</span>
+        <span class="brand-sub">Bihar Sharif Darshan</span>
+      </div>
+    </a>
+
+    <ul class="nav-links-wrap" id="nav-links">
       <li><a href="index.html" class="nav-btn"><i class="fa-solid fa-om"></i> Mahotsav</a></li>
       <li><a href="navdurga.html" class="nav-btn"><i class="fa-solid fa-hands-praying"></i> 9 Navdurga</a></li>
       <li><a href="rituals.html" class="nav-btn active"><i class="fa-solid fa-calendar-days"></i> Rituals</a></li>
-      <li><a href="pandals.html" class="nav-btn"><i class="fa-solid fa-monument"></i> Pandals</a></li>
-      <li><a href="activities.html" class="nav-btn"><i class="fa-solid fa-drum"></i> Activities</a></li>
+      <li><a href="pandals.html" class="nav-btn"><i class="fa-solid fa-monument"></i> Bihar Sharif Pandals</a></li>
+      <li><a href="activities.html" class="nav-btn"><i class="fa-solid fa-drum"></i> Dandiya Night</a></li>
     </ul>
+
+    <div class="nav-actions-right">
+      <button class="hanging-bell-btn" id="bell-btn" onclick="ringHangingBell()" title="Ring Divine Bell">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+
+      <button class="music-toggle-btn" id="music-toggle-btn" onclick="toggleAudio()" aria-label="Toggle Background Music">
+        <i class="fa-solid fa-volume-xmark" id="music-icon"></i>
+        <span id="music-text">Music OFF</span>
+        <div class="equalizer-bars">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+      </button>
+
+      <button class="mobile-menu-toggle" id="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars" id="menu-icon"></i>
+      </button>
+    </div>
   </header>
 
-  <div class="page-header">
-    <h1 class="page-title">Day-by-Day Rituals & Festivals</h1>
-    <p style="color:var(--text-muted);">From the auspicious dawn of Mahalaya to Vijayadashami Sindoor Khela and Dandiya Raas nights.</p>
+  <!-- Traditional Marigold & Mango Leaf Toran Below Navbar -->
+  <div class="festive-toran-strip" aria-hidden="true">
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
+    <div class="toran-Loop"></div>
   </div>
 
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-sacred-badge">
+      <i class="fa-solid fa-calendar-days"></i> वैदिक पूजा विधि, संधि आरती एवं सिंदूर खेला
+    </div>
+    <h1 class="page-title">Day-by-Day Sacred Puja Rituals</h1>
+    <p class="page-subtitle">From the auspicious dawn of Mahalaya Chakshu Daan to Maha Ashtami Sandhi Puja and Vijayadashami Sindoor Khela.</p>
+  </div>
+
+  <!-- Quick Filter & Collective Pushpanjali Controls -->
+  <section class="ritual-controls-bar">
+    <div class="ritual-filter-pills">
+      <button class="filter-pill-btn active-filter" onclick="filterTimeline('all', this)">🔱 All 6 Sacred Days</button>
+      <button class="filter-pill-btn" onclick="filterTimeline('awakening', this)">🏺 Awakening (Mahalaya – Saptami)</button>
+      <button class="filter-pill-btn" onclick="filterTimeline('climax', this)">🔥 Maha Puja (Ashtami – Dashami)</button>
+    </div>
+
+    <div class="collective-arpan-bar">
+      <button class="maha-pushpanjali-btn" onclick="offerAllRitualsPushpanjali()">
+        🌺 Offer महा-पुष्पांजलि Across All Rituals
+      </button>
+      <button class="maha-pushpanjali-btn" style="background:linear-gradient(135deg,#ff1744,#ff9100); color:#fff;" onclick="triggerSindoorKhelaShower()">
+        🔴 Play Virtual Sindoor Khela
+      </button>
+      <span class="live-darshan-toast" id="ritual-toast-msg">
+        ✨ Click any ritual card to offer Pushpanjali, chant Vedic Mantra &amp; view QR
+      </span>
+    </div>
+  </section>
+
+  <!-- ================= UPGRADED TIMELINE ================= -->
   <main class="timeline-container">
     <div class="timeline-line"></div>
 
-    <div class="timeline-item">
+    <!-- Day 0: Mahalaya -->
+    <div class="timeline-item" data-category="awakening">
       <div class="timeline-pin"></div>
       <div class="timeline-card">
-        <div class="day-pill">Ashwin Amavasya &bull; Day 0</div>
-        <h3 class="ritual-name">Mahalaya & Chakshu Daan</h3>
+        <div class="card-top-row">
+          <div class="day-pill">Ashwin Amavasya &bull; Day 0</div>
+          <div class="ritual-icon-orb">👁️</div>
+        </div>
+        <h3 class="ritual-name">Mahalaya &amp; Chakshu Daan</h3>
+        <div class="ritual-muhurat"><i class="fa-regular fa-clock"></i> Brahma Muhurat Dawn Invocation &bull; Chandi Path</div>
+        <div class="ritual-mantra-strip">"ॐ सर्वमङ्गलमाङ्गल्ये शिवे सर्वार्थसाधिके। शरण्ये त्र्यम्बके गौरि नारायणि नमोऽस्तु ते॥"</div>
         <p class="ritual-desc">Maa Durga is invoked from the heavens through chanting of Chandi Path. Master sculptors paint the sacred third eye on the idol (Chakshu Daan), breathing cosmic life into the clay.</p>
+
+        <div class="card-qr-strip" onclick="openRitualModal(0)">
+          <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+          <div class="card-qr-text">
+            <strong>महालया चक्षु-दान व चण्डी पाठ अर्पण</strong><br>
+            <span>Click to view Vedic Vidhi &amp; scan QR</span>
+          </div>
+        </div>
+        <div class="card-action-dual-row">
+          <button class="quick-arpan-btn" onclick="offerRitualArpan(0, 'Mahalaya & Chakshu Daan')">
+            🌺 Arpan (<span id="ritual-arpan-0">108</span>)
+          </button>
+          <button class="open-modal-btn" onclick="openRitualModal(0)">
+            <i class="fa-solid fa-eye"></i> Vidhi &amp; QR
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="timeline-item">
+    <!-- Day 6: Maha Shasthi -->
+    <div class="timeline-item" data-category="awakening">
       <div class="timeline-pin"></div>
       <div class="timeline-card">
-        <div class="day-pill">Maha Shasthi &bull; Day 6</div>
-        <h3 class="ritual-name">Bodhan & Unveiling of the Pandal</h3>
+        <div class="card-top-row">
+          <div class="day-pill">Maha Shasthi &bull; Day 6</div>
+          <div class="ritual-icon-orb">🌿</div>
+        </div>
+        <h3 class="ritual-name">Bodhan &amp; Unveiling of the Pandal</h3>
+        <div class="ritual-muhurat"><i class="fa-regular fa-clock"></i> Evening Sandhya Bilva Tree Invocation &bull; Kalash Sthapana</div>
+        <div class="ritual-mantra-strip">"ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे॥ आगच्छ देवि दुर्गे त्वं महाषष्ठी-प्रपूजिते॥"</div>
         <p class="ritual-desc">The awakening of the Goddess under the sacred Bilva (Bel) tree. Pandals open their gates across Bihar Sharif as the Dhak drums thunder with community joy.</p>
+
+        <div class="card-qr-strip" onclick="openRitualModal(1)">
+          <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+          <div class="card-qr-text">
+            <strong>बेलभरनी बोधन व कलश स्थापना सेवा</strong><br>
+            <span>Click to view Vedic Vidhi &amp; scan QR</span>
+          </div>
+        </div>
+        <div class="card-action-dual-row">
+          <button class="quick-arpan-btn" onclick="offerRitualArpan(1, 'Maha Shasthi Bodhan')">
+            🌺 Arpan (<span id="ritual-arpan-1">124</span>)
+          </button>
+          <button class="open-modal-btn" onclick="openRitualModal(1)">
+            <i class="fa-solid fa-eye"></i> Vidhi &amp; QR
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="timeline-item">
+    <!-- Day 7: Maha Saptami -->
+    <div class="timeline-item" data-category="awakening">
       <div class="timeline-pin"></div>
       <div class="timeline-card">
-        <div class="day-pill">Maha Saptami &bull; Day 7</div>
+        <div class="card-top-row">
+          <div class="day-pill">Maha Saptami &bull; Day 7</div>
+          <div class="ritual-icon-orb">🪴</div>
+        </div>
         <h3 class="ritual-name">Kola Bou Snan (Navapatrika)</h3>
+        <div class="ritual-muhurat"><i class="fa-regular fa-clock"></i> Sacred Morning Bath &amp; Maha Saptami Pran Pratishtha</div>
+        <div class="ritual-mantra-strip">"ॐ नवपत्रिकावासिनी दुर्गायै नमः॥ प्राणाः प्रतिष्ठन्तु देवी-मूर्तौ॥"</div>
         <p class="ritual-desc">Nine sacred botanical plants symbolizing Durga's nature forms are bathed at dawn, draped in a red-bordered yellow saree as 'Kola Bou', and welcomed beside Lord Ganesha.</p>
-        <div class="dandiya-badge-box">&#x1FA80; <strong>Dandiya Night 1:</strong> Community grounds in Amber Chowk host vibrant Garba circles.</div>
+
+        <div class="card-qr-strip" onclick="openRitualModal(2)">
+          <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+          <div class="card-qr-text">
+            <strong>नवपत्रिका पूजन व महासप्तमी भोग अर्पण</strong><br>
+            <span>Click to view Vedic Vidhi &amp; scan QR</span>
+          </div>
+        </div>
+        <div class="card-action-dual-row">
+          <button class="quick-arpan-btn" onclick="offerRitualArpan(2, 'Maha Saptami Navapatrika')">
+            🌺 Arpan (<span id="ritual-arpan-2">142</span>)
+          </button>
+          <button class="open-modal-btn" onclick="openRitualModal(2)">
+            <i class="fa-solid fa-eye"></i> Vidhi &amp; QR
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="timeline-item">
+    <!-- Day 8: Maha Ashtami -->
+    <div class="timeline-item" data-category="climax">
       <div class="timeline-pin"></div>
       <div class="timeline-card">
-        <div class="day-pill">Maha Ashtami &bull; Day 8</div>
-        <h3 class="ritual-name">Kumari Puja & Sandhi Puja</h3>
+        <div class="card-top-row">
+          <div class="day-pill">Maha Ashtami &bull; Day 8</div>
+          <div class="ritual-icon-orb">🪔</div>
+        </div>
+        <h3 class="ritual-name">Kumari Puja &amp; Sandhi Puja</h3>
+        <div class="ritual-muhurat"><i class="fa-regular fa-clock"></i> Morning Kanya Pujan &bull; 48-Min Sandhi Kaal (108 Lamps)</div>
+        <div class="ritual-mantra-strip">"ॐ कुमार्यै नमः॥ ॐ चण्डमुण्डविनाशिन्यै चामुण्डायै नमो नमः॥"</div>
         <p class="ritual-desc">Young girls are worshiped as living embodiments of the Goddess. During Sandhi Puja—the 48-minute juncture between Ashtami and Navami—108 blue lotuses and 108 clay diyas are lit.</p>
-        <div class="dandiya-badge-box">&#x1FA80; <strong>Grand Dandiya Raas:</strong> Traditional chaniya cholis and clashing sticks late into the night.</div>
+
+        <div class="card-qr-strip" onclick="openRitualModal(3)">
+          <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+          <div class="card-qr-text">
+            <strong>संधि पूजा १०८ दीपदान व कुमारी कन्या भोज</strong><br>
+            <span>Click to view Vedic Vidhi &amp; scan QR</span>
+          </div>
+        </div>
+        <div class="card-action-dual-row">
+          <button class="quick-arpan-btn" onclick="offerRitualArpan(3, 'Maha Ashtami Sandhi Puja')">
+            🌺 Arpan (<span id="ritual-arpan-3">188</span>)
+          </button>
+          <button class="open-modal-btn" onclick="openRitualModal(3)">
+            <i class="fa-solid fa-eye"></i> Vidhi &amp; QR
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="timeline-item">
+    <!-- Day 9: Maha Navami -->
+    <div class="timeline-item" data-category="climax">
       <div class="timeline-pin"></div>
       <div class="timeline-card">
-        <div class="day-pill">Maha Navami &bull; Day 9</div>
-        <h3 class="ritual-name">Maha Homa & Dhunuchi Naach</h3>
+        <div class="card-top-row">
+          <div class="day-pill">Maha Navami &bull; Day 9</div>
+          <div class="ritual-icon-orb">🔥</div>
+        </div>
+        <h3 class="ritual-name">Maha Homa &amp; Dhunuchi Naach</h3>
+        <div class="ritual-muhurat"><i class="fa-regular fa-clock"></i> Afternoon Vedic Purnahuti &bull; Evening Dhunuchi Arati</div>
+        <div class="ritual-mantra-strip">"ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे स्वाहा॥ इदं चण्डिकायै न मम॥"</div>
         <p class="ritual-desc">The grand sacred fire sacrifice is solemnized. Devotees perform the exhilarating Dhunuchi Naach, balancing clay burners smoking with coconut husk and camphor.</p>
+
+        <div class="card-qr-strip" onclick="openRitualModal(4)">
+          <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+          <div class="card-qr-text">
+            <strong>महानवमी हवन पूर्णाहुति व महाभोग भंडारा</strong><br>
+            <span>Click to view Vedic Vidhi &amp; scan QR</span>
+          </div>
+        </div>
+        <div class="card-action-dual-row">
+          <button class="quick-arpan-btn" onclick="offerRitualArpan(4, 'Maha Navami Homa')">
+            🌺 Arpan (<span id="ritual-arpan-4">165</span>)
+          </button>
+          <button class="open-modal-btn" onclick="openRitualModal(4)">
+            <i class="fa-solid fa-eye"></i> Vidhi &amp; QR
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="timeline-item">
+    <!-- Day 10: Vijayadashami -->
+    <div class="timeline-item" data-category="climax">
       <div class="timeline-pin"></div>
       <div class="timeline-card">
-        <div class="day-pill">Vijayadashami &bull; Day 10</div>
-        <h3 class="ritual-name">Sindoor Khela & Visarjan</h3>
+        <div class="card-top-row">
+          <div class="day-pill">Vijayadashami &bull; Day 10</div>
+          <div class="ritual-icon-orb">🚩</div>
+        </div>
+        <h3 class="ritual-name">Sindoor Khela &amp; Visarjan</h3>
+        <div class="ritual-muhurat"><i class="fa-regular fa-clock"></i> Devi Boron, Aparajita Puja &amp; Regal Immersion Procession</div>
+        <div class="ritual-mantra-strip">"ॐ अपराजितायै नमः॥ गच्छ गच्छ सुरश्रेष्ठे स्वस्थानं परमेश्वरि॥"</div>
         <p class="ritual-desc">Married women celebrate the sweet farewell of Maa Durga by smearing red vermilion (Sindoor Khela) before the sacred clay idols are immersed in holy waters.</p>
+
+        <div class="card-qr-strip" onclick="openRitualModal(5)">
+          <img src="QR_1792189397.png" alt="QR Code" class="card-qr-thumb">
+          <div class="card-qr-text">
+            <strong>विजयादशमी देवी बोरन व सिंदूर खेला भेंट</strong><br>
+            <span>Click to view Vedic Vidhi &amp; scan QR</span>
+          </div>
+        </div>
+        <div class="card-action-dual-row">
+          <button class="quick-arpan-btn" onclick="offerRitualArpan(5, 'Vijayadashami Sindoor Khela')">
+            🌺 Arpan (<span id="ritual-arpan-5">201</span>)
+          </button>
+          <button class="open-modal-btn" onclick="openRitualModal(5)">
+            <i class="fa-solid fa-eye"></i> Vidhi &amp; QR
+          </button>
+        </div>
       </div>
     </div>
   </main>
+
+  <!-- ================= INTERACTIVE SANDHI PUJA 108 DIYAS ALTAR ================= -->
+  <section class="sandhi-108-section" id="sandhi-108-altar">
+    <div class="sandhi-glass-frame">
+      <div class="page-sacred-badge">
+        <i class="fa-solid fa-fire"></i> महाष्टमी-नवमी संधि काल &bull; १०८ दीपदान मण्डल
+      </div>
+      <h2 class="section-title">🪔 SANDHI PUJA 108 SACRED DIYAS ALTAR</h2>
+      <p class="section-subtitle">
+        Light the 108 auspicious clay lamps of Sandhi Puja to invoke Maa Chamunda's invincible blessing
+      </p>
+
+      <p style="font-family:'Rozha One', serif; color:var(--gold-pure); font-size:1.15rem;" id="sandhi-counter-label">
+        Sacred Lamps Lit: 0 / 108 Diyas
+      </p>
+
+      <div class="diyas-108-grid" id="diyas-108-grid">
+        <!-- 108 Diyas generated dynamically -->
+      </div>
+
+      <div class="sandhi-controls-row">
+        <button class="maha-pushpanjali-btn" onclick="lightNextBatchDiyas(9)">
+          🪔 Light 9 Sacred Diyas (+9)
+        </button>
+        <button class="maha-pushpanjali-btn" style="background:linear-gradient(135deg,#ffffff,#ffd700);" onclick="lightAll108Diyas()">
+          ✨ Light All 108 Sandhi Lamps &amp; Offer 108 Blue Lotuses
+        </button>
+        <button class="filter-pill-btn" onclick="reset108Diyas()">
+          <i class="fa-solid fa-rotate-right"></i> Reset Altar
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE MAHA NAVAMI VEDIC HAVAN KUND ================= -->
+  <section class="havan-kund-section" id="vedic-havan">
+    <div class="havan-glass-box">
+      <div class="page-sacred-badge">
+        <i class="fa-solid fa-fire-burner"></i> महानवमी वैदिक हवन कुण्ड एवं पूर्णाहुति
+      </div>
+      <h2 class="section-title">🔥 SACRED MAHA HAVAN KUND</h2>
+      <p class="section-subtitle">Offer sacred Vedic Ahutis into the Agni Kund while chanting "Swaha"</p>
+
+      <div class="havan-altar-stage">
+        <div class="havan-fire-blaze" id="havan-flame"></div>
+        <div class="havan-kund-base">🔥 यज्ञ वेदी (HAVAN KUND)</div>
+      </div>
+
+      <p style="color:#ffe8b0; font-family:'Rozha One', serif; font-size:1.08rem; margin-bottom:6px;" id="havan-mantra-status">
+        "ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे स्वाहा॥" (Total Ahutis Offered: <span id="ahuti-count">0</span>)
+      </p>
+
+      <div class="ahuti-buttons-grid">
+        <button class="ahuti-btn" onclick="offerHavanAhuti('Pure Cow Ghee (गाय का घी)', '🍯')">🍯 Offer Cow Ghee Swaha</button>
+        <button class="ahuti-btn" onclick="offerHavanAhuti('Vedic Havan Samagri (हवन सामग्री)', '🌿')">🌿 Offer Havan Samagri Swaha</button>
+        <button class="ahuti-btn" onclick="offerHavanAhuti('Tridal Belpatra (बेलपत्र आहुति)', '🍃')">🍃 Offer Belpatra Swaha</button>
+        <button class="ahuti-btn" onclick="offerHavanAhuti('Bhimseni Karpoor & Cloves (कपूर-लौंग)', '✨')">✨ Offer Karpoor Swaha</button>
+        <button class="ahuti-btn" onclick="offerHavanAhuti('Maha Purnahuti Sriphal (पूर्णाहुति नारियल)', '🥥')">🥥 Offer Maha Purnahuti</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Shell for Ritual Vidhi, Live Mantra Jaap & QR -->
+  <div class="modal-backdrop" id="modal-container" onclick="handleBackdropClick(event)">
+    <div class="modal-box">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <footer class="sanctum-footer">Celebrating the nine nights of devotion, light, and divine power &bull; Bihar Sharif ✨</footer>
+
+  <!-- JavaScript Engine -->
+  <script>
+    // ================= SCROLL PROGRESS BAR =================
+    window.addEventListener("scroll", () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById("scroll-progress").style.width = pct + "%";
+    }, { passive: true });
+
+    // ================= AUDIO PLAY/STOP ENGINE (song 2.mp3) =================
+    const audio = document.getElementById("mahakali-audio");
+    const musicBtn = document.getElementById("music-toggle-btn");
+    const musicIcon = document.getElementById("music-icon");
+    const musicText = document.getElementById("music-text");
+
+    function updateAudioUI(isPlaying) {
+      if (isPlaying) {
+        musicBtn.classList.add("playing");
+        musicIcon.className = "fa-solid fa-volume-high";
+        musicText.innerText = "Music ON";
+      } else {
+        musicBtn.classList.remove("playing");
+        musicIcon.className = "fa-solid fa-volume-xmark";
+        musicText.innerText = "Music OFF";
+      }
+    }
+
+    function toggleAudio() {
+      if (!audio) return;
+      if (audio.paused) {
+        audio.play().then(() => updateAudioUI(true)).catch(() => {});
+      } else {
+        audio.pause();
+        updateAudioUI(false);
+      }
+    }
+
+    audio.addEventListener("play", () => updateAudioUI(true));
+    audio.addEventListener("pause", () => updateAudioUI(false));
+
+    function unlockAudioOnGesture() {
+      if (audio && audio.paused) {
+        audio.play().then(() => updateAudioUI(true)).catch(() => {});
+      }
+    }
+    document.addEventListener("click", unlockAudioOnGesture, { once: true });
+    document.addEventListener("touchstart", unlockAudioOnGesture, { once: true });
+
+    // ================= WEB AUDIO SYNTHESIZERS (BELL & SHANKH) =================
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playMandirGhanti() {
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      const harmonics = [1180, 1420, 2120, 2900];
+      const gains = [0.38, 0.24, 0.14, 0.08];
+
+      harmonics.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now);
+        gainNode.gain.setValueAtTime(gains[idx], now);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 2.1);
+        osc.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 2.1);
+      });
+    }
+
+    function playShankhnaad() {
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      const duration = 2.4;
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const filter = ctx.createBiquadFilter();
+      const gain = ctx.createGain();
+
+      osc1.type = "sawtooth";
+      osc2.type = "sine";
+      osc1.frequency.setValueAtTime(220, now);
+      osc1.frequency.linearRampToValueAtTime(246, now + 0.5);
+      osc1.frequency.linearRampToValueAtTime(218, now + duration);
+      osc2.frequency.setValueAtTime(440, now);
+
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(760, now);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.32, now + 0.45);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+      osc1.connect(filter);
+      osc2.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + duration);
+      osc2.stop(now + duration);
+    }
+
+    function playJaapChime() {
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(1040, now);
+      gain.gain.setValueAtTime(0.24, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.38);
+    }
+
+    function ringHangingBell() {
+      const bell = document.getElementById("bell-btn");
+      bell.classList.remove("swing");
+      void bell.offsetWidth;
+      bell.classList.add("swing");
+      playMandirGhanti();
+    }
+
+    // ================= MOBILE NAVIGATION =================
+    function toggleMobileNav() {
+      const nav = document.getElementById("nav-links");
+      const icon = document.getElementById("menu-icon");
+      nav.classList.toggle("open");
+      icon.className = nav.classList.contains("open") ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+    }
+
+    // ================= PUSHPANJALI, BELPATRA & SINDOOR SHOWER CANVAS =================
+    const fCanvas = document.getElementById("flower-canvas");
+    const fCtx = fCanvas.getContext("2d");
+    let fw = fCanvas.width = window.innerWidth;
+    let fh = fCanvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      fw = fCanvas.width = window.innerWidth;
+      fh = fCanvas.height = window.innerHeight;
+    });
+
+    let fallingPetals = [];
+
+    class SacredParticle {
+      constructor(mode = "mixed") {
+        this.x = Math.random() * fw;
+        this.y = -20 - Math.random() * 60;
+        this.size = mode === "sindoor" ? (Math.random() * 7 + 4) : (Math.random() * 9 + 8);
+        this.vy = Math.random() * 2.6 + 2.0;
+        this.vx = (Math.random() - 0.5) * 1.8;
+        this.angle = Math.random() * Math.PI * 2;
+        this.vAngle = (Math.random() - 0.5) * 0.07;
+        if (mode === "sindoor") {
+          this.type = "sindoor";
+        } else {
+          const r = Math.random();
+          this.type = r > 0.65 ? "belpatra" : (r > 0.3 ? "hibiscus" : "marigold");
+        }
+      }
+      update() {
+        this.y += this.vy;
+        this.x += this.vx;
+        this.angle += this.vAngle;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        if (this.type === "sindoor") {
+          ctx.fillStyle = Math.random() > 0.3 ? "#e60026" : "#ff1744";
+          ctx.shadowColor = "#ff1744";
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (this.type === "belpatra") {
+          ctx.fillStyle = "#2e7d32";
+          ctx.beginPath();
+          ctx.ellipse(0, -this.size * 0.4, this.size * 0.3, this.size * 0.6, 0, 0, Math.PI * 2);
+          ctx.ellipse(-this.size * 0.4, this.size * 0.15, this.size * 0.26, this.size * 0.5, -Math.PI / 4, 0, Math.PI * 2);
+          ctx.ellipse(this.size * 0.4, this.size * 0.15, this.size * 0.26, this.size * 0.5, Math.PI / 4, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (this.type === "hibiscus") {
+          ctx.fillStyle = "#ff0033";
+          ctx.beginPath();
+          ctx.ellipse(0, 0, this.size, this.size * 0.55, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = "#ff9900";
+          ctx.beginPath();
+          ctx.arc(0, 0, this.size * 0.65, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    function triggerPushpanjaliShower(count = 45, mode = "mixed") {
+      for (let i = 0; i < count; i++) {
+        fallingPetals.push(new SacredParticle(mode));
+      }
+    }
+
+    function triggerSindoorKhelaShower() {
+      triggerPushpanjaliShower(75, "sindoor");
+      playShankhnaad();
+      document.getElementById("ritual-toast-msg").innerText =
+        "🔴 शुभो विजया! Auspicious Vijayadashami Sindoor Khela blessings showered!";
+    }
+
+    function animateFlowerShower() {
+      fCtx.clearRect(0, 0, fw, fh);
+      for (let i = fallingPetals.length - 1; i >= 0; i--) {
+        fallingPetals[i].update();
+        fallingPetals[i].draw(fCtx);
+        if (fallingPetals[i].y > fh + 40) {
+          fallingPetals.splice(i, 1);
+        }
+      }
+      requestAnimationFrame(animateFlowerShower);
+    }
+    animateFlowerShower();
+
+    // ================= TIMELINE FILTER & ARPAN COUNTERS =================
+    let ritualArpanCounts = JSON.parse(localStorage.getItem("rituals_arpan_counts") || "[108, 124, 142, 188, 165, 201]");
+
+    function updateRitualCountersUI() {
+      ritualArpanCounts.forEach((val, idx) => {
+        const el = document.getElementById(`ritual-arpan-${idx}`);
+        if (el) el.innerText = val;
+      });
+    }
+    updateRitualCountersUI();
+
+    function offerRitualArpan(idx, title) {
+      ritualArpanCounts[idx] = (ritualArpanCounts[idx] || 108) + 1;
+      localStorage.setItem("rituals_arpan_counts", JSON.stringify(ritualArpanCounts));
+      updateRitualCountersUI();
+      triggerPushpanjaliShower(42);
+      playMandirGhanti();
+      document.getElementById("ritual-toast-msg").innerText = `🌺 Sacred Pushpanjali offered for ${title}!`;
+    }
+
+    function offerAllRitualsPushpanjali() {
+      ritualArpanCounts = ritualArpanCounts.map(c => c + 1);
+      localStorage.setItem("rituals_arpan_counts", JSON.stringify(ritualArpanCounts));
+      updateRitualCountersUI();
+      triggerPushpanjaliShower(70);
+      playMandirGhanti();
+      document.getElementById("ritual-toast-msg").innerText = "🕉️ महा-पुष्पांजलि offered across all 6 sacred rituals!";
+    }
+
+    function filterTimeline(category, btnEl) {
+      document.querySelectorAll(".filter-pill-btn").forEach(b => b.classList.remove("active-filter"));
+      if (btnEl) btnEl.classList.add("active-filter");
+
+      document.querySelectorAll(".timeline-item").forEach(item => {
+        const cats = item.getAttribute("data-category") || "";
+        if (category === "all" || cats.includes(category)) {
+          item.style.display = "flex";
+        } else {
+          item.style.display = "none";
+        }
+      });
+      playJaapChime();
+    }
+
+    // ================= SANDHI PUJA 108 DIYAS ALTAR LOGIC =================
+    const diyasGrid = document.getElementById("diyas-108-grid");
+    let litDiyasCount = 0;
+
+    function init108Diyas() {
+      diyasGrid.innerHTML = "";
+      for (let i = 0; i < 108; i++) {
+        const d = document.createElement("div");
+        d.className = "mini-sandhi-diya";
+        d.innerText = "🪔";
+        d.title = `Sandhi Diya #${i + 1}`;
+        d.onclick = () => {
+          d.classList.toggle("lit");
+          playJaapChime();
+          recalcLitDiyas();
+        };
+        diyasGrid.appendChild(d);
+      }
+    }
+
+    function recalcLitDiyas() {
+      litDiyasCount = document.querySelectorAll(".mini-sandhi-diya.lit").length;
+      const lbl = document.getElementById("sandhi-counter-label");
+      if (litDiyasCount === 108) {
+        lbl.innerText = "🌟 108 / 108 Sandhi Puja Lamps Lit! Maa Chamunda's Supreme Grace Invoked!";
+        playShankhnaad();
+        triggerPushpanjaliShower(65);
+      } else {
+        lbl.innerText = `Sacred Lamps Lit: ${litDiyasCount} / 108 Diyas`;
+      }
+    }
+
+    function lightNextBatchDiyas(batch = 9) {
+      const unlit = Array.from(document.querySelectorAll(".mini-sandhi-diya:not(.lit)"));
+      unlit.slice(0, batch).forEach(el => el.classList.add("lit"));
+      playMandirGhanti();
+      recalcLitDiyas();
+    }
+
+    function lightAll108Diyas() {
+      document.querySelectorAll(".mini-sandhi-diya").forEach(el => el.classList.add("lit"));
+      recalcLitDiyas();
+    }
+
+    function reset108Diyas() {
+      document.querySelectorAll(".mini-sandhi-diya").forEach(el => el.classList.remove("lit"));
+      recalcLitDiyas();
+    }
+    init108Diyas();
+
+    // ================= MAHA NAVAMI VEDIC HAVAN KUND LOGIC =================
+    let totalAhutis = 0;
+    function offerHavanAhuti(offeringName, emoji) {
+      totalAhutis++;
+      const flame = document.getElementById("havan-flame");
+      flame.classList.add("flare-up");
+      setTimeout(() => flame.classList.remove("flare-up"), 550);
+
+      playMandirGhanti();
+      triggerPushpanjaliShower(25);
+      document.getElementById("havan-mantra-status").innerHTML =
+        `${emoji} <strong>Swaha!</strong> Offered ${offeringName} into the sacred fire (Total Ahutis: <span id="ahuti-count">${totalAhutis}</span>)`;
+    }
+
+    // ================= RITUAL VIDHI & QR MODAL =================
+    const ritualsModalData = [
+      {
+        day: "Ashwin Amavasya • Day 0",
+        name: "Mahalaya & Chakshu Daan",
+        icon: "👁️",
+        mantra: "ॐ सर्वमङ्गलमाङ्गल्ये शिवे सर्वार्थसाधिके। शरण्ये त्र्यम्बके गौरि नारायणि नमोऽस्तु ते॥",
+        vidhi: "At Brahma Muhurat, Mahishasuramardini Chandi Path is recited. The chief artisan performs 'Chakshu Daan'—painting the divine eyes of Maa Durga with sacred kajal and vermilion.",
+        bhog: "Panchamrit, White Sweets & Sacred Tulsi-Gangajal"
+      },
+      {
+        day: "Maha Shasthi • Day 6",
+        name: "Bodhan, Amantran & Adhivas",
+        icon: "🌿",
+        mantra: "ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे॥ आगच्छ देवि दुर्गे त्वं महाषष्ठी-प्रपूजिते॥",
+        vidhi: "Maa Durga and Her four children are unveiled in the pandals. Beneath a Bilva (Bel) tree, Ghatasthapana (Kalash installation) and evening Bodhan Aarti awaken the Goddess.",
+        bhog: "Fresh Seasonal Fruits, Bel Fruit & Jaggery Sweets"
+      },
+      {
+        day: "Maha Saptami • Day 7",
+        name: "Kola Bou Snan (Navapatrika)",
+        icon: "🪴",
+        mantra: "ॐ नवपत्रिकावासिनी दुर्गायै नमः॥ प्राणाः प्रतिष्ठन्तु देवी-मूर्तौ॥",
+        vidhi: "Nine sacred plants (Banana, Colocasia, Turmeric, Jayanti, Bel, Pomegranate, Ashoka, Paddy, and Arum) are tied with Aparajita creepers, bathed at dawn, and placed beside Lord Ganesha.",
+        bhog: "Khichuri Bhog, Labra (Mixed Veg), Payesh & Mishti"
+      },
+      {
+        day: "Maha Ashtami • Day 8",
+        name: "Kumari Puja & 108-Lamp Sandhi Puja",
+        icon: "🪔",
+        mantra: "ॐ कुमार्यै नमः॥ ॐ चण्डमुण्डविनाशिन्यै चामुण्डायै नमो नमः॥",
+        vidhi: "Young girls are worshiped as living forms of Jagadamba. At the 48-minute junction of Ashtami and Navami, 108 clay lamps and 108 blue lotuses are offered in Sandhi Puja.",
+        bhog: "Puri, Halwa, Kala Chana & 108 Lotus Petals"
+      },
+      {
+        day: "Maha Navami • Day 9",
+        name: "Maha Homa & Dhunuchi Naach",
+        icon: "🔥",
+        mantra: "ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे स्वाहा॥ इदं चण्डिकायै न मम॥",
+        vidhi: "108 oblations of ghee, bilva leaves, and samagri are offered into the Maha Navami Havan Kund, followed by ecstatic Dhunuchi Naach to the beat of Bengali Dhak.",
+        bhog: "Maha Navami Bhog Prasad, Kheer & Malpua"
+      },
+      {
+        day: "Vijayadashami • Day 10",
+        name: "Devi Boron, Sindoor Khela & Visarjan",
+        icon: "🚩",
+        mantra: "ॐ अपराजितायै नमः॥ गच्छ गच्छ सुरश्रेष्ठे स्वस्थानं परमेश्वरि॥",
+        vidhi: "Married women offer betel leaves, sweets, and sindoor to Maa Durga (Devi Boron), play joyful Sindoor Khela, and bid tearful farewell with cries of 'Asche Bochor Abar Hobe!'",
+        bhog: "Sandesh, Rasgulla, Paan-Supari & Aparajita Flowers"
+      }
+    ];
+
+    let modalJaapCount = 0;
+
+    function openRitualModal(idx) {
+      const r = ritualsModalData[idx];
+      modalJaapCount = 0;
+      document.getElementById("modal-body").innerHTML = `
+        <div style="text-align:center; margin-bottom:14px;">
+          <div style="font-size:3rem; filter:drop-shadow(0 0 14px #ffd700);">${r.icon}</div>
+          <span style="color:var(--gold-pure); font-family:'Rozha One'; font-size:0.9rem;">${r.day}</span>
+          <h2 style="font-family:'Cinzel Decorative'; color:#ffffff; font-size:1.55rem; margin-top:4px;">${r.name}</h2>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.65); border:1px solid rgba(255,215,0,0.45); padding:14px; border-radius:14px; margin-bottom:14px; text-align:center;">
+          <strong style="color:var(--gold-pure); font-family:'Rozha One'; font-size:1rem;">वैदिक पूजा मंत्र:</strong>
+          <p style="color:#ffe6a8; margin-top:6px; font-style:italic; font-size:0.98rem;">${r.mantra}</p>
+        </div>
+
+        <div class="modal-jaap-box">
+          <div>
+            <strong style="color:#ffd700; font-family:'Rozha One'; font-size:0.95rem;">📿 Vedic Mantra Sankalp Jaap:</strong>
+            <span id="modal-jaap-num" style="color:#ffffff; font-weight:800; margin-left:6px;">0 / 11</span>
+          </div>
+          <button class="modal-chant-btn" onclick="chantModalMantra()">
+            🔊 Chant Mantra (+1)
+          </button>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.04); padding:14px; border-radius:12px; margin-bottom:14px;">
+          <p style="color:var(--text-muted); font-size:0.86rem; line-height:1.6;"><strong>Sacred Puja Vidhi:</strong> ${r.vidhi}</p>
+          <p style="color:#ffd700; font-size:0.84rem; margin-top:8px;"><strong>Auspicious Bhog:</strong> ${r.bhog}</p>
+        </div>
+
+        <div class="modal-qr-section">
+          <div class="modal-qr-badge">
+            <i class="fa-solid fa-qrcode"></i> ${r.name} - पावन दक्षिणा एवं भोग अर्पण
+          </div>
+          <img src="QR_1792189397.png" alt="Devotional QR Code" class="modal-qr-image">
+          <div style="font-size:0.75rem; color:#eed5be; margin-top:8px;">Scan this QR Code with any UPI app to offer your devotional Seva</div>
+        </div>
+      `;
+      document.getElementById("modal-container").classList.add("active");
+      playMandirGhanti();
+    }
+
+    function chantModalMantra() {
+      modalJaapCount++;
+      playJaapChime();
+      const numEl = document.getElementById("modal-jaap-num");
+      if (numEl) {
+        numEl.innerText = modalJaapCount >= 11 ? "11 / 11 (पूर्णम् ✨)" : `${modalJaapCount} / 11`;
+      }
+      if (modalJaapCount === 11) {
+        triggerPushpanjaliShower(50);
+        playMandirGhanti();
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("modal-container").classList.remove("active");
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === "modal-container") closeModal();
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    // ================= FLOATING AMBIENT CANVAS & CURSOR SPARKS =================
+    const ambCanvas = document.getElementById("ambient-canvas");
+    const ambCtx = ambCanvas.getContext("2d");
+    let aw = ambCanvas.width = window.innerWidth;
+    let ah = ambCanvas.height = window.innerHeight;
+
+    const curCanvas = document.getElementById("cursor-canvas");
+    const curCtx = curCanvas.getContext("2d");
+    let cw = curCanvas.width = window.innerWidth;
+    let ch = curCanvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      aw = ambCanvas.width = cw = curCanvas.width = window.innerWidth;
+      ah = ambCanvas.height = ch = curCanvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 45 }, () => ({
+      x: Math.random() * aw,
+      y: Math.random() * ah,
+      r: Math.random() * 2.2 + 0.8,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -(Math.random() * 0.7 + 0.3),
+      alpha: Math.random() * 0.7 + 0.3
+    }));
+
+    function animateParticles() {
+      ambCtx.clearRect(0, 0, aw, ah);
+      particles.forEach(p => {
+        p.y += p.vy;
+        p.x += p.vx;
+        if (p.y < -10) { p.y = ah + 10; p.x = Math.random() * aw; }
+        ambCtx.fillStyle = `rgba(255, 215, 40, ${p.alpha})`;
+        ambCtx.beginPath();
+        ambCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ambCtx.fill();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    let trailSparks = [];
+    function addSparks(x, y) {
+      for (let i = 0; i < 3; i++) {
+        trailSparks.push({
+          x: x + (Math.random() - 0.5) * 12,
+          y: y + (Math.random() - 0.5) * 12,
+          r: Math.random() * 2.5 + 1.2,
+          alpha: 1,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: Math.random() * -1.5 - 0.5
+        });
+      }
+    }
+
+    window.addEventListener("mousemove", (e) => addSparks(e.clientX, e.clientY));
+    window.addEventListener("touchmove", (e) => {
+      if (e.touches[0]) addSparks(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    function animateCursorTrail() {
+      curCtx.clearRect(0, 0, cw, ch);
+      for (let i = trailSparks.length - 1; i >= 0; i--) {
+        const s = trailSparks[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.alpha -= 0.035;
+        if (s.alpha <= 0) {
+          trailSparks.splice(i, 1);
+          continue;
+        }
+        curCtx.beginPath();
+        curCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        curCtx.fillStyle = `rgba(255, 215, 0, ${s.alpha})`;
+        curCtx.shadowColor = "#ffaa00";
+        curCtx.shadowBlur = 6;
+        curCtx.fill();
+      }
+      requestAnimationFrame(animateCursorTrail);
+    }
+    animateCursorTrail();
+  </script>
 </body>
 </html>

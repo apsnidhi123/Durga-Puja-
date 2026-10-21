@@ -133,7 +133,7 @@
     .nav-links-wrap { display: flex; gap: 6px; list-style: none; align-items: center; }
     .nav-btn {
       color: var(--text-muted); font-size: 0.82rem; font-weight: 600; padding: 7px 14px;
-      border-radius: 40px; text-decoration: none; transition: 0.3s; display: flex; align-items: center; gap: 6px;
+      border-radius: 30px; text-decoration: none; transition: 0.3s; display: flex; align-items: center; gap: 6px;
     }
     .nav-btn:hover { color: var(--gold-pure); background: rgba(255, 215, 0, 0.12); }
     .nav-btn.active { background: linear-gradient(135deg, var(--gold-pure), var(--gold-amber)); color: #080103; font-weight: 700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.45); }
@@ -193,7 +193,7 @@
     /* ================= MP4 VIDEO REELS SHOWCASE SECTION (2 VIDEOS: d22.mp4 & d25.mp4) ================= */
     .reels-section {
       position: relative; z-index: 10;
-      max-width: 1000px; margin: 0 auto 45px; padding: 0 4%; text-align: center;
+      max-width: 980px; margin: 0 auto 45px; padding: 0 4%; text-align: center;
     }
     .reels-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -268,7 +268,7 @@
     }
     .royal-action-btn:hover { transform: scale(1.04); box-shadow: 0 0 22px rgba(255, 215, 0, 0.8); }
 
-    /* ================= UNIQUE NON-DUPLICATED GALLERY GRID ================= */
+    /* ================= 23 UNIQUE NON-DUPLICATED GALLERY GRID ================= */
     .exclusive-gallery-grid {
       position: relative; z-index: 10;
       display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -357,35 +357,52 @@
       font-size: 0.72rem; font-weight: 700; cursor: pointer;
     }
 
-    /* ================= ROYAL LIGHTBOX THEATER MODAL ================= */
+    /* ================= 100% TRUE FULL-SCREEN LIGHTBOX THEATER MODAL ================= */
     .lightbox-modal {
-      display: none; position: fixed; inset: 0;
-      background: rgba(4, 1, 2, 0.96);
-      backdrop-filter: blur(16px); z-index: 1000000;
-      align-items: center; justify-content: center; padding: 20px;
+      display: none;
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #020001;
+      z-index: 1000000;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
     }
     .lightbox-modal.active { display: flex; }
 
     .lightbox-content {
-      position: relative; max-width: 960px; width: 100%;
-      background: radial-gradient(circle, #2a050e 0%, #0b0104 100%);
-      border: 2px solid var(--gold-pure); border-radius: 24px;
-      padding: 20px 20px 18px; text-align: center;
-      box-shadow: 0 0 60px rgba(255, 215, 0, 0.45);
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: #020001;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .lightbox-stage {
-      position: relative; width: 100%; height: min(68vh, 560px);
-      background: #050102; border-radius: 16px; overflow: hidden;
-      border: 1.5px solid rgba(255, 215, 0, 0.45);
-      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .lightbox-stage img {
-      max-width: 100%; max-height: 100%; object-fit: contain;
-      pointer-events: none !important; -webkit-user-drag: none;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      pointer-events: none !important;
+      -webkit-user-drag: none;
       transition: transform 0.35s ease;
     }
-    .lightbox-stage img.zoomed { transform: scale(1.38); }
+    .lightbox-stage img.zoomed { transform: scale(1.45); }
 
     .lightbox-watermark-shield {
       position: absolute; inset: 0; z-index: 10;
@@ -394,37 +411,46 @@
     .watermark-diagonal-text {
       transform: rotate(-24deg);
       font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(1rem, 2.5vw, 1.8rem);
-      color: rgba(255, 215, 0, 0.16);
+      font-size: clamp(1.1rem, 2.8vw, 2.1rem);
+      color: rgba(255, 215, 0, 0.14);
       letter-spacing: 3px;
       pointer-events: none;
     }
 
     .lightbox-nav-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
-      z-index: 20; width: 46px; height: 46px; border-radius: 50%;
-      background: rgba(15, 2, 6, 0.85); border: 1.5px solid var(--gold-pure);
-      color: var(--gold-pure); font-size: 1.2rem; cursor: pointer;
+      z-index: 25; width: 54px; height: 54px; border-radius: 50%;
+      background: rgba(15, 2, 6, 0.85); border: 2px solid var(--gold-pure);
+      color: var(--gold-pure); font-size: 1.4rem; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.85); transition: 0.25s;
     }
-    .lightbox-prev { left: 14px; }
-    .lightbox-next { right: 14px; }
+    .lightbox-nav-btn:hover { background: var(--gold-pure); color: #090103; transform: translateY(-50%) scale(1.08); }
+    .lightbox-prev { left: 22px; }
+    .lightbox-next { right: 22px; }
 
     .lightbox-close {
-      position: absolute; top: -14px; right: -14px; z-index: 30;
-      width: 42px; height: 42px; border-radius: 50%;
+      position: fixed; top: 20px; right: 24px; z-index: 35;
+      width: 48px; height: 48px; border-radius: 50%;
       background: linear-gradient(135deg, #ff1744, #850014);
-      border: 2px solid var(--gold-pure); color: #fff; font-size: 1.4rem;
+      border: 2px solid var(--gold-pure); color: #fff; font-size: 1.6rem;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 24px rgba(0,0,0,0.95);
     }
 
+    /* Floating Bottom Overlay Bar inside Full-Screen View */
     .lightbox-info-bar {
-      margin-top: 14px; display: flex; flex-wrap: wrap;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 30;
+      background: linear-gradient(to top, rgba(6, 1, 3, 0.96) 0%, rgba(18, 2, 7, 0.85) 75%, transparent 100%);
+      padding: 24px 4% 16px;
+      display: flex; flex-wrap: wrap;
       justify-content: space-between; align-items: center; gap: 12px;
-      text-align: left; padding: 0 6px;
+      text-align: left;
     }
-    .lightbox-caption-title { font-family: 'Cinzel Decorative', serif; color: var(--gold-pure); font-size: 1.2rem; }
-    .lightbox-caption-sub { font-size: 0.84rem; color: var(--text-muted); }
+    .lightbox-caption-title { font-family: 'Cinzel Decorative', serif; color: var(--gold-pure); font-size: 1.25rem; }
+    .lightbox-caption-sub { font-size: 0.86rem; color: var(--text-muted); }
     .lightbox-controls-group { display: flex; flex-wrap: wrap; gap: 8px; }
 
     /* Anti-Screenshot Blackout Curtain */
@@ -448,7 +474,10 @@
     @media (max-width: 850px) {
       .nav-links-wrap { display: none; }
       .gallery-control-deck { justify-content: center; }
-      .lightbox-info-bar { flex-direction: column; text-align: center; }
+      .lightbox-info-bar { flex-direction: column; text-align: center; padding-bottom: 12px; }
+      .lightbox-nav-btn { width: 42px; height: 42px; font-size: 1.1rem; }
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
     }
   </style>
 </head>
@@ -535,32 +564,32 @@
     </div>
     <h1 class="page-title">2026 Bihar Sharif Pandal Darshan</h1>
     <p class="page-subtitle">
-      Explore the grand 2026 Bihar Sharif Pandal Darshan collection featuring high-resolution glimpses of iconic pandals, divine clay idols, dazzling street illuminations, and live MP4 reels.
+      Explore the grand 2026 Bihar Sharif Pandal Darshan collection featuring 23 unique high-resolution glimpses of iconic pandals, divine clay idols, dazzling street illuminations, and live MP4 reels. <strong>(👆 Click any image to open in 100% Full-Screen View!)</strong>
     </p>
   </section>
 
-  <!-- ================= MP4 VIDEO REELS SECTION (2 VIDEOS: d22.mp4 & d25.mp4) ================= -->
+  <!-- ================= MP4 VIDEO REELS SECTION (ONLY 2 VIDEOS: d22.mp4 & d25.mp4) ================= -->
   <section class="reels-section">
     <div class="page-sacred-badge"><i class="fa-solid fa-clapperboard"></i> 2026 BIHAR SHARIF MAHOTSAV &bull; LIVE MP4 REELS</div>
-    <h2 class="section-title">📱 2026 Bihar Sharif Pandal &amp; Dandiya Reels</h2>
+    <h2 class="section-title">📱 2026 Bihar Sharif Pandal Darshan Reels</h2>
     <p style="color:var(--text-muted); font-size:0.88rem; max-width:780px; margin:0 auto 12px;">
-      Featuring smooth HTML5 playback for <strong>d22.mp4</strong> and <strong>d25.mp4</strong>[cite: 8]—or click <strong>"📂 Load MP4"</strong> below any reel to play directly from your device!
+      Featuring smooth HTML5 playback for <strong>d22.mp4</strong> and <strong>d25.mp4</strong>—or click <strong>"📂 Load MP4"</strong> below any reel to play directly from your device!
     </p>
 
     <div class="reels-grid">
       <!-- MP4 Video 1: d22.mp4 -->
       <div class="reel-card">
         <div class="reel-video-wrapper">
-          <video id="mp4-player-1" autoplay muted loop playsinline controls poster="d3.jpg">
+          <video id="mp4-player-1" autoplay muted loop playsinline controls poster="d18.jpg">
             <source src="d22.mp4" type="video/mp4">
           </video>
           <div class="reel-overlay-info">
-            <div class="reel-caption">🔥 2026 Dandiya Night &amp; Pandal Reel #1 (d22.mp4)[cite: 8]</div>
+            <div class="reel-caption">🔥 2026 Bihar Sharif Pandal Darshan Reel #1 (d22.mp4)</div>
             <button class="reel-like-box" onclick="this.innerText='❤️ Liked!'">❤️ 979</button>
           </div>
         </div>
         <div class="reel-card-bottom-bar">
-          <span style="font-size:0.75rem; color:var(--gold-amber); font-weight:700;">🎬 File: d22.mp4[cite: 8]</span>
+          <span style="font-size:0.75rem; color:var(--gold-amber); font-weight:700;">🎬 File: d22.mp4</span>
           <label class="custom-mp4-label">
             <i class="fa-solid fa-folder-open"></i> Load MP4
             <input type="file" accept="video/mp4,video/*" style="display:none" onchange="loadLocalMP4(event, 'mp4-player-1')">
@@ -571,16 +600,16 @@
       <!-- MP4 Video 2: d25.mp4 -->
       <div class="reel-card">
         <div class="reel-video-wrapper">
-          <video id="mp4-player-2" autoplay muted loop playsinline controls poster="d11.jpg">
+          <video id="mp4-player-2" autoplay muted loop playsinline controls poster="d19.jpg">
             <source src="d25.mp4" type="video/mp4">
           </video>
           <div class="reel-overlay-info">
-            <div class="reel-caption">✨ 2026 Rangilo Dandiya Night Reel #2 (d25.mp4)[cite: 8]</div>
+            <div class="reel-caption">✨ 2026 Bihar Sharif Pandal Darshan Reel #2 (d25.mp4)</div>
             <button class="reel-like-box" onclick="this.innerText='❤️ Liked!'">❤️ 1.2K</button>
           </div>
         </div>
         <div class="reel-card-bottom-bar">
-          <span style="font-size:0.75rem; color:var(--gold-amber); font-weight:700;">🎬 File: d25.mp4[cite: 8]</span>
+          <span style="font-size:0.75rem; color:var(--gold-amber); font-weight:700;">🎬 File: d25.mp4</span>
           <label class="custom-mp4-label">
             <i class="fa-solid fa-folder-open"></i> Load MP4
             <input type="file" accept="video/mp4,video/*" style="display:none" onchange="loadLocalMP4(event, 'mp4-player-2')">
@@ -594,11 +623,11 @@
   <div style="padding: 0 4%;">
     <div class="gallery-control-deck">
       <div class="filter-pills-wrap">
-        <button class="filter-chip active" onclick="filterGallery('all', this)">🔱 All 2026 Pandal Darshan (11 Unique)</button>
-        <button class="filter-chip" onclick="filterGallery('sati', this)">🌸 Sati Asthan &amp; Laheri Mohalla</button>
-        <button class="filter-chip" onclick="filterGallery('bajaj', this)">⛰️ Bajaj Road &amp; Post Office</button>
-        <button class="filter-chip" onclick="filterGallery('kachia', this)">✨ Kachia Gali &amp; Sadiya</button>
-        <button class="filter-chip" onclick="filterGallery('lights', this)">🏮 Illumination &amp; Maha Bhog</button>
+        <button class="filter-chip active" onclick="filterGallery('all', this)">🔱 All 2026 Pandal Darshan (23 Unique)</button>
+        <button class="filter-chip" onclick="filterGallery('sati', this)">🌸 Sati Asthan, Laheri &amp; Mathuria</button>
+        <button class="filter-chip" onclick="filterGallery('pahari', this)">⛰️ Badi Pahadi, Choti Pahari &amp; Ranchi Rd</button>
+        <button class="filter-chip" onclick="filterGallery('bajaj', this)">🏛️ Pulpar, Bajaj Rd, Post Office &amp; Sohsarai</button>
+        <button class="filter-chip" onclick="filterGallery('kachia', this)">✨ Qamruddin Ganj, Kachia Gali &amp; Sonar Patti</button>
       </div>
 
       <div class="deck-actions-right">
@@ -612,13 +641,13 @@
     </div>
   </div>
 
-  <!-- Unique Non-Duplicated Gallery Grid -->
+  <!-- 23 Unique Non-Duplicated Gallery Grid -->
   <main class="exclusive-gallery-grid" id="protected-gallery-grid"></main>
 
-  <!-- Lightbox Modal for Enlarged View -->
+  <!-- 100% True Full-Screen Lightbox Modal -->
   <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
-      <button class="lightbox-close" onclick="closeLightbox()" title="Close (Esc)">&times;</button>
+      <button class="lightbox-close" onclick="closeLightbox()" title="Exit Full Screen (Esc)">&times;</button>
 
       <div class="lightbox-stage">
         <button class="lightbox-nav-btn lightbox-prev" onclick="changeSlide(-1)" title="Previous Photo">&#10094;</button>
@@ -636,10 +665,13 @@
         </div>
         <div class="lightbox-controls-group">
           <button class="royal-action-btn" onclick="toggleZoom()">
-            <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom View
+            <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom In/Out
           </button>
           <button class="royal-action-btn" onclick="showerAllBlessings()">
             🌺 Offer Pushpanjali &amp; Bell
+          </button>
+          <button class="royal-action-btn" style="background:linear-gradient(135deg,#ff1744,#850014); color:#fff;" onclick="closeLightbox()">
+            <i class="fa-solid fa-compress"></i> Exit Full Screen
           </button>
         </div>
       </div>
@@ -719,7 +751,7 @@
       const now = audioCtx.currentTime;
       [1180, 1420, 2120].forEach((freq, idx) => {
         const osc = audioCtx.createOscillator();
-        const gainNode = ctx.createGain();
+        const gainNode = audioCtx.createGain();
         osc.type = "sine";
         osc.frequency.setValueAtTime(freq, now);
         gainNode.gain.setValueAtTime(0.3 / (idx + 1), now);
@@ -739,19 +771,31 @@
       playMandirGhanti();
     }
 
-    // ================= UNIQUE NON-DUPLICATED GALLERY DATABASE (Matching image text titles) =================
+    // ================= 23 UNIQUE NON-DUPLICATED GALLERY IMAGES (d1.jpg to d21.jpg + d23.jpg + d24.jpg) =================
     const galleryDatabase = [
-      { src: "d1.jpg", title: "Golden Kalpavriksha Mandap", loc: "Sati Asthan", cat: "sati", desc: "Shimmering golden maple-leaf tree, sacred 'Om' & 'Maa' banners." },
-      { src: "d2.jpg", title: "Sacred Kheer Maha-Prasad", loc: "Mahotsav Bhandara", cat: "lights", desc: "Devotees receiving warm sacred kheer prasad in traditional silver-foil bowls[cite: 8]." },
-      { src: "d3.jpg", title: "Laheri Mohalla", loc: "Laheri Mohalla", cat: "sati", desc: "Regal temple arches housing Maa Durga, Lakshmi, Saraswati, Ganesha & Kartikeya[cite: 1]." },
-      { src: "d4.jpg", title: "Kachia Gali", loc: "Kachia Gali", cat: "kachia", desc: "Glowing neon ribbon waves and illuminated hanging street umbrellas[cite: 2]." },
-      { src: "d5.jpg", title: "Decoration", loc: "Main Bazaar", cat: "lights", desc: "Spectacular overhead fairy light webs and red LED matrix gates[cite: 3]." },
-      { src: "d6.jpg", title: "Post Office", loc: "Post Office Chowk", cat: "bajaj", desc: "Yellow-and-white checkered mandap ceiling with golden-draped deities[cite: 4]." },
-      { src: "d7.jpg", title: "Bajaj Road", loc: "Bajaj Road", cat: "bajaj", desc: "Artistic rock-cave diorama featuring Lord Krishna and ten-armed Maa Durga[cite: 5]." },
-      { src: "d8.jpg", title: "Sadiya", loc: "Sadiya Chowk", cat: "kachia", desc: "Striking Mahishasura vadh idol in a pink saree with floral chandelier arches[cite: 6]." },
-      { src: "d9.jpg", title: "Amber Chowk Illumination", loc: "Amber Chowk", cat: "lights", desc: "Dazzling golden star light gates and purple floral chandeliers[cite: 7]." },
-      { src: "d10.jpg", title: "SATI ASTHAN DECORATION", loc: "Sati Asthan", cat: "sati", desc: "Lush rose-and-marigold entrance arch and glowing crescent pathway pillars[cite: 9]." },
-      { src: "d11.jpg", title: "SATI ASTHAN", loc: "Sati Asthan", cat: "sati", desc: "Overhead circular floral chandelier and radiant Maa Durga court[cite: 10]." }
+      { src: "d1.jpg", title: "Golden Kalpavriksha Mandap", loc: "Sati Asthan", cat: "sati", desc: "Shimmering golden maple-leaf tree and sacred 'Om' & 'Maa' banners." },
+      { src: "d2.jpg", title: "Sacred Kheer Maha-Prasad", loc: "Mahotsav Bhandara", cat: "sati", desc: "Devotees receiving warm sacred kheer prasad in traditional silver-foil bowls." },
+      { src: "d3.jpg", title: "Laheri Mohalla", loc: "Laheri Mohalla", cat: "sati", desc: "Regal temple arches housing Maa Durga, Lakshmi, Saraswati, Ganesha & Kartikeya." },
+      { src: "d4.jpg", title: "Kachia Gali", loc: "Kachia Gali", cat: "kachia", desc: "Glowing neon ribbon waves and illuminated hanging street umbrellas." },
+      { src: "d5.jpg", title: "DECORATION", loc: "Main Bazaar", cat: "kachia", desc: "Spectacular overhead fairy light webs, hanging umbrellas, and red LED matrix gates." },
+      { src: "d6.jpg", title: "Post Office", loc: "Post Office Chowk", cat: "bajaj", desc: "Yellow-and-white checkered mandap ceiling with golden-draped deities." },
+      { src: "d7.jpg", title: "Bajaj Road", loc: "Bajaj Road", cat: "bajaj", desc: "Artistic rock-cave diorama featuring Lord Krishna and ten-armed Maa Durga." },
+      { src: "d8.jpg", title: "Sadiya", loc: "Sadiya Chowk", cat: "kachia", desc: "Striking Mahishasura vadh idol in a pink saree with floral chandelier arches." },
+      { src: "d9.jpg", title: "Golden Star Arch & Chandelier", loc: "Amber Chowk", cat: "pahari", desc: "Dazzling golden star light gates, floral chandeliers, and twin Maa Durga altars." },
+      { src: "d10.jpg", title: "SATI ASTHAN DECORATION", loc: "Sati Asthan", cat: "sati", desc: "Lush rose-and-marigold entrance arch and glowing crescent pathway pillars." },
+      { src: "d11.jpg", title: "SATI ASTHAN", loc: "Sati Asthan", cat: "sati", desc: "Overhead circular floral chandelier and radiant Maa Durga court." },
+      { src: "d12.jpg", title: "Swarna Ghanti & Maa Darbar", loc: "Bihar Sharif", cat: "sati", desc: "Hundreds of hanging golden temple bells, floral archways, and 'Maa' sanctum stage." },
+      { src: "d13.jpg", title: "ATWARI BAZAR", loc: "Atwari Bazar & Dak Bangla Mor", cat: "bajaj", desc: "Sarvajanik Durga Puja Samiti (Est. 1970) and Shree Badi Durga Puja Samiti (Est. 1955) darbars." },
+      { src: "d14.jpg", title: "JALAL PUR", loc: "Jalal Pur", cat: "kachia", desc: "Vibrant pink-and-white striped mandap, butterfly ceiling art, and hanging green vines." },
+      { src: "d15.jpg", title: "SOHSARAI", loc: "Sohsarai", cat: "bajaj", desc: "Dramatic giant skull-cave entrance theme leading to a golden-framed Maa Durga idol." },
+      { src: "d16.jpg", title: "MANSOOR NAGAR", loc: "Mansoor Nagar", cat: "kachia", desc: "Multi-pandal showcase with pink starburst ceiling, Lord Ganesha floral arch, and Maa Durga." },
+      { src: "d17.jpg", title: "CHOTI PAHARI", loc: "Choti Pahari", cat: "pahari", desc: "Towering temple facade, Kalash wall with Lord Shiva motif, fierce Maa Kali, and Maa Durga." },
+      { src: "d18.jpg", title: "BADI PAHADI", loc: "Badi Pahadi", cat: "pahari", desc: "Grand yellow temple architecture of Shree Badi Durga Puja Samiti with towering Maa Kali & Durga." },
+      { src: "d19.jpg", title: "RANCHI ROAD", loc: "Bhaisasur, Ranchi Road", cat: "pahari", desc: "Shree Durga Puja Samiti Bhaisasur (2026) featuring purple-yellow canopy and multi-headed Maa Durga." },
+      { src: "d20.jpg", title: "MATHURIA MOHALLA", loc: "Mathuria Mohalla", cat: "sati", desc: "Lush hanging green foliage, glowing fairy-light canopy, and serene Maa Durga darbar." },
+      { src: "d21.jpg", title: "SONAR PATTI GALI", loc: "Sonar Patti Gali", cat: "kachia", desc: "Illuminated 'Jai Ambe' temple tower, neon wave drapes, white horse & elephant motifs, and Maa Durga." },
+      { src: "d23.jpg", title: "PULPAR", loc: "Pulpar & Alamganj", cat: "bajaj", desc: "Shree Badi Durga Maa Pulpar (Veer Bal Sangh) & Amar Veer Navyuvak Dal golden disc ceiling and terracotta-style Maa Durga darbar." },
+      { src: "d24.jpg", title: "QAMRUDDIN GANJ", loc: "Qamruddin Ganj", cat: "kachia", desc: "Multi-tiered floral chandelier, silver-and-gold crowned Maa Durga idols, and glowing neon street motifs." }
     ];
 
     let currentList = [...galleryDatabase];
@@ -765,7 +809,7 @@
           <div class="jharokha-crown"></div>
           <div class="img-wrapper">
             <span class="card-number-ribbon">✨ 2026 Darshan #${idx + 1}</span>
-            <span class="card-zoom-pill"><i class="fa-solid fa-expand"></i> View Full</span>
+            <span class="card-zoom-pill"><i class="fa-solid fa-expand"></i> Full Screen</span>
             <div class="security-guard-layer"></div>
             <img src="${item.src}" alt="${item.title}" loading="lazy" draggable="false">
           </div>
@@ -801,11 +845,17 @@
       showerAllBlessings();
     }
 
-    // ================= LIGHTBOX THEATER CONTROLS =================
+    // ================= 100% FULL-SCREEN LIGHTBOX THEATER CONTROLS =================
     function openLightbox(index) {
       activeSlideIndex = index;
       updateLightboxView();
-      document.getElementById("lightbox").classList.add("active");
+      const modal = document.getElementById("lightbox");
+      modal.classList.add("active");
+      if (modal.requestFullscreen) {
+        modal.requestFullscreen().catch(() => {});
+      } else if (modal.webkitRequestFullscreen) {
+        modal.webkitRequestFullscreen();
+      }
       playMandirGhanti();
     }
 
@@ -829,6 +879,9 @@
 
     function closeLightbox() {
       document.getElementById("lightbox").classList.remove("active");
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
       if (slideshowInterval) toggleSlideshow();
     }
 
@@ -908,7 +961,7 @@
 
     window.addEventListener("resize", () => {
       w = ambCanvas.width = curCanvas.width = fCanvas.width = window.innerWidth;
-      h = ambCanvas.height = curCanvas.height = fCanvas.height = window.innerHeight;
+      h = ambCanvas.height = curCanvas.height = window.innerHeight;
     });
 
     const embers = Array.from({ length: 42 }, () => ({
